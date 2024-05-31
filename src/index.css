@@ -1,0 +1,20 @@
+@import "keep-react/css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: 'San Francisco Pro';
+  src: url('../src/Assets/fonts/SF-Pro-Rounded-Regular.otf') format('opentype');
+
+}
+
+/* Example of applying the font */
+.apple {
+  font-family: 'San Francisco Pro', Arial, sans-serif;
+}
+
+.html {
+  font-family: 'San Francisco Pro', Arial, sans-serif;
+}
