@@ -1,7 +1,7 @@
 "use client";
 
 import logo from "../../Assets/logo/logo-no-background.svg"
-import { NavLink} from "react-router-dom"
+import { Link, NavLink} from "react-router-dom"
 import { Avatar, Button ,Divider,Dropdown,Navbar} from "keep-react";
 import { ChartPieSlice, Copy, Pen, Phone, SignOut, User, UserCircle, Users } from 'phosphor-react'
 
@@ -54,9 +54,9 @@ export const Header = () => {
 
         <Navbar.Container className="flex gap-5">
          
-          <Button size="sm" className="apple  ">
+         <Link to="/login"> <Button size="sm" className="apple  ">
             Join us
-          </Button>
+          </Button></Link>
        
 
 
