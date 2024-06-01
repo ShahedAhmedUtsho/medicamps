@@ -56,57 +56,60 @@ const {user,logOut} = useContext(AuthContext);
         </Navbar.Container>
 
         <Navbar.Container className="flex gap-5">
-         
-         <Link to="/login"> <Button size="sm" className="apple  ">
-            Join us
-          </Button></Link>
-       
-
-
-
-
-          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ user? <img src={user?.photoURL} className="w-10 h-10 object-cover rounded-full border-2 border-blue-500" /> :  <Avatar  className="border-black object-cover w-10 h-10 justify-center  bg-transparent text-black ">
+         {
+user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ user? <img src={user?.photoURL} className="w-10 h-10 object-cover rounded-full border-2 border-blue-500" /> :  <Avatar  className="border-black object-cover w-10 h-10 justify-center  bg-transparent text-black ">
            
-           </Avatar>
- } className="z-50 ">
+</Avatar>
+} className="z-50 ">
 
 
 
-      <Dropdown.List>
-        <Dropdown.Item>
-          <User size={24} />
+<Dropdown.List>
+<Dropdown.Item>
+<User size={24} />
+
+Profile
+</Dropdown.Item>
+<Dropdown.Item>
+<Phone size={24} />
+Phone
+</Dropdown.Item>
+<Dropdown.Item>
+<ChartPieSlice size={24} />
+Statistics
+</Dropdown.Item>
+<Divider />
+<Dropdown.Item>
+<Pen size={24} />
+Rename
+</Dropdown.Item>
+<Dropdown.Item>
+<Copy size={24} />
+Duplicate
+</Dropdown.Item>
+<Divider />
+<Dropdown.Item>
+<UserCircle size={24} />
+Account
+</Dropdown.Item>
+<Dropdown.Item onClick={logOut}>
+<SignOut  size={24} />
+Logout
+</Dropdown.Item>
+</Dropdown.List>
+</Dropdown>
+: <Link to="/login"> <Button size="sm" className="apple  ">
+Join us
+</Button></Link>
+
           
-          Profile
-        </Dropdown.Item>
-        <Dropdown.Item>
-          <Phone size={24} />
-          Phone
-        </Dropdown.Item>
-        <Dropdown.Item>
-          <ChartPieSlice size={24} />
-          Statistics
-        </Dropdown.Item>
-        <Divider />
-        <Dropdown.Item>
-          <Pen size={24} />
-          Rename
-        </Dropdown.Item>
-        <Dropdown.Item>
-          <Copy size={24} />
-          Duplicate
-        </Dropdown.Item>
-        <Divider />
-        <Dropdown.Item>
-          <UserCircle size={24} />
-          Account
-        </Dropdown.Item>
-        <Dropdown.Item onClick={logOut}>
-          <SignOut  size={24} />
-          Logout
-        </Dropdown.Item>
-      </Dropdown.List>
-    </Dropdown>
+         }
+        
 
+
+
+
+          
 
 
 

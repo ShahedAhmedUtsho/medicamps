@@ -1,12 +1,12 @@
 'use client'
-import { useContext, useState } from 'react'
-import { Check ,WarningOctagon} from 'phosphor-react'
+import { useContext } from 'react'
+import {WarningOctagon} from 'phosphor-react'
 import { Button, Modal } from 'keep-react'
 import { AuthContext } from '../AuthProvider/AuthProvider'
 
 
  const ErrorModel = () => {
-const {closeModal,closeErrorModal,openErrorModal,isErrorOpen,setModelMessage,setModelHead,modelHead,modelMessage} =useContext(AuthContext)
+const {closeErrorModal,isErrorOpen,modelHead,modelMessage} =useContext(AuthContext)
 
   return (
     <>

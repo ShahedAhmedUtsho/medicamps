@@ -10,7 +10,7 @@ import BannarSlider from "../BannarSlider/BannarSlider";
 
 const HomeComponent = () => {
   return (
-    <div className=" flex flex-col min-h-screen">
+    <div className=" flex flex-col  bg-gradient-to-b from-slate-50 to-blue-400  min-h-screen">
 
       <div className="relative  container  mx-auto pb-[110px] pt-[120px] dark:bg-dark lg:pt-[150px]">
         <div className="container ">

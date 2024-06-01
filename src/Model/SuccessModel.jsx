@@ -1,5 +1,5 @@
 'use client'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Check } from 'phosphor-react'
 import { Button, Modal } from 'keep-react'
 import { AuthContext } from '../AuthProvider/AuthProvider'

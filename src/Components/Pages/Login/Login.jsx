@@ -15,10 +15,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import Auth from '../../../FireBase/Firebase.config';
 import { useContext } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import GoogleButton from 'react-google-button';
+import { Divider } from 'keep-react';
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -94,6 +96,34 @@ console.log("after navigate")
 };
 
 
+
+const GoogleProvider = new GoogleAuthProvider()
+const GoogleLogin = ()=>{
+  signInWithPopup(Auth,GoogleProvider)
+  .then(res => {
+    setLoading(true)
+   
+    const currentUser = res.user.uid ;
+      // tokenCrate(currentUser)
+    console.log(currentUser)
+    setUser(res.user)
+    navigate(location?.state?location.state : '/')
+    setLoading(false);
+    setModelHead("Login Sucsessfull") ;
+    setModelMessage( `wellcome ${res.user.displayName}`)
+    openSuccessModal(); 
+    
+
+  })
+.catch(error => {
+  const err = error.message ;
+  console.log(err);
+  setModelHead("ERROR") ;
+  setModelMessage(error) ;
+  openErrorModal()
+})
+
+}
 
 
 
@@ -171,6 +201,13 @@ console.log("after navigate")
               </Grid>
             </Grid>
           </Box>
+          <Divider className='my-2'>Or</Divider>
+        
+        <GoogleButton
+  onClick={GoogleLogin}
+/>
+          
+         
         </Box>
       
       </Container>
