@@ -1,18 +1,25 @@
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import Success from '../Model/SuccessModel';
 import ErrorModel from '../Model/ErrorModel';
 
 const Root = () => {
+
+  const location = useLocation()
+  const show = location.pathname !== "/login" && location.pathname !== "/register" ; 
+  console.log(show)
+  console.log(location)
     return (
-        <div className='min-h-screen flex flex-col relative
+        <div className='min-h-screen   flex flex-col relative
           
            '>
              {/* <StyleReset /> */}
-           <div className='mx-auto  relative w-full lg:container '>
-           <Header></Header> 
-           </div>
+         {
+show &&  <div className='mx-auto    absolute  left-0 right-0 z-50 w-full lg:container '>
+<Header></Header> 
+</div> 
+         }
             <Outlet />
             <Success></Success>
             

@@ -22,7 +22,7 @@ import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import GoogleButton from 'react-google-button';
 import { Divider } from 'keep-react';
 
-
+import logo from "../../../Assets/logo/light.png"
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
@@ -68,7 +68,7 @@ const handleLogin = (data) => {
   .then (res=> {
     setLoading(true)
     setUser(res.user)
-    const currentUser = res.user.uid ;
+    // const currentUser = res.user.uid ;
     // tokenCrate(currentUser)
     console.log("login succesfully" , res.user) ; 
     setModelHead("Login Sucsessfull") ;
@@ -128,8 +128,13 @@ const GoogleLogin = ()=>{
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+   <div className='min-h-screen min-w-screen  relative'>
+    <Link className='max-w-32 absolute bottom-5 right-5' to="/">
+    <img src={logo}  alt="" />
+    </Link>
+   
+     <ThemeProvider  theme={defaultTheme}>
+      <Container component="main" maxWidth="xs"  >
         <CssBaseline />
         <Box
           sx={{
@@ -204,6 +209,7 @@ const GoogleLogin = ()=>{
           <Divider className='my-2'>Or</Divider>
         
         <GoogleButton
+        label='Continue with Google'
   onClick={GoogleLogin}
 />
           
@@ -212,6 +218,8 @@ const GoogleLogin = ()=>{
       
       </Container>
     </ThemeProvider>
+
+   </div>
   );
 }
 export default Login;

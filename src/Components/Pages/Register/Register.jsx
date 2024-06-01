@@ -19,7 +19,7 @@ import Auth from '../../../FireBase/Firebase.config';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { useContext } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-
+import logo from "../../../Assets/logo/light.png"
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -132,6 +132,10 @@ const {register,handleSubmit,formState :{errors}} =useForm({
 
 
   return (
+    <div className='min-h-screen min-w-screen  relative'>
+    <Link className='max-w-32 absolute bottom-5 right-5' to="/">
+    <img src={logo}  alt="" />
+    </Link>
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -218,12 +222,12 @@ const {register,handleSubmit,formState :{errors}} =useForm({
                 />
                
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel className='apple'
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -246,6 +250,7 @@ const {register,handleSubmit,formState :{errors}} =useForm({
       
       </Container>
     </ThemeProvider>
+    </div>
   );
 }
 
