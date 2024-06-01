@@ -1,160 +1,180 @@
-import { Button,Input } from 'keep-react';
 
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { ErrorMessage } from '@hookform/error-message';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import Auth from '../../../FireBase/Firebase.config';
+import { useContext } from 'react';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
 
 
-const Login = () => {
+// TODO remove, this demo shouldn't need to reset the theme.
 
-const validationSchema = yup.object().shape({
-name: yup.string().required("Name is required"),
-email: yup.string().email().required("email is required"),
-photoURL: yup.string().required("photoURL is required"),
-gender:yup.string().required("Select your gender").label("Gender"),
-department:yup.string().required("select your department")
+const defaultTheme = createTheme();
+
+const Login = ()=> {
+
+
+  const { setLoading,setUser,setModelHead , setModelMessage,openSuccessModal,openErrorModal} = useContext(AuthContext)
+
+const navigate = useNavigate()
+
+  const validationSchema = yup.object().shape({
+   
+    email: yup.string().email().required("email is required"),
+  
+    password: yup.string()
+.required('Password is required')
+
+  
+    
+    })
+    
+const {register,handleSubmit,formState :{errors}} =useForm({
+resolver:yupResolver(validationSchema),
+
+
 
 })
 
 
 
-const {register,handleSubmit,formState:{errors}} =useForm({
-    resolver:yupResolver(validationSchema),
-
-})
 
 
 
-    const handelRegister = data =>{
-       
-        alert(JSON.stringify(data))
-
-    }
-    return (
-        <div className=' w-full h-screen flex justify-center items-center'>
-             <form onSubmit={handleSubmit(handelRegister)} className='flex border-2 p-2 w-96 flex-col gap-5' >
-                <label htmlFor="name" >Name</label>
-                <Input
-                 type="text" 
-                 name="name" 
-                 id="name" 
-                 required
-                 placeholder='your name'
-                 {...register("name")}
-                  />
-               
-                    
-                  <ErrorMessage 
-                  errors={errors} name={'name'}
-                  render={(m)=> <p className='text-red-500'> {m.message}
-                </p>
-
-                  }
-                  
-                 />
-                    
-                    
-                    
-
-                 
-
-                <label htmlFor="email" >Email</label>
-
-
-                <Input
-                 type="email"
-                  name="email"
-                   id="email" 
-                   required
-                   placeholder='your email'
-                   {...register("email")} 
-                   
-                   />
-                    <ErrorMessage 
-                  errors={errors} name={'email'}
-                  render={(m)=> <p className='text-red-500'> {m.message}
-                </p>
-
-                  }
-                  
-                 />
- 
-                   <label htmlFor="email" >photoURL</label>
-
-
-                <Input
-                 type="text"
-                  name="photoURL"
-                   id="photoURL" 
-                   required
-                   placeholder='your photoURL'
-                   {...register("photoURL")} 
-                   
-                   />
- <ErrorMessage 
-                  errors={errors} name={'photoURL'}
-                  render={(m)=> <p className='text-red-500'> {m.message}
-                </p>
-
-                  }
-                  
-                 />
 
 
 
-<div className='flex flex-col'>
-    <label htmlFor="gender ">gender</label>
-    <select name="gender" id="gender" {...register("gender")} className='p-2 border'>
-    <option value=""> select your gender</option>
-<option value="male">male</option>
-<option value="female">female</option>
-
-    </select>
-
-</div>
-<ErrorMessage 
-                  errors={errors} name={'gender'}
-                  render={(m)=> <p className='text-red-500'> {m.message}
-                </p>
-
-                  }
-                  
-                 />
-<div >
-
-<label htmlFor="department"></label>
-
-<input className=" ml-5" value="CSE" name='department' type="radio" id='CSE' {...register("department")} />
-<label className=" ml-2" htmlFor="CSE">CSE</label>
-
-<input className=" ml-5" value="EEE" name='department' type="radio" id='EEE' {...register("department")} />
-<label  className=" ml-2" htmlFor="EEE">EEE</label>
-
-<input className=" ml-5" value="BBA"  name='department' type="radio" id='BBA' {...register("department")} />
-<label className=" ml-2" htmlFor="BBA">BBA</label>
+const handleLogin = (data) => {
 
 
 
-</div> 
+  signInWithEmailAndPassword(Auth,data.email,data.password)
+  .then (res=> {
+    setLoading(true)
+    setUser(res.user)
+    const currentUser = res.user.uid ;
+    // tokenCrate(currentUser)
+    console.log("login succesfully" , res.user) ; 
+    setModelHead("Login Sucsessfull") ;
+    setModelMessage( `wellcome ${res.user.displayName}`)
+    openSuccessModal()
+    
+   
+setLoading(false)
 
-<ErrorMessage 
-                  errors={errors} name={'department'}
-                  render={(m)=> <p className='text-red-500'> {m.message}
-                </p>
+console.log("before navigate")
+navigate(location?.state?location.state : '/')
+console.log("after navigate")
 
-                  }
-                  
-                 />
+  })
+  .catch(err =>{
+    const error = err.message ;
+    setModelHead("ERROR") ;
+    setModelMessage(error) ;
+    openErrorModal()
+  })
 
 
-                <Button type='submit'>Sign Up</Button>
-                
-                
-             </form>
-            
-        </div>
-    );
+
+
 };
 
+
+
+
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit(handleLogin)} noValidate sx={{ mt: 1 }}>
+         
+<TextField
+                   margin="normal"
+                 fullWidth
+                 id="email"
+                 autoFocus
+                 type='email'
+                 label="Email Address"
+                 name="email"
+                 autoComplete="email"
+                 className='apple'
+                 error={Boolean(errors.email?.message)}
+                 helperText={errors.email?.message}
+                 {...register("email")}
+               />
+
+<TextField
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  className='apple'
+                  error={Boolean(errors.password?.message)}
+                  helperText={errors.password?.message}
+                  {...register("password")}
+                />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <a href="#" >
+                  Forgot password?
+                </a>
+              </Grid>
+              <Grid item>
+                <Link  to="/register">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+                
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      
+      </Container>
+    </ThemeProvider>
+  );
+}
 export default Login;

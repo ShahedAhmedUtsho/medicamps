@@ -1,6 +1,8 @@
 
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Header/Header';
+import Success from '../Model/SuccessModel';
+import ErrorModel from '../Model/ErrorModel';
 
 const Root = () => {
     return (
@@ -12,7 +14,9 @@ const Root = () => {
            <Header></Header> 
            </div>
             <Outlet />
+            <Success></Success>
             
+      <ErrorModel></ErrorModel>
         </div>
     );
 };

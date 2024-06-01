@@ -4,6 +4,8 @@ import logo from "../../Assets/logo/logo-no-background.svg"
 import { Link, NavLink} from "react-router-dom"
 import { Avatar, Button ,Divider,Dropdown,Navbar} from "keep-react";
 import { ChartPieSlice, Copy, Pen, Phone, SignOut, User, UserCircle, Users } from 'phosphor-react'
+import { useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
 
@@ -13,6 +15,7 @@ import { ChartPieSlice, Copy, Pen, Phone, SignOut, User, UserCircle, Users } fro
 
 
 export const Header = () => {
+const {user,logOut} = useContext(AuthContext);
 
   const   Links = <>
   
@@ -62,10 +65,13 @@ export const Header = () => {
 
 
 
-          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={  <Avatar  className="border-black w-10 h-10 justify-center  bg-transparent text-black ">
+          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ user? <img src={user?.photoURL} className="w-10 h-10 object-cover rounded-full border-2 border-blue-500" /> :  <Avatar  className="border-black object-cover w-10 h-10 justify-center  bg-transparent text-black ">
            
            </Avatar>
  } className="z-50 ">
+
+
+
       <Dropdown.List>
         <Dropdown.Item>
           <User size={24} />
@@ -94,8 +100,8 @@ export const Header = () => {
           <UserCircle size={24} />
           Account
         </Dropdown.Item>
-        <Dropdown.Item>
-          <SignOut size={24} />
+        <Dropdown.Item onClick={logOut}>
+          <SignOut  size={24} />
           Logout
         </Dropdown.Item>
       </Dropdown.List>

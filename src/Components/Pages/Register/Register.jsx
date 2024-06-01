@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,14 +15,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-
-
-
-
-
-
-
-
+import Auth from '../../../FireBase/Firebase.config';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { useContext } from 'react';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 
 
@@ -31,7 +27,8 @@ import * as yup from "yup"
 const defaultTheme = createTheme();
 
 const   Register= () => {
-
+  const { setLoading,openErrorModal,setModelHead,setModelMessage,openSuccessModal,user,logOut} = useContext(AuthContext)
+  const navigate = useNavigate()
     
     const validationSchema = yup.object().shape({
         name: yup.string().required("Name is required"),
@@ -62,8 +59,67 @@ const {register,handleSubmit,formState :{errors}} =useForm({
 
 
   const handleRegister = (data) => {
-   alert(JSON.stringify(data))
-   console.log(data)
+
+
+
+
+    createUserWithEmailAndPassword(Auth,data.email,data.password)
+    .then(res=> {
+      setLoading(true)
+    
+      console.log("okey login ",res.user)
+    
+      updateProfile(Auth.currentUser,{
+        displayName: data.name,
+        
+        photoURL: data.photoURL
+    
+    
+    
+      }).then(() => {
+       
+    
+    setModelHead("registration complete")
+    setModelMessage("Account creation is successful")
+    openSuccessModal()
+    
+    logOut()
+    navigate("/login")
+    
+    
+    
+    
+      }).catch((error) => {
+        console.log(error.message , " update error")
+      });
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    )
+    .catch(error => {
+      const err = error.message ; 
+      console.log(err)
+    })
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+    
   };
 
 
@@ -106,6 +162,7 @@ const {register,handleSubmit,formState :{errors}} =useForm({
                   name="Name"
                   autoComplete="Name"
                   className='apple'
+                  autoFocus
                   error={Boolean(errors.name?.message)}
                   helperText={errors.name?.message}
                  {...register("name")}
@@ -113,6 +170,8 @@ const {register,handleSubmit,formState :{errors}} =useForm({
               </Grid>
               
               <Grid item xs={12}>
+
+
                 <TextField
                  
                   fullWidth
@@ -126,6 +185,8 @@ const {register,handleSubmit,formState :{errors}} =useForm({
                   helperText={errors.email?.message}
                   {...register("email")}
                 />
+
+
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -172,6 +233,7 @@ const {register,handleSubmit,formState :{errors}} =useForm({
             >
               Sign Up
             </Button>
+           
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to="/login" className='apple' >
