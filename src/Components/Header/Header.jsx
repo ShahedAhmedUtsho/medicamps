@@ -54,7 +54,7 @@ export const Header = () => {
 
         <Navbar.Container className="flex gap-5">
          
-          <Button size="sm" className="apple">
+          <Button size="sm" className="apple  ">
             Join us
           </Button>
        
@@ -62,7 +62,7 @@ export const Header = () => {
 
 
 
-          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={  <Avatar size="lg" className="border-black bg-transparent text-black ">
+          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={  <Avatar  className="border-black w-10 h-10 justify-center  bg-transparent text-black ">
            
            </Avatar>
  } className="z-50 ">

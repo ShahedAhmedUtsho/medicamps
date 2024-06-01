@@ -82,7 +82,7 @@ const HomeComponent = () => {
 
 
 
-<BannarSlider className="max-w-full lg:ml-auto"></BannarSlider>
+<BannarSlider className="max-w-full "></BannarSlider>
 
                   <span className="absolute  -bottom-8 -left-8 z-[-1]">
                   <img src={dotsvg} alt="" />

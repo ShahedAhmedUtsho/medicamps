@@ -15,7 +15,7 @@ import { EffectCards,Autoplay } from 'swiper/modules';
 const BannarSlider = ()=> {
   return (
     <>
-      <div  className=' w-full h-[450px] max-w-96 px-0 mx-0 overflow-hidden'>
+      <div  className=' max-w-[300px]  md:h-[450px]  md:max-w-[500px]  lg:max-w-96 px-0 lg:mx-0 overflow-hidden'>
       <Swiper
       
         effect={'cards'}
