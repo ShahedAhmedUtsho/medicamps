@@ -1,88 +1,118 @@
+"use client";
 import { useState } from "react";
 import logo from "../../Assets/logo/logo-no-background.svg"
-const Header = () => {
-    const [open, setOpen] = useState(false);
+import {Link, NavLink} from "react-router-dom"
+import { Avatar, Button ,Divider,Dropdown,Navbar} from "keep-react";
+import { ChartPieSlice, Copy, Pen, Phone, SignOut, User, UserCircle, Users } from 'phosphor-react'
+
+
+
+
+
+
+
+
+export const Header = () => {
+
+  const   Links = <>
   
-    return (
-      <header className={`absolute left-0 top-0 z-20 flex w-full items-center  `}>
-        <div className="container">
-          <div className="relative  flex items-center justify-between">
-            <div className="w-60 max-w-full px-4">
-              <a href="/#" className="block w-full py-5">
-                <img
-                  src={logo}
-                  alt="logo"
-                  className="w-full dark:hidden"
-                />
-                <img
-                  src={logo}
-                  alt="logo"
-                  className="max-w-40 hidden dark:block"
-                />
-              </a>
-            </div>
-            <div className="flex w-full items-center justify-between px-4">
-              <div>
-                <button
-                  onClick={() => setOpen(!open)}
-                  id="navbarToggler"
-                  className={` ${
-                    open && "navbarTogglerActive"
-                  } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden`}
-                >
-                  <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"></span>
-                  <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"></span>
-                  <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color dark:bg-white"></span>
-                </button>
-                <nav
-                  id="navbarCollapse"
-                  className={`absolute right-4 top-full w-full max-w-[250px] rounded-lg bg-white px-6 py-5 shadow dark:bg-dark-2 lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent lg:shadow-none lg:dark:bg-transparent ${
-                    !open && "hidden"
-                  } `}
-                >
-                  <ul className="block lg:flex">
-                    <ListItem NavLink="/#">Home</ListItem>
-                    <ListItem NavLink="/#">Payment</ListItem>
-                    <ListItem NavLink="/#">About</ListItem>
-                    <ListItem NavLink="/#">Blog</ListItem>
-                  </ul>
-                </nav>
-              </div>
-              <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
-                <a
-                  href="/#"
-                  className="px-7 py-3 text-base font-medium text-dark hover:text-primary dark:text-white"
-                >
-                  Sign in
-                </a>
   
-                <a
-                  href="/#"
-                  className="rounded-lg bg-primary px-7 py-3 text-base font-medium text-white hover:bg-opacity-90"
-                >
-                  Sign Up
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-    );
-  };
+
+  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
+  <NavLink className="text-lg apple py-5 capitalize" to="/">Available Camps</NavLink>
+  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
+  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
+  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
   
-  const ListItem = ({ children, NavLink }) => {
-    return (
-      <>
-        <li>
-          <a
-            href={NavLink}
-            className="flex py-2 text-base font-medium text-dark hover:text-primary dark:text-white lg:ml-10 lg:inline-flex"
+  
+  </>
+  return (
+    <Navbar fluid={true} className="bg-transparent header  px-0     ">
+      <Navbar.Container className="flex bg-transparent   items-center justify-between">
+        
+        <Navbar.Container className="flex  items-center">
+          <Navbar.Brand>
+            <img
+              src={logo}
+              alt="keep"
+             className=" w-40  "
+            />
+          </Navbar.Brand>
+          <Navbar.Divider></Navbar.Divider>
+          <Navbar.Container
+            tag="ul"
+            className="lg:flex hidden  items-center justify-between   gap-8"
           >
-            {children}
-          </a>
-        </li>
-      </>
-    );
-  };
-  
+              {Links}
+          </Navbar.Container>
+          <Navbar.Collapse collapseType="sidebar">
+            <Navbar.Container tag="ul" className="flex flex-col gap-5">
+             {Links}
+            </Navbar.Container>
+          </Navbar.Collapse>
+        </Navbar.Container>
+
+        <Navbar.Container className="flex gap-5">
+         
+          <Button size="sm" className="apple">
+            Join us
+          </Button>
+       
+
+
+
+
+          <Dropdown actionClassName="border-none py-0 bg-transparent "  action={  <Avatar size="lg" className="border-black bg-transparent text-black ">
+           
+           </Avatar>
+ } className="z-50 ">
+      <Dropdown.List>
+        <Dropdown.Item>
+          <User size={24} />
+          
+          Profile
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Phone size={24} />
+          Phone
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <ChartPieSlice size={24} />
+          Statistics
+        </Dropdown.Item>
+        <Divider />
+        <Dropdown.Item>
+          <Pen size={24} />
+          Rename
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <Copy size={24} />
+          Duplicate
+        </Dropdown.Item>
+        <Divider />
+        <Dropdown.Item>
+          <UserCircle size={24} />
+          Account
+        </Dropdown.Item>
+        <Dropdown.Item>
+          <SignOut size={24} />
+          Logout
+        </Dropdown.Item>
+      </Dropdown.List>
+    </Dropdown>
+
+
+
+
+
+
+    
+    
+          <Navbar.Toggle />
+        </Navbar.Container>
+      </Navbar.Container>
+    </Navbar>
+  );
+}
+
   export default Header

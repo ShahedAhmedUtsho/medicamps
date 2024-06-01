@@ -4,6 +4,8 @@ import  { useState } from "react";
 import dotsvg from "../../../../Assets/svg/dotbox.svg"
 import Header from "../../../Header/Header";
 import { Button } from "keep-react";
+import BannarSlider from "../BannarSlider/BannarSlider";
+
 
 
 const HomeComponent = () => {
@@ -28,7 +30,7 @@ const HomeComponent = () => {
                       href="/#"
                       className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-dark lg:px-7"
                     >
-                       <Button className="bg-black" size="sm" >Get Started </Button>
+                       <Button color="primary"  className=""  >Join us </Button>
                     </a>
                   </li>
                   <li>
@@ -43,6 +45,10 @@ const HomeComponent = () => {
                     </a>
                   </li>
                 </ul>
+
+
+
+
                 <div className="clients pt-16">
                   <h6 className="mb-6 flex items-center text-xs font-normal text-body-color dark:text-dark-6">
                     Some Of Our Clients
@@ -74,14 +80,14 @@ const HomeComponent = () => {
                 <div className="relative z-10 inline-block pt-11 lg:pt-0">
 
 
-
+{/* 
                   <img
                     src="https://cdn.tailgrids.com/1.0/assets/images/hero/hero-image-01.png"
                     alt="hero"
                     className="max-w-full lg:ml-auto"
-                  />
+                  /> */}
 
-
+<BannarSlider className="max-w-full lg:ml-auto"></BannarSlider>
 
                   <span className="absolute  -bottom-8 -left-8 z-[-1]">
                   <img src={dotsvg} alt="" />

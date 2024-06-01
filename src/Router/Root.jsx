@@ -8,7 +8,7 @@ const Root = () => {
           bg-gradient-to-b from-slate-50 to-blue-400  
            '>
              {/* <StyleReset /> */}
-           <div className='mx-auto bg-black relative lg:container '>
+           <div className='mx-auto  relative w-full lg:container '>
            <Header></Header> 
            </div>
             <Outlet />
