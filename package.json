@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "atomize": "^1.0.28",
     "autoprefixer": "^10.4.19",
     "css": "^3.0.0",
     "keep-react": "^1.3.0",
@@ -18,6 +17,7 @@
     "match-sorter": "^6.3.4",
     "phosphor-react": "^1.4.1",
     "postcss": "^8.4.38",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",

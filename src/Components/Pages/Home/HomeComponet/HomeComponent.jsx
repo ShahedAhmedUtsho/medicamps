@@ -50,8 +50,8 @@ const HomeComponent = () => {
 
 
                 <div className="clients pt-16">
-                  <h6 className="mb-6 flex items-center text-xs font-normal text-body-color dark:text-dark-6">
-                    Some Of Our Clients
+                  <h6 className="mb-6 flex items-center apple text-xs font-normal text-body-color dark:text-dark-6">
+                    Some Of Our Sponsors
                     <span className="ml-3 inline-block h-px w-8 bg-body-color"></span>
                   </h6>
 
@@ -80,12 +80,7 @@ const HomeComponent = () => {
                 <div className="relative z-10 inline-block pt-11 lg:pt-0">
 
 
-{/* 
-                  <img
-                    src="https://cdn.tailgrids.com/1.0/assets/images/hero/hero-image-01.png"
-                    alt="hero"
-                    className="max-w-full lg:ml-auto"
-                  /> */}
+
 
 <BannarSlider className="max-w-full lg:ml-auto"></BannarSlider>
 

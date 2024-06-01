@@ -1,8 +1,8 @@
 
-import React, { useRef, useState } from 'react';
+
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import PropTypes from 'prop-types'
 
 import 'swiper/css';
 import 'swiper/css/effect-cards';
@@ -20,51 +20,53 @@ const BannarSlider = ()=> {
       
         effect={'cards'}
         grabCursor={true}
-        // autoplay={{
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
        
       
         modules={[EffectCards,Autoplay]}
         
 
-        className="mySwiper bg-red-300 rounded-xl   *:rounded-xl h-full w-full overflow-hidden "
+        className="mySwiper  rounded-xl   *:rounded-xl h-full w-full overflow-hidden "
       >
-        <SwiperSlide className='bg-red-200  rounded-xl '>
+        <SwiperSlide className='  rounded-xl '>
           
         <SingleCard
-              image="https://i.ibb.co/r2zns1m/image-01.jpg"
-              CardTitle="50+ Best creative website themes & templates"
+              image="https://i.ibb.co/y8mN7qf/Pre-Trip-Medical-Check-ups-For-Kids.jpg"
+              CardTitle=" Comprehensive Health Checkups"
               titleHref="/#"
               btnHref="/#"
-              CardDescription="Lorem ipsum dolor sit amet pretium consectetur adipiscing elit. Lorem consectetur adipiscing elit."
-              Button="View Details"
+              CardDescription="In our latest camp, we conducted over 500 comprehensive health checkups, identifying and addressing various health issues early on."
+             
             />
           
           </SwiperSlide>
-        <SwiperSlide className='bg-red-300 rounded-xl  '>
+
+
+        <SwiperSlide className=' rounded-xl  '>
           
         <SingleCard
-              image="https://i.ibb.co/0nbbWM9/image-02-1.jpg"
-              CardTitle="Creative Card Component designs graphic elements"
-              CardDescription="Lorem ipsum dolor sit amet pretium consectetur adipiscing elit. Lorem consectetur adipiscing elit."
-              Button="View Details"
+              image="https://i.ibb.co/N2qJbHX/Whats-App-Image-2018-07-14-at-4-03-37-PM.jpg"
+              CardTitle="Bringing Specialist Care to Rural Areas"
+              CardDescription="Our team provided essential healthcare to over 500 patients in remote communities, improving their overall well-being."
+             
             />
            
-        <SwiperSlide className='bg-red-400 rounded-xl '>
-          
-        <SingleCard
-              image="https://i.ibb.co/dL9fH7N/image-03-1.jpg"
-              CardTitle="The ultimate UX and UI guide to card design"
-              CardDescription="Lorem ipsum dolor sit amet pretium consectetur adipiscing elit. Lorem consectetur adipiscing elit."
-              Button="View Details"
-            />
-          </SwiperSlide>
+       
           
         </SwiperSlide>
-        <SwiperSlide className='bg-red-500 rounded-xl '>Slide 4</SwiperSlide>
-        <SwiperSlide className='bg-red-600 rounded-xl '>Slide 5</SwiperSlide>
+        <SwiperSlide className=' rounded-xl '>
+        <SingleCard
+              image="https://i.ibb.co/kD6PyLB/Screenshot-2024-06-01-at-3-04-20-PM.png"
+              CardTitle="Empowering Youth Through Health Education"
+              CardDescription="We educated over 300 young people on nutrition, hygiene, and disease prevention, helping them lead healthier lives.."
+              
+            />
+       
+          </SwiperSlide>
+       
        
       </Swiper>
       </div>
@@ -78,17 +80,19 @@ export default BannarSlider;
 
 const SingleCard = ({
   image,
-  Button,
+  
   CardDescription,
   CardTitle,
   titleHref,
-  btnHref,
+  
 }) => {
   return (
     <>
       {/*  */}
-      <div className="mb-10 overflow-hidden rounded-lg bg-white shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">
-        <img src={image} alt="" className="w-full" />
+      <div className="mb-10 overflow-hidden apple rounded-lg bg-white shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">
+      <div className='w-full h-52 '>
+      <img src={image} alt="" className="w-full h-full object-cover" />
+      </div>
         <div className="p-8 text-center sm:p-9 md:p-7 xl:p-9">
           <h3>
             <a
@@ -102,17 +106,17 @@ const SingleCard = ({
             {CardDescription}
           </p>
 
-          {Button && (
-            <a
-              href={btnHref ? btnHref : "#"}
-              className="inline-block rounded-full border border-gray-3 px-7 py-2 text-base font-medium text-body-color transition hover:border-primary hover:bg-primary hover:text-white dark:border-dark-3 dark:text-dark-6"
-            >
-              {Button}
-            </a>
-          )}
+        
         </div>
       </div>
       {/*  */}
     </>
   );
+};
+SingleCard.propTypes = {
+  image: PropTypes.string.isRequired,
+  CardDescription: PropTypes.string.isRequired,
+  CardTitle: PropTypes.string.isRequired,
+  titleHref: PropTypes.string,
+  btnHref: PropTypes.string,
 };
