@@ -7,7 +7,10 @@ import ErrorModel from '../Model/ErrorModel';
 const Root = () => {
 
   const location = useLocation()
-  const show = location.pathname !== "/login" && location.pathname !== "/register" ; 
+  const show = location.pathname !== "/login" &&
+   location.pathname !== "/register" && 
+  location.pathname !== "/profile " && 
+  location.pathname !== "/dashboard" ; 
   console.log(show)
   console.log(location)
     return (

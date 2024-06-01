@@ -3,7 +3,7 @@
 import logo from "../../Assets/logo/logo-no-background.svg"
 import { Link, NavLink} from "react-router-dom"
 import { Avatar, Button ,Divider,Dropdown,Navbar} from "keep-react";
-import { ChartPieSlice, Copy, Pen, Phone, SignOut, User, UserCircle } from 'phosphor-react'
+import { ChartPieSlice, Copy, Gauge, Pen, Phone, SignOut, User, UserCircle } from 'phosphor-react'
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
@@ -66,10 +66,23 @@ user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ use
 
 <Dropdown.List>
 <Dropdown.Item>
-<User size={24} />
 
-Profile
+  <Link className="w-full h-full flex gap-2" to="/profile">
+  <User size={24} />Profile
+</Link>
+
+
 </Dropdown.Item>
+<Dropdown.Item>
+
+  <Link className="w-full h-full flex gap-2" to="/dashboard">
+  <Gauge size={24} /> Dashboard
+</Link>
+
+
+</Dropdown.Item>
+
+
 <Dropdown.Item>
 <Phone size={24} />
 Phone
