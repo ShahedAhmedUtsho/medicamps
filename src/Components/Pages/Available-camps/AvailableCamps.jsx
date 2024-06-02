@@ -65,9 +65,10 @@ const AvailableCamps = () => {
 
   if (error) {
     return (
-      <div className="min-h-40 flex justify-center items-center text-red-500 dark:text-red-400">
+      <div  className="  min-h-40 flex apple justify-center   text-red-500 dark:text-red-400 items-center">
         <Warning size={30} />
-        <p className="ml-2">Error loading data... please try again later.</p>
+        <p className="ml-2">
+            Error loading data... please try again later.</p>
       </div>
     );
   }
@@ -84,15 +85,19 @@ const AvailableCamps = () => {
   ];
 
   return (
-    <div className="container mx-auto my-10 px-4 lg:px-0">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-8 mt-12 space-y-4 sm:space-y-0">
-        <h2 className="text-2xl lg:text-3xl font-semibold text-gray-900 dark:text-gray-100">Upcoming Health Camps</h2>
+    <div  className="   container mx-auto apple my-10 lg:px-0 px-4    ">
+      <div className="flex    flex-col sm:flex-row  justify-between  apple items-center mb-8 mt-12 space-y-4 sm:space-y-0">
+        <h2  className="text-2xl  font-semibold text-gray-900 lg:text-3xl dark:text-gray-100">Upcoming Health Camps</h2>
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Input
             type="text"
+
             placeholder="Search camps..."
+
             value={searchTerm}
+
             onChange={handleSearch}
+
             className="px-4 py-2 rounded-lg border border-gray-300 w-full sm:w-auto"
           />
 
@@ -150,17 +155,30 @@ const highlightText = (text, searchTerm) => {
 
 
 
-const SingleCard = ({ image, CardTitle, CardDescription, CardFees, CardDate, CardLocation, CardHealthcareProfessional, CardParticipantCount, titleHref, searchTerm }) => {
+const   SingleCard  = (  { image,       CardDate, CardLocation, CardHealthcareProfessional, CardParticipantCount,   titleHref, searchTerm ,CardTitle, CardDescription,   CardFees, }) => {
   const formattedDate = new Date(CardDate).toLocaleDateString('en-US', {
+
     day: 'numeric',
-    month: 'long',
-  });
+
+    month:  'long',
+  }) ;
+
+
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden flex flex-col">
-      <img src={image} alt={CardTitle} className="w-full h-48 object-cover" />
+    <div className="bg-white dark:bg-gray-800 rounded-lg apple shadow-lg overflow-hidden flex flex-col">
+
+
+      <img src={image}  className="w-full apple object-cover h-48" alt={CardTitle} />
+
+
       <div className="p-6 flex flex-col h-full">
-        <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{highlightText(CardTitle, searchTerm)}</h3>
+
+
+        <h3 className="text-xl  text-gray-900 font-semibold mb-2 apple dark:text-gray-100">{highlightText(CardTitle, searchTerm)}</h3>
+
+
+
         <p className="text-gray-700 dark:text-gray-300 mb-4">{highlightText(CardDescription.length > 100 ? `${CardDescription.substring(0, 100)}...` : CardDescription, searchTerm)}</p>
         <p className="text-gray-500 dark:text-gray-400 mb-2"><strong>Date:</strong> {formattedDate}</p>
         <p className="text-gray-500 dark:text-gray-400 mb-2"><strong>Location:</strong> {highlightText(CardLocation, searchTerm)}</p>
