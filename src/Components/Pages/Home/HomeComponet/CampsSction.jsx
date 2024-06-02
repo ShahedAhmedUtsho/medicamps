@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner, Button } from 'keep-react';
@@ -14,13 +14,19 @@ const CampsSection = () => {
     },
   });
 
+  const [isTwoColumnLayout, setIsTwoColumnLayout] = useState(false);
+
+  const toggleLayout = () => {
+    setIsTwoColumnLayout(!isTwoColumnLayout);
+  };
+
   if (isLoading) {
-    return <Spinner />;
+    return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
   }
 
   if (error) {
     return (
-      <div className="min-h-40 flex justify-center items-center">
+      <div className="min-h-40 flex justify-center items-center text-red-500">
         <Warning size={30} />
         <p className="ml-2">Error loading data... please try again later.</p>
       </div>
@@ -31,9 +37,14 @@ const CampsSection = () => {
   const featuredCamps = sortedCamps.slice(0, 6);
 
   return (
-    <div className="container my-10 mx-auto px-4 lg:px-0">
-      <h2 className="text-3xl font-semibold text-center mb-8 mt-12">Upcoming Health Camps</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="container mx-auto my-10 px-4 lg:px-0">
+      <div className="flex justify-between items-center mb-8 mt-12">
+        <h2 className="text-3xl font-semibold">Upcoming Health Camps</h2>
+        <Button size="sm" className="!bg-blue-600 text-white" onClick={toggleLayout}>
+          Toggle Layout
+        </Button>
+      </div>
+      <div className={`grid gap-6 ${isTwoColumnLayout ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
         {featuredCamps.map((camp) => (
           <SingleCard
             key={camp.id}
@@ -57,26 +68,20 @@ const SingleCard = ({ image, CardTitle, CardDescription, CardFees, CardDate, tit
   });
 
   return (
-    <div className="overflow-hidden bg-white rounded-lg flex flex-col shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">
-      <img src={image} alt={CardTitle} className="w-full h-40 object-cover" />
-      <div className="p-4 flex flex-col h-full">
-        <h2 className="text-lg font-semibold text-dark hover:text-primary dark:text-white">
-          {CardTitle}
-        </h2>
-        <p className="mt-1 text-sm leading-relaxed text-body-color dark:text-dark-6">
-          {CardDescription.length > 100 ? `${CardDescription.substring(0, 100)}...` : CardDescription}
-        </p>
-        <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          <p><strong>Date:</strong> {formattedDate}</p>
-        </div>
-        <div className="mt-auto pt-2 flex items-center justify-between">
-          <Link to={titleHref} className="text-sm font-medium   text-primary hover:underline">
-            <Button size="sm" className="!bg-[#1B4DFE] gap-1 px-3 py-2 text-xs">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+      <img src={image} alt={CardTitle} className="w-full h-48 object-cover" />
+      <div className="p-6 flex flex-col h-full">
+        <h3 className="text-xl font-semibold mb-2">{CardTitle}</h3>
+        <p className="text-gray-700 mb-4">{CardDescription.length > 100 ? `${CardDescription.substring(0, 100)}...` : CardDescription}</p>
+        <p className="text-gray-500 mb-2"><strong>Date:</strong> {formattedDate}</p>
+        <div className="mt-auto flex items-center justify-between">
+          <Link to={titleHref} className="text-blue-600 hover:underline flex items-center gap-1">
+            <Button size="sm" className="!bg-blue-600 text-white flex items-center gap-1">
               Details
-              <ArrowRight />
+              <ArrowRight size={16} />
             </Button>
           </Link>
-          <p className='font-semibold text-blue-900 text-lg'>${CardFees}</p>
+          <p className="font-semibold text-blue-600 text-lg">${CardFees}</p>
         </div>
       </div>
     </div>
