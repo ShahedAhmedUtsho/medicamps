@@ -2,7 +2,7 @@
     {
         "id": "1",
         "name": "Free Eye Checkup Camp",
-        "image": "https://example.com/images/eye_checkup.jpg",
+        "image": "https://i.ibb.co/ScyDYSK/Free-Eye-Check-Up-Camp-1-1024x585.jpg",
         "fees": 0,
         "dateTime": "2024-06-15T10:00:00",
         "location": "Community Center, Downtown",
@@ -14,7 +14,7 @@
     {
         "id": "2",
         "name": "Pediatric Health Camp",
-        "image": "https://example.com/images/pediatric_camp.jpg",
+        "image": "https://i.ibb.co/WDgb7m3/1-1.jpg",
         "fees": 10,
         "dateTime": "2024-06-20T09:00:00",
         "location": "Greenwood Park",
@@ -26,7 +26,7 @@
     {
         "id": "3",
         "name": "Dental Care Camp",
-        "image": "https://example.com/images/dental_care.jpg",
+        "image": "https://i.ibb.co/Qmjq6Bb/Event-106.jpg",
         "fees": 15,
         "dateTime": "2024-06-25T11:00:00",
         "location": "City Hospital",
@@ -38,7 +38,7 @@
     {
         "id": "4",
         "name": "Cardiology Camp",
-        "image": "https://example.com/images/cardiology_camp.jpg",
+        "image": "https://i.ibb.co/QFJK45z/Young-Scholars-Sept-3-01.jpg",
         "fees": 20,
         "dateTime": "2024-07-01T10:00:00",
         "location": "Health Clinic, Westside",
@@ -50,7 +50,7 @@
     {
         "id": "5",
         "name": "General Health Camp",
-        "image": "https://example.com/images/general_health.jpg",
+        "image": "https://i.ibb.co/LPrt4DX/30-06-2023-TRPC-Conducted-Mega-Health-Camp-At-Nagrai-Pic-1.jpg",
         "fees": 5,
         "dateTime": "2024-07-05T08:00:00",
         "location": "Eastside Community Hall",
@@ -62,7 +62,7 @@
     {
         "id": "6",
         "name": "Orthopedic Camp",
-        "image": "https://example.com/images/orthopedic_camp.jpg",
+        "image": "https://i.ibb.co/PjJL4f3/TCO-Performance-Center.png",
         "fees": 25,
         "dateTime": "2024-07-10T09:00:00",
         "location": "Central Sports Complex",
