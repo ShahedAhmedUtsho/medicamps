@@ -33,7 +33,7 @@ const CampsSection = () => {
   return (
     <div className="container my-10 mx-auto px-4 lg:px-0">
       <h2 className="text-3xl font-semibold text-center mb-8 mt-12">Upcoming Health Camps</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {featuredCamps.map((camp) => (
           <SingleCard
             key={camp.id}
@@ -57,26 +57,26 @@ const SingleCard = ({ image, CardTitle, CardDescription, CardFees, CardDate, tit
   });
 
   return (
-    <div className="overflow-hidden apple bg-white rounded-lg flex flex-col shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">
-      <img src={image} alt={CardTitle} className="w-full h-52 object-cover" />
-      <div className="p-8 flex flex-col relative h-full">
-        <h2 className="block text-xl font-semibold text-dark hover:text-primary dark:text-white">
+    <div className="overflow-hidden bg-white rounded-lg flex flex-col shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">
+      <img src={image} alt={CardTitle} className="w-full h-40 object-cover" />
+      <div className="p-4 flex flex-col h-full">
+        <h2 className="text-lg font-semibold text-dark hover:text-primary dark:text-white">
           {CardTitle}
         </h2>
-        <p className="mt-2 text-base leading-relaxed text-body-color dark:text-dark-6">
-          {CardDescription}
+        <p className="mt-1 text-sm leading-relaxed text-body-color dark:text-dark-6">
+          {CardDescription.length > 100 ? `${CardDescription.substring(0, 100)}...` : CardDescription}
         </p>
         <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          <p className='font-semibold text-xl'><strong>Date:</strong> {formattedDate}</p>
+          <p><strong>Date:</strong> {formattedDate}</p>
         </div>
-        <div className="mt-auto pt-5 flex items-center justify-between">
-          <Link to={titleHref} className="text-sm font-medium text-primary hover:underline">
-            <Button size="sm" className="!bg-[#1B4DFE]">
+        <div className="mt-auto pt-2 flex items-center justify-between">
+          <Link to={titleHref} className="text-sm font-medium   text-primary hover:underline">
+            <Button size="sm" className="!bg-[#1B4DFE] gap-1 px-3 py-2 text-xs">
               Details
               <ArrowRight />
             </Button>
           </Link>
-          <p className='apple font-semibold text-blue-900 text-2xl'>${CardFees}</p>
+          <p className='font-semibold text-blue-900 text-lg'>${CardFees}</p>
         </div>
       </div>
     </div>
