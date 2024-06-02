@@ -10,10 +10,12 @@ import Register from './Components/Pages/Register/Register'
 import AuthProvider from './AuthProvider/AuthProvider'
 import Profile from './Components/Pages/Profile/Profile'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
+import ErrorPage from './Components/Pages/ErrorPage/ErrorPage'
 
 const router = createBrowserRouter([
   {
     path:"/",
+    errorElement:<ErrorPage></ErrorPage>,
     element:<Root></Root> ,
     children:[
       {
