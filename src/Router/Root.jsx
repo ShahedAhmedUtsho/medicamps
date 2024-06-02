@@ -26,7 +26,7 @@ show &&  <div className='mx-auto    absolute  left-0 right-0 z-50 w-full lg:cont
          }
             <Outlet />
             {
-show &&  <div className='mx-auto    z-50 w-full  '>
+show &&  <div className='mx-auto mt-auto   z-50 w-full  '>
 
   <Footer></Footer>
 
