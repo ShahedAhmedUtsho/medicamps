@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner, Button } from 'keep-react';
-import { ArrowRight, Warning } from 'phosphor-react';
+import { ArrowRight, Layout, Warning } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
 const CampsSection = () => {
@@ -39,10 +39,9 @@ const CampsSection = () => {
   return (
     <div className="container mx-auto my-10 px-4 lg:px-0">
       <div className="flex justify-between items-center mb-8 mt-12">
-        <h2 className="text-3xl font-semibold">Upcoming Health Camps</h2>
-        <Button size="sm" className="!bg-blue-600 text-white" onClick={toggleLayout}>
-          Toggle Layout
-        </Button>
+        <h2 className="lg:text-3xl text-2xl font-semibold">Upcoming Health Camps</h2>
+        <Layout onClick={toggleLayout} className=" cursor-pointer lg:block hidden " size={32} />
+       
       </div>
       <div className={`grid gap-6 ${isTwoColumnLayout ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
         {featuredCamps.map((camp) => (
