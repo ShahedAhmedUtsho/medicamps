@@ -5,11 +5,15 @@ import dotsvg from "../../../../Assets/svg/dotbox.svg"
 import Header from "../../../Header/Header";
 import { Button } from "keep-react";
 import BannarSlider from "../BannarSlider/BannarSlider";
+import CampsSction from "./CampsSction";
 
 
 
 const HomeComponent = () => {
   return (
+    <div>
+
+    
     <div className=" flex flex-col  bg-gradient-to-b from-slate-50 to-blue-400  min-h-screen">
 
       <div className="relative  container  mx-auto pb-[110px] pt-[120px] dark:bg-dark lg:pt-[150px]">
@@ -94,7 +98,9 @@ const HomeComponent = () => {
         </div>
       </div>
 
-    
+      <CampsSction></CampsSction>
+</div>
+
     </div>
   );
 };

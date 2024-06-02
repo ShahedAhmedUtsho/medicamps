@@ -19,6 +19,7 @@
     "@mui/material": "^5.15.19",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@mui/x-charts": "^7.6.1",
+    "@tanstack/react-query": "^5.40.0",
     "autoprefixer": "^10.4.19",
     "css": "^3.0.0",
     "firebase": "^10.12.2",
