@@ -9,6 +9,7 @@ import Login from './Components/Pages/Login/Login'
 import Register from './Components/Pages/Register/Register'
 import AuthProvider from './AuthProvider/AuthProvider'
 import Profile from './Components/Pages/Profile/Profile'
+import Dashboard from './Components/Pages/Dashboard/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/dashboard",
-        // element:<Dashboard></Dashboard>
+        element:<Dashboard></Dashboard>
       }
     ]
   },
