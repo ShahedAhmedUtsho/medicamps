@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Components/Header/Header';
 import Success from '../Model/SuccessModel';
 import ErrorModel from '../Model/ErrorModel';
+import Footer from '../Components/Footer/Footer';
 
 const Root = () => {
 
@@ -24,6 +25,13 @@ show &&  <div className='mx-auto    absolute  left-0 right-0 z-50 w-full lg:cont
 </div> 
          }
             <Outlet />
+            {
+show &&  <div className='mx-auto    z-50 w-full  '>
+
+  <Footer></Footer>
+
+</div> 
+         }
             <Success></Success>
             
       <ErrorModel></ErrorModel>
