@@ -8,24 +8,16 @@ import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 
-
-
-
-
-
-
 export const Header = () => {
 const {user,logOut} = useContext(AuthContext);
 
   const   Links = <>
   
-  
 
-  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
-  <NavLink className="text-lg apple py-5 capitalize" to="/available-camps">Available Camps</NavLink>
-  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
-  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
-  <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
+
+  <NavLink className="text-lg  apple py-1 rounded-lg px-4 my-5 capitalize" to="/">Home</NavLink>
+  <NavLink className="text-lg apple py-1 rounded-lg px-4 my-5 capitalize" to="/available-camps">Available Camps</NavLink>
+
   
   
   </>
@@ -119,17 +111,6 @@ Join us
          }
         
 
-
-
-
-          
-
-
-
-
-
-    
-    
           <Navbar.Toggle />
         </Navbar.Container>
       </Navbar.Container>
