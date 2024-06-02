@@ -18,6 +18,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import AvailableCamps from './Components/Pages/Available-camps/AvailableCamps'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path:"/dashboard",
         element:<Dashboard></Dashboard>
+      },
+      {
+        path:"/available-camps",
+        element:<AvailableCamps></AvailableCamps>
       }
     ]
   },

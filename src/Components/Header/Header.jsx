@@ -22,7 +22,7 @@ const {user,logOut} = useContext(AuthContext);
   
 
   <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
-  <NavLink className="text-lg apple py-5 capitalize" to="/">Available Camps</NavLink>
+  <NavLink className="text-lg apple py-5 capitalize" to="/available-camps">Available Camps</NavLink>
   <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
   <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
   <NavLink className="text-lg apple py-5 capitalize" to="/">Home</NavLink>
