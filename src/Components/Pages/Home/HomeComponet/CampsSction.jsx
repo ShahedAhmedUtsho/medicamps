@@ -34,8 +34,8 @@ const CampsSection = () => {
     );
   }
 
-  const sortedCamps = camps ? [...camps].sort((a, b) => b.participantCount - a.participantCount) : [];
-  const featuredCamps = sortedCamps.slice(0, 6);
+  const sortedCamps = camps ? [...camps].sort((a, b) => b?.participantCount - a?.participantCount) : [];
+  const featuredCamps = sortedCamps?.slice(0, 6);
 
   return (
     <div className="container mx-auto my-10 px-4 lg:px-0">

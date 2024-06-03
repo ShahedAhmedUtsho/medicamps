@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import Select from 'react-select';
 
 const AvailableCamps = () => {
-  const url = "http://localhost:3000/camps"
+
   const { isLoading, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch(url);
+      const response = await fetch("http://localhost:3000/camps");
       return response.json();
     },
   });
@@ -124,7 +124,7 @@ console.log(camps)
             CardLocation={camp.location}
             CardHealthcareProfessional={camp.healthcareProfessional}
             CardParticipantCount={camp.participantCount}
-            titleHref={camp.detailsRoute}
+            titleHref={camp._id}
             searchTerm={searchTerm}
           />
         ))}
@@ -186,7 +186,7 @@ const   SingleCard  = (  { image,       CardDate, CardLocation, CardHealthcarePr
         <p className="text-gray-500 dark:text-gray-400 mb-2"><strong>Healthcare Professional:</strong> {CardHealthcareProfessional}</p>
         <p className="text-gray-500 dark:text-gray-400 mb-2"><strong>Participants:</strong> {CardParticipantCount}</p>
         <div className="mt-auto flex items-center justify-between">
-          <Link to={titleHref} className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+          <Link to={`/camp-details/${titleHref}`} className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
             <Button size="sm" className="!bg-blue-600 dark:!bg-blue-500 text-white flex items-center gap-1">
               Details
               <ArrowRight size={16} />

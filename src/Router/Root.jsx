@@ -5,6 +5,9 @@ import Success from '../Model/SuccessModel';
 import ErrorModel from '../Model/ErrorModel';
 import Footer from '../Components/Footer/Footer';
 
+
+import ScrollToTop from 'react-scroll-to-top';
+
 const Root = () => {
 
   const location = useLocation()
@@ -35,6 +38,7 @@ show &&  <div className='mx-auto mt-auto   z-50 w-full  '>
             <Success></Success>
             
       <ErrorModel></ErrorModel>
+      <ScrollToTop   top={20} />
         </div>
     );
 };
