@@ -51,7 +51,7 @@ const CampsSection = () => {
             CardDescription={camp.description}
             CardFees={camp.fees}
             CardDate={camp.dateTime}
-            titleHref={`/camp-details/${camp.id}`}
+            titleHref={`/camp-details/${camp._id}`}
           />
         ))}
       </div>

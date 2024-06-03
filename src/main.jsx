@@ -19,6 +19,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import AvailableCamps from './Components/Pages/Available-camps/AvailableCamps'
+import CampDetails from './Components/Pages/Camp-Details/CampDetails'
+import Secure from './Secure/Secure'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -50,6 +52,11 @@ const router = createBrowserRouter([
       {
         path:"/available-camps",
         element:<AvailableCamps></AvailableCamps>
+      },
+      {
+        path:"/camp-details/:campID",
+
+        element: <Secure> <CampDetails></CampDetails></Secure> 
       }
     ]
   },

@@ -7,14 +7,15 @@ import { Link } from 'react-router-dom';
 import Select from 'react-select';
 
 const AvailableCamps = () => {
+  const url = "http://localhost:3000/camps"
   const { isLoading, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch("camps.json");
+      const response = await fetch(url);
       return response.json();
     },
   });
-
+console.log(camps)
   const [isTwoColumnLayout, setIsTwoColumnLayout] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortfun, setSortfun] = useState("");
@@ -35,9 +36,9 @@ const AvailableCamps = () => {
     ? camps.filter((camp) => {
         const searchTerms = searchTerm.toLowerCase().split(' ');
         return searchTerms.every(term =>
-          camp.name.toLowerCase().includes(term) ||
-          camp.description.toLowerCase().includes(term) ||
-          camp.location.toLowerCase().includes(term)
+          camp?.name.toLowerCase().includes(term) ||
+          camp?.description.toLowerCase().includes(term) ||
+          camp?.location.toLowerCase().includes(term)
         );
       })
     : [];
@@ -57,7 +58,7 @@ const AvailableCamps = () => {
       })
     : [];
 
-  const featuredCamps = sortedCamps.slice(0, 6);
+  const featuredCamps = sortedCamps ;
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
@@ -114,7 +115,7 @@ const AvailableCamps = () => {
       <div className={`grid gap-6 ${isTwoColumnLayout ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
         {featuredCamps.map((camp) => (
           <SingleCard
-            key={camp.id}
+            key={camp._id}
             image={camp.image}
             CardTitle={camp.name}
             CardDescription={camp.description}

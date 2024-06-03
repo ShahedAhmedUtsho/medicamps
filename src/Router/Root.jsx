@@ -38,5 +38,4 @@ show &&  <div className='mx-auto mt-auto   z-50 w-full  '>
         </div>
     );
 };
-
 export default Root;
