@@ -6,10 +6,11 @@ import { ArrowRight, Layout, Warning } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
 const CampsSection = () => {
+  const url = "http://localhost:3000/camps"
   const { isLoading, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch("camps.json");
+      const response = await fetch(url);
       return response.json();
     },
   });
@@ -45,7 +46,7 @@ const CampsSection = () => {
       <div className={`grid gap-6 ${isTwoColumnLayout ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'}`}>
         {featuredCamps.map((camp) => (
           <SingleCard
-            key={camp.id}
+            key={camp._id}
             image={camp.image}
             CardTitle={camp.name}
             CardDescription={camp.description}
