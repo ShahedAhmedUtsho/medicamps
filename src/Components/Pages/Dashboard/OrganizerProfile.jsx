@@ -13,15 +13,20 @@ const OrganizerProfile = () => {
             </div>
 
 
-            <div className=' w-full md:grid  gap-5 grid-cols-12 px-8 min-h-52'>
-
-
-                <div className='  lg:-top-10 -top-10 md:-top-4 mx-auto md:mx-0  col-span-2   lg:max-w-44 lg:max-h-44  md:max-w-32 md:max-h-32 max-w-24 max-h-24  relative     rounded-full'>
-                    <img className='w-full rounded-full' src={user?.photoURL} alt="" />
+            <div className=' w-full md:flex gap-5 grid-cols-12 px-8 min-h-52'>
+<div className=' w-fit h-fit mx-auto'>
+<div className='  lg:-top-10  -top-10 md:-top-4 mx-auto md:mx-0    lg:w-44 lg:h-44  md:w-24 md:h-24 w-24 h-24  relative     rounded-full'>
+                    <img className='w-full h-full  rounded-full' src={user?.photoURL} alt="" />
                     <Camera   className=' bg-blue-700 lg:w-8 lg:h-8 md:h-6 md:w-6  text-white lg:p-2 p-1 rounded-full absolute  right-0 bottom-[10%]' />
 
                 </div>
-                <div className='col-span-10 w-full  min-h-40 py-2 lg:py-5'>
+</div>
+
+               
+
+
+
+                <div className=' w-full  min-h-40 py-2 lg:py-5'>
 
                 <div className='md:flex justify-between   '>
                    <div className='flex-item profile w-full header'>

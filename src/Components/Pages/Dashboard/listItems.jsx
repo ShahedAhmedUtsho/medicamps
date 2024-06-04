@@ -14,7 +14,7 @@ import { Home } from '@mui/icons-material';
 
 export const mainListItems = (
   <React.Fragment>
-<Link to='/dashboard/oprofile' >
+<Link to='/dashboard' >
 
     <ListItemButton>
     
