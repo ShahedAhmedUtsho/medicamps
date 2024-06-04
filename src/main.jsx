@@ -52,7 +52,7 @@ const router = createBrowserRouter([
         children :[
           
           {
-            path:"/dashboard/oprofile",
+            path:"/dashboard", 
     
             element: <OrganizerProfile></OrganizerProfile>
           }

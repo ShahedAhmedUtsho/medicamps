@@ -57,14 +57,14 @@ user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ use
 
 
 <Dropdown.List>
-<Dropdown.Item>
+{/* <Dropdown.Item>
 
   <Link className="w-full h-full flex gap-2" to="/profile">
   <User size={24} />Profile
 </Link>
 
 
-</Dropdown.Item>
+</Dropdown.Item> */}
 <Dropdown.Item>
 
   <Link className="w-full h-full flex gap-2" to="/dashboard">
