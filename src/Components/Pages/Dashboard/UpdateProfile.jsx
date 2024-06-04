@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner, Button } from 'keep-react';
@@ -7,9 +7,15 @@ import { useForm } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { updateProfile } from 'firebase/auth';
+import Auth from '../../../FireBase/Firebase.config';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = () => {
-    const { user } = useContext(AuthContext);
+    const [initialProfile, setInitialProfile] = useState(null);
+    const navigate = useNavigate()
+    const { user, setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
     const url = `http://localhost:3000/mediusers/${user?.uid}`;
 
     const validationSchema = yup.object().shape({
@@ -45,22 +51,59 @@ const UpdateProfile = () => {
     });
 
     useEffect(() => {
-        if (profile) {
-            reset({
+        if (profile || user) {
+            const profileData = {
                 name: profile?.name || user?.displayName,
+                email: profile?.email || user?.email,
+                description: profile?.description || "",
+                number: profile?.number || "",
                 photoURL: profile?.photoURL || user?.photoURL,
                 cover: profile?.cover || defaultCover,
-                email: profile?.email || user?.email,
-                number: profile?.number || "",
-                description: profile?.description || ""
-            });
+            };
+            setInitialProfile(profileData);
+            reset(profileData);
         }
     }, [profile, reset, user]);
 
-    const handleUpdate = (data) => {
-        console.log("hitting");
-        alert(JSON.stringify(data));
-    }
+    const handleUpdate = async (data) => {
+        const noChangesMade = Object.keys(data).every(
+            key => data[key] === initialProfile[key]
+        );
+
+        if (noChangesMade) {
+            setModelHead("Error");
+            setModelMessage("You didn't change anything");
+            openErrorModal();
+            return;
+        }
+
+        try {
+            await updateProfile(Auth.currentUser, {
+                displayName: data.name,
+                photoURL: data.photoURL,
+            });
+
+            await axios.put(url, {
+                name: data.name,
+                email:data.email,
+                photoURL: data.photoURL,
+                cover: data.cover,
+                number: data.number,
+                description: data.description,
+                
+            });
+
+            setModelHead("Successful");
+            setModelMessage("Profile updated successfully");
+            openSuccessModal();
+            navigate('/dashboard')
+        } catch (err) {
+            console.error("Error updating profile:", err.message);
+            setModelHead("Error");
+            setModelMessage("Error updating profile. Please try again.");
+            openErrorModal();
+        }
+    };
 
     if (isLoading) {
         return <Spinner />;
@@ -139,12 +182,12 @@ const UpdateProfile = () => {
                     label="Description"
                     name="description"
                     autoComplete="description"
-                    className='apple !h-40'
+                    className='apple '
                     error={Boolean(errors.description?.message)}
                     helperText={errors.description?.message}
                     {...register("description")}
                 />
-                <Button type='submit' className='mt-20'>Update</Button>
+                <Button type='submit' className='mt-10'>Update</Button>
             </form>
         </div>
     );

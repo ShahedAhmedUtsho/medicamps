@@ -28,3 +28,10 @@
 .box-shadow {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.1);
+  /* Change this color as needed */
+  color: #1976d2;
+  /* Change this color as needed */
+}

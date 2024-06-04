@@ -23,6 +23,7 @@ import CampDetails from './Components/Pages/Camp-Details/CampDetails'
 import Secure from './Secure/Secure'
 import OrganizerProfile from './Components/Pages/Dashboard/OrganizerProfile'
 import UpdateProfile from './Components/Pages/Dashboard/UpdateProfile'
+import AddCamps from './Components/Pages/Dashboard/AddCamps'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -61,6 +62,12 @@ const router = createBrowserRouter([
             path:"/dashboard/updateProfile", 
     
             element: <UpdateProfile></UpdateProfile>
+          }
+          ,
+          {
+            path:"/dashboard/addcamps", 
+    
+            element: <AddCamps></AddCamps>
           }
         ]
       },

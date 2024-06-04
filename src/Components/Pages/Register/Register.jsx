@@ -88,21 +88,12 @@ axios.post('http://localhost:3000/mediusers',  mediUserData )
 })
 
 
-
-
-
-
-
-
-
-
-
-
           
         }).catch((error) => {
           console.log(error.message, " update error");
         });
       })
+
       .catch(error => {
         const err = error.message;
         console.log(err);

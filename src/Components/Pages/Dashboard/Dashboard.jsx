@@ -172,11 +172,13 @@ export default function Dashboard() {
 
 
           <Container  className=' min-h-screen' maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <div className='mb-7'>
           <Outlet></Outlet>
+          </div>
           
 
-{/* 
-            <Grid container spacing={3}>
+
+            <Grid container spacing={3} className='' >
           
 
 
@@ -224,7 +226,7 @@ export default function Dashboard() {
               </Grid>
 
 
-            </Grid> */}
+            </Grid>
            
           </Container>
         </Box>
