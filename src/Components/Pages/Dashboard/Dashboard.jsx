@@ -20,7 +20,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import Orders from './Orders';
+import Orders from './ManageRegisteredCamps';
+import { Outlet } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -128,6 +129,9 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
         </AppBar>
+
+
+        
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -148,6 +152,8 @@ export default function Dashboard() {
             {secondaryListItems}
           </List>
         </Drawer>
+
+
         <Box
           component="main"
           sx={{
@@ -161,9 +167,20 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
+        
+
+
+          <Container  className=' min-h-screen' maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Outlet></Outlet>
+          
+
+{/* 
             <Grid container spacing={3}>
-              {/* Chart */}
+          
+
+
+              
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -176,7 +193,12 @@ export default function Dashboard() {
                   <Chart />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+
+
+
+       
+
+
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -189,14 +211,21 @@ export default function Dashboard() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+
+
+
+          
+
+              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
               </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
+
+
+            </Grid> */}
+           
           </Container>
         </Box>
       </Box>

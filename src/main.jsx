@@ -21,6 +21,7 @@ import {
 import AvailableCamps from './Components/Pages/Available-camps/AvailableCamps'
 import CampDetails from './Components/Pages/Camp-Details/CampDetails'
 import Secure from './Secure/Secure'
+import OrganizerProfile from './Components/Pages/Dashboard/OrganizerProfile'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -47,7 +48,15 @@ const router = createBrowserRouter([
       },
       {
         path:"/dashboard",
-        element:<Dashboard></Dashboard>
+        element:<Dashboard></Dashboard> ,
+        children :[
+          
+          {
+            path:"/dashboard/oprofile",
+    
+            element: <OrganizerProfile></OrganizerProfile>
+          }
+        ]
       },
       {
         path:"/available-camps",
@@ -58,6 +67,7 @@ const router = createBrowserRouter([
 
         element: <Secure> <CampDetails></CampDetails></Secure> 
       }
+      
     ]
   },
 ])
@@ -72,6 +82,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 <RouterProvider router={router} />
 </AuthProvider>
+
+
     </QueryClientProvider>
 
 
