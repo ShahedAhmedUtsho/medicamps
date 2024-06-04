@@ -22,6 +22,7 @@ import AvailableCamps from './Components/Pages/Available-camps/AvailableCamps'
 import CampDetails from './Components/Pages/Camp-Details/CampDetails'
 import Secure from './Secure/Secure'
 import OrganizerProfile from './Components/Pages/Dashboard/OrganizerProfile'
+import UpdateProfile from './Components/Pages/Dashboard/UpdateProfile'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -54,7 +55,12 @@ const router = createBrowserRouter([
           {
             path:"/dashboard", 
     
-            element: <OrganizerProfile></OrganizerProfile>
+            element:<Secure> <OrganizerProfile></OrganizerProfile></Secure>
+          },
+          {
+            path:"/dashboard/updateProfile", 
+    
+            element: <UpdateProfile></UpdateProfile>
           }
         ]
       },

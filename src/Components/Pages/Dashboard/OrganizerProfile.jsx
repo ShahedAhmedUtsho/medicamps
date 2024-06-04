@@ -4,6 +4,7 @@ import { Camera, Image, Pen, Warning } from 'phosphor-react';
 import { useQuery } from '@tanstack/react-query';
 import { Spinner, Button, Input } from 'keep-react';
 import defaultCover  from '../../../Assets/svg/profileCover.svg' ;
+import { Link } from 'react-router-dom';
 const OrganizerProfile = () => {
     const {user} = useContext(AuthContext) ;
 
@@ -26,7 +27,7 @@ console.log(profile)
 
 
 
-   
+const ProfileName = profile?.name || user?.displayName
     const profileImg = profile?.photoURL ||  user?.photoURL ; 
     const profileCover = profile?.cover ||  defaultCover  ;
     const ProfileEmail = profile?.email || user?.email ;
@@ -78,14 +79,15 @@ console.log(profile)
                 <div className='md:flex justify-between   '>
                    <div className='flex-item profile w-full header'>
                    <h2 className= 'apple lg:text-2xl font-bold text-black'>
-                        {user?.displayName}
+                        {ProfileName}
                     </h2>
                     <h2 className= 'apple text-sm lg:text-lg text-slate-500 font-semibold '>
                        Professional Website developer
                     </h2>
                    </div>
                    <div className='flex-item w-full flex justify-end '>
-<Pen   size={20} />
+                    <Link to="/dashboard/updateProfile"><Pen   size={20} /></Link>
+
                    </div>
                 
 
