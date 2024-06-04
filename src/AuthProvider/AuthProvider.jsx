@@ -30,9 +30,9 @@ const AuthProvider = ({ children }) => {
     const logOut = () => {
         signOut(Auth)
             .then(() => {
-                setModelHead("logout");
-                setModelMessage("Successfully logged out");
-                openSuccessModal();
+                // setModelHead("logout");
+                // setModelMessage("Successfully logged out");
+                // openSuccessModal();
             })
             .catch((err) => console.log(err));
     };

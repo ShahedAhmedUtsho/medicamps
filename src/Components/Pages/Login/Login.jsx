@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
@@ -23,6 +23,7 @@ import GoogleButton from 'react-google-button';
 import { Divider } from 'keep-react';
 
 import logo from "../../../Assets/logo/light.png"
+import axios from 'axios';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
@@ -33,6 +34,7 @@ const Login = ()=> {
   const { setLoading,setUser,setModelHead , setModelMessage,openSuccessModal,openErrorModal} = useContext(AuthContext)
 
 const navigate = useNavigate()
+const location = useLocation()
 
   const validationSchema = yup.object().shape({
    
@@ -78,9 +80,9 @@ const handleLogin = (data) => {
    
 setLoading(false)
 
-console.log("before navigate")
+
 navigate(location?.state?location.state : '/')
-console.log("after navigate")
+
 
   })
   .catch(err =>{
@@ -97,21 +99,52 @@ console.log("after navigate")
 
 
 
-const GoogleProvider = new GoogleAuthProvider()
+const GoogleProvider = new GoogleAuthProvider() ;
 const GoogleLogin = ()=>{
   signInWithPopup(Auth,GoogleProvider)
   .then(res => {
     setLoading(true)
+   const name = res.user.displayName ;
+   const email = res.user.email ;
+   const photoURL = res.user.photoURL ; 
+   const uid = res.user.uid
+   const mediUserData = {name,email,photoURL,uid}
+
+   axios.post('http://localhost:3000/mediusers',  mediUserData )
+   .then(res=>{
+     console.log(res.data)
+     setModelHead("Registration Complete");
+             setModelMessage("Account creation is successful");
+             openSuccessModal();
+            
+           
+   })
+   .catch(err =>{
    
-    const currentUser = res.user.uid ;
+     if (err.response && err.response.status === 409) {
+      setModelHead("Login Sucsessfull") ;
+     setModelMessage( `wellcome ${res.user.displayName}`)
+     openSuccessModal(); 
+  } 
+    
+   })
+
+
+
+
+
+
+
+
+    // const currentUser = res.user.uid ;
       // tokenCrate(currentUser)
-    console.log(currentUser)
+    // console.log(currentUser)
+
     setUser(res.user)
-    navigate(location?.state?location.state : '/')
+    navigate(location?.state?location.state : '/') ;
+  
     setLoading(false);
-    setModelHead("Login Sucsessfull") ;
-    setModelMessage( `wellcome ${res.user.displayName}`)
-    openSuccessModal(); 
+ 
     
 
   })

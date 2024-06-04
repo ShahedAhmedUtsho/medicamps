@@ -15,6 +15,12 @@ const AvailableCamps = () => {
       return response.json();
     },
   });
+
+
+
+
+
+  
 console.log(camps)
   const [isTwoColumnLayout, setIsTwoColumnLayout] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
