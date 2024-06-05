@@ -44,6 +44,15 @@ export const mainListItems = (
     </ListItemButton>
     </NavLink>
 
+    <NavLink to="/dashboard/managecamps" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+    <ListItemButton>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Manage Camps" />
+    </ListItemButton>
+    </NavLink>
+
 
 
 

@@ -24,6 +24,8 @@ import Secure from './Secure/Secure'
 import OrganizerProfile from './Components/Pages/Dashboard/OrganizerProfile'
 import UpdateProfile from './Components/Pages/Dashboard/UpdateProfile'
 import AddCamps from './Components/Pages/Dashboard/AddCamps'
+import ManageCamps from './Components/Pages/Dashboard/ManageCamps'
+import UpdateCamps from './Components/Pages/Dashboard/UpdateCamps'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -58,6 +60,13 @@ const router = createBrowserRouter([
     
             element:<Secure> <OrganizerProfile></OrganizerProfile></Secure>
           },
+          
+          {
+            path:"/dashboard/update-camps/:id", 
+
+    
+            element: <UpdateCamps></UpdateCamps>
+          },
           {
             path:"/dashboard/updateProfile", 
     
@@ -68,6 +77,13 @@ const router = createBrowserRouter([
             path:"/dashboard/addcamps", 
     
             element: <AddCamps></AddCamps>
+          } 
+          
+          ,
+          {
+            path:"/dashboard/managecamps", 
+    
+            element: <ManageCamps></ManageCamps>
           }
         ]
       },
@@ -80,6 +96,7 @@ const router = createBrowserRouter([
 
         element: <Secure> <CampDetails></CampDetails></Secure> 
       }
+      
       
     ]
   },
