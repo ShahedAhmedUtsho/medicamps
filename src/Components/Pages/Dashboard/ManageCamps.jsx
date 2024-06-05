@@ -69,7 +69,7 @@ const ManageCamps = () => {
                                 <TableCell>{camp.location}</TableCell>
                                 <TableCell>{camp.healthcareProfessional}</TableCell>
                                 <TableCell>
-                                    <Link to={`/dashboard/update-camps/${camp._id}`}>
+                                    <Link to={`/dashboard/update-camp/${camp._id}`}>
                                         <Button style={{ marginRight: '10px' }}>
                                             <Pen size={18} />
                                         </Button>

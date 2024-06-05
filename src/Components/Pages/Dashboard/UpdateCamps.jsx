@@ -21,9 +21,9 @@ const validationSchema = yup.object().shape({
 });
 
 const UpdateCamp = () => {
-    const { id } = useParams();
+    const { campId } = useParams();
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
-    const url = `http://localhost:3000/camp-details/${id}`;
+    const url = `http://localhost:3000/camp-details/${campId}`;
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema),
@@ -58,7 +58,7 @@ const UpdateCamp = () => {
     const handleUpdateCamp = async (data) => {
         const formattedData = {
             ...data,
-            dateTime: new Date(data.dateTime).toISOString().slice(0, 10), // Format date to exclude time
+            dateTime: new Date(data.dateTime).toISOString().slice(0, 10),
         };
 
         const noChangesMade = Object.keys(data).every(
@@ -73,7 +73,7 @@ const UpdateCamp = () => {
         }
 
         try {
-            await axios.put(url, formattedData);
+            await axios.put(`http://localhost:3000/update-camp/${campId}`, formattedData);
 
             setModelHead("Successful");
             setModelMessage("Camp updated successfully");

@@ -62,7 +62,7 @@ const router = createBrowserRouter([
           },
           
           {
-            path:"/dashboard/update-camps/:id", 
+            path:"/dashboard/update-camp/:campId", 
 
     
             element: <UpdateCamps></UpdateCamps>
