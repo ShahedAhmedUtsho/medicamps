@@ -6,6 +6,7 @@ import Header from "../../../Header/Header";
 import { Button } from "keep-react";
 import BannarSlider from "../BannarSlider/BannarSlider";
 import CampsSction from "./CampsSction";
+import { Link } from "react-router-dom";
 
 
 
@@ -29,13 +30,13 @@ const HomeComponent = () => {
                 Join us in delivering essential healthcare to communities in need. Our medical camps provide vital services and create inspiring stories of hope and transformation
                 </p>
                 <ul className="flex flex-wrap items-center">
-                  <li>
-                    <a
-                      href="/#"
-                      className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-dark lg:px-7"
+                  <li> 
+                    <Link to={`/available-camps`}
+                    
+                      className="inline-flex items-center justify-center rounded-md  px-6 py-3 text-center text-base font-medium text-white hover:bg-blue-dark lg:px-7"
                     >
                        <Button color="primary"  className=""  >Join us </Button>
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a

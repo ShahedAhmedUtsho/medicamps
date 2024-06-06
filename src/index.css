@@ -1,8 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap");
 @import "keep-react/css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+
+@layer base {
+  html {
+    @apply text-surface;
+    @apply bg-white;
+  }
+
+  html.dark {
+    @apply text-neutral-50;
+    @apply bg-body-dark;
+  }
+}
+
+
+
+p {
+  @apply leading-[1.6];
+}
 
 @font-face {
   font-family: 'San Francisco Pro';

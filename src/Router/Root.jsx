@@ -37,7 +37,7 @@ show &&  <div className='mx-auto mt-auto   z-50 w-full  '>
             <Success></Success>
             
       <ErrorModel></ErrorModel>
-      <ScrollToTop   top={20} />
+      <ScrollToTop className='z-50 bg-black ' smooth  top={20} />
         </div>
     );
 };
