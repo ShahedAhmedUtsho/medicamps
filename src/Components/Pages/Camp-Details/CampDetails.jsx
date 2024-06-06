@@ -2,7 +2,7 @@ import { Button, Spinner } from "keep-react";
 import { X, Warning } from "phosphor-react";
 import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -29,6 +29,7 @@ const validationSchema = yup.object().shape({
 
 const CampDetails = () => {
   const params = useParams();
+  const nevigate = useNavigate()
   const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
   const url = `http://localhost:3000/camp-details/${params.campID}`;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +37,7 @@ const CampDetails = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  const { isLoading, error, data: camp } = useQuery({
+  const { isLoading, error, data: camp,refetch } = useQuery({
     queryKey: [url],
     queryFn: async () => {
       const response = await fetch(url);
@@ -49,10 +50,20 @@ const CampDetails = () => {
    
   });
 
-const handleRegisterCamp = (data) =>{      
+
+
+
+
+
+
+
+
+
+const handleRegisterCamp = async (data) =>{      
   const name=  camp.name    ; 
   const image=   camp.image    ;
-
+  const ParticipantUID = user.uid ; 
+const participantCount = camp.participantCount + 1 ;
   const fees    =  camp.fees ;
   const  dateTime=    camp.dateTime   ;
   const  location=   camp.location    ;
@@ -61,16 +72,47 @@ const handleRegisterCamp = (data) =>{
 
   const ParticipantAge= data.ParticipantAge;
   const ParticipantNumber= data.ParticipantNumber ;
+  const ParticipantName= user.displayName;
+  const ParticipantEmail= user.email ;
   // Gender: 
   const ParticipantEmergencyContact =  data.ParticipantEmergencyContact;
 
-  const registerUserDetails = {
-    name,image,fees,dateTime,location,healthcareProfessional , description , ParticipantAge,ParticipantNumber,ParticipantEmergencyContact,
+
+  const registerUserDetails = {ParticipantName,ParticipantEmail,ParticipantUID, ParticipantAge,ParticipantNumber,ParticipantEmergencyContact,
+    name,image,fees,dateTime,location,healthcareProfessional , description ,
   }
-  console.log(registerUserDetails)
+  // console.log(registerUserDetails) ;
+  
+
+  try{
+   await axios.post('http://localhost:3000/registered-campUser',registerUserDetails)
+    setModelHead("Successful");
+    setModelMessage("registered successful  !! Please pay ");
+
+    toggleModal()
+    openSuccessModal();
+
+    // nevigate('/dashboard/registered-camps') ;
+
+    
+      await axios.patch(`http://localhost:3000/updateParticipantCount/${camp._id}`,
+          {participantCount}
+      );
+
+    
+      refetch()
+   
+
+
+  } catch (err) {
+    console.error("Error to Registered camps:", err.message);
+    setModelHead("Error");
+    setModelMessage("error to Registered camps:", err.message);
+    openErrorModal();
+
+  }
 
 }
-
 
 
 
