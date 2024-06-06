@@ -20,7 +20,7 @@ const ManageCamps = () => {
     const openModal  = () => setIsOpen(true);
     const closeModal = () => {
         setIsOpen(false);
-        isDeleteboxChecked(false); 
+        setIsDeleteboxChecked(false)
     };
 
     const { isLoading, refetch, error, data: camps } = useQuery({
@@ -38,6 +38,7 @@ const ManageCamps = () => {
             setModelMessage("Deleted successfully");
             openSuccessModal();
             refetch();
+            closeModal()
         } catch (error) {
             setModelHead("Delete failed");
             setModelMessage(error.message);
