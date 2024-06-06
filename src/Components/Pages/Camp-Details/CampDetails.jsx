@@ -189,23 +189,26 @@ const handleRegisterCamp = (data) =>{
 
       <div className="relative p-4 lg:min-w-[600px] md:min-w-96 apple ">
          <img src={camp.image} className="h-44 mb-5 rounded-sm lg:h-52 object-cover w-full" alt="" />
-         <h2 className="lg:text-2xl md:text-xl py-4 sm:text-lg font-normal text-base apple">
+       <div className="mb-3">
+       <h2 className="lg:text-2xl md:text-xl py-4 sm:text-lg font-normal text-base apple">
          
-        join at <span className="lg:text-2xl md:text-xl py-4 text-blue-600 sm:text-lg font-normal text-base apple"> {camp.name}</span> on <span className="text-blue-700 font-normal text-base">  ( {camp.dateTime})</span>
-         </h2>
-         <h2 className="pb-2 font-semibold text-base">Name : {user?.displayName}  </h2>
-         <h2 className="pb-2 font-semibold text-base">email :{user?.email}  </h2>
-        
+         join at <span className="lg:text-2xl md:text-xl py-4 text-blue-600 sm:text-lg font-normal text-base apple"> {camp.name}</span> on <span className="text-blue-700 font-normal text-base">  ( {camp.dateTime})</span>
+          </h2>
+          <h2 className="pb-2 font-semibold text-base">Name : {user?.displayName}  </h2>
+          <h2 className="pb-2 font-semibold text-base">email :{user?.email}  </h2>
+         
+       </div>
          
           <div className="grid gap-3">
          <TextField
                     fullWidth
                     type="number"
                     id="ParticipantAge"
-                    label="Participant Age"
+                    label="your Age"
                     name="ParticipantAge"
-                    autoComplete="Participant Age"
+                    autoComplete="your Age"
                     className='apple'
+                    autoFocus
                     error={Boolean(errors.ParticipantAge?.message)}
                     helperText={errors.ParticipantAge?.message}
                     {...register("ParticipantAge")}
@@ -214,9 +217,9 @@ const handleRegisterCamp = (data) =>{
                     fullWidth
                     type="number"
                     id="ParticipantNumber"
-                    label="Participant Number"
+                    label="your Number"
                     name="ParticipantNumber"
-                    autoComplete="Participant Number"
+                    autoComplete="your Number"
                     className='apple'
                     error={Boolean(errors.ParticipantNumber?.message)}
                     helperText={errors.ParticipantNumber?.message}
@@ -226,9 +229,9 @@ const handleRegisterCamp = (data) =>{
                     fullWidth
                     type="number"
                     id="ParticipantEmergencyContact"
-                    label="Participant Contact"
+                    label="your Emergency Contact"
                     name="ParticipantEmergencyContact"
-                    autoComplete="Participant  Contact"
+                    autoComplete="your Emergency  Contact"
                     className='apple'
                     error={Boolean(errors.ParticipantEmergencyContact?.message)}
                     helperText={errors.ParticipantEmergencyContact?.message}
