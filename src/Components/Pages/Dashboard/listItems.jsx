@@ -52,10 +52,25 @@ export const mainListItems = (
       <ListItemText primary="Manage Camps" />
     </ListItemButton>
     </NavLink>
+    
 
-
-
-
+    <NavLink to="/dashboard/manageregisteredcampsuser" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+    <ListItemButton>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Registered Camps" />
+    </ListItemButton>
+    </NavLink>
+   
+    <NavLink to="/dashboard/manageregisteredcamps" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+    <ListItemButton>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Your Registration" />
+    </ListItemButton>
+    </NavLink>
     <ListItemButton>
       <ListItemIcon>
         <PeopleIcon />

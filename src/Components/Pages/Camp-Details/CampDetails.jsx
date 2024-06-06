@@ -62,6 +62,7 @@ const CampDetails = () => {
 const handleRegisterCamp = async (data) =>{      
   const name=  camp.name    ; 
   const image=   camp.image    ;
+ 
   const ParticipantUID = user.uid ; 
 const participantCount = camp.participantCount + 1 ;
   const fees    =  camp.fees ;

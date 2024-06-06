@@ -26,6 +26,8 @@ import UpdateProfile from './Components/Pages/Dashboard/UpdateProfile'
 import AddCamps from './Components/Pages/Dashboard/AddCamps'
 import ManageCamps from './Components/Pages/Dashboard/ManageCamps'
 import UpdateCamps from './Components/Pages/Dashboard/UpdateCamps'
+import ManageRegisteredCamps from './Components/Pages/Dashboard/ManageRegistered'
+import ManageCampsOfParticipant from './Components/Pages/Dashboard/participentThing/ManageCampsOfParticipent'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -77,6 +79,17 @@ const router = createBrowserRouter([
             path:"/dashboard/addcamps", 
     
             element: <AddCamps></AddCamps>
+          }  ,
+          {
+            path:"/dashboard/manageregisteredcampsuser", 
+    
+            element: <ManageRegisteredCamps></ManageRegisteredCamps>
+          } 
+          ,
+          {
+            path:"/dashboard/manageregisteredcamps", 
+    
+            element:<ManageCampsOfParticipant></ManageCampsOfParticipant>
           } 
           
           ,
