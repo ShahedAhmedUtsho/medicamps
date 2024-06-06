@@ -28,6 +28,7 @@ import ManageCamps from './Components/Pages/Dashboard/ManageCamps'
 import UpdateCamps from './Components/Pages/Dashboard/UpdateCamps'
 import ManageRegisteredCamps from './Components/Pages/Dashboard/ManageRegistered'
 import ManageCampsOfParticipant from './Components/Pages/Dashboard/participentThing/ManageCampsOfParticipent'
+import Payment from './Components/Pages/Dashboard/Payment/Payment'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -90,6 +91,11 @@ const router = createBrowserRouter([
             path:"/dashboard/manageregisteredcamps", 
     
             element:<ManageCampsOfParticipant></ManageCampsOfParticipant>
+          }  ,
+          {
+            path:"/dashboard/payment/:uid", 
+    
+            element:<Payment></Payment>
           } 
           
           ,

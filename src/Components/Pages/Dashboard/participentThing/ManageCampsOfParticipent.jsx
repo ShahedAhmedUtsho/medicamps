@@ -47,7 +47,7 @@ const ManageCampsOfParticipant = () => {
     const handlePayment = async (campId) => {
         try {
             // Redirect to payment page (implementation depends on your payment setup)
-            navigate(`/payment/${campId}`);
+            navigate(`/dashboard/payment/${campId}`);
         } catch (error) {
             setModelHead("Payment failed");
             setModelMessage(error.message);
@@ -84,7 +84,7 @@ const ManageCampsOfParticipant = () => {
                                 <TableCell>{camp.ParticipantName}</TableCell>
                                 <TableCell>
                                     {camp.paymentStatus ? "Paid" : (
-                                        <Button onClick={() => handlePayment(camp._id)}>
+                                        <Button onClick={() => handlePayment(camp.ParticipantUID)}>
                                             Pay
                                         </Button>
                                     )}
