@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
-import { ArrowRight, Pen, Trash } from 'phosphor-react';
+import { ArrowRight, Check, Pen, Trash, X } from 'phosphor-react';
 
 const ManageCampsOfParticipant = () => {
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal,user } = useContext(AuthContext);
@@ -44,10 +44,10 @@ const ManageCampsOfParticipant = () => {
         }
     };
 
-    const handlePayment = async (campId) => {
+    const handlePayment = async (Id) => {
         try {
             // Redirect to payment page (implementation depends on your payment setup)
-            navigate(`/dashboard/payment/${campId}`);
+            navigate(`/dashboard/payment/${Id}`);
         } catch (error) {
             setModelHead("Payment failed");
             setModelMessage(error.message);
@@ -84,18 +84,20 @@ const ManageCampsOfParticipant = () => {
                                 <TableCell>{camp.ParticipantName}</TableCell>
                                 <TableCell>
                                     {camp.paymentStatus ? "Paid" : (
-                                        <Button onClick={() => handlePayment(camp.ParticipantUID)}>
+                                        <Button onClick={() => handlePayment(camp._id)}>
                                             Pay
                                         </Button>
                                     )}
                                 </TableCell>
                                 <TableCell>
-                                    {camp.confirmationStatus === "Confirmed" ? "Confirmed" : "Pending"}
+                                    {camp.confirmationStatus === "confirmed" ? "Confirmed" : "Pending"}
                                 </TableCell>
                                 <TableCell>
-                                    <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={camp.paymentStatus}>
-                                        <Trash color='red' size={18} />
-                                    </Button>
+                                { camp?.confirmationStatus === "confirmed" && camp?.paymentStatus ? <Button> <Check className=' font-bold p-1 text-green-600' size={30} /></Button>  :     <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={!!camp.paymentStatus}>
+                                     <X color='red' size={18} />
+                                 </Button>
+}
+                                  
                                     {camp.paymentStatus && camp.confirmationStatus === "Confirmed" && (
                                         <Button onClick={() => handleFeedback(camp._id)} style={{ marginLeft: '10px' }}>
                                             Feedback

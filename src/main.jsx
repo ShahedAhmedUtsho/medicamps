@@ -93,7 +93,7 @@ const router = createBrowserRouter([
             element:<ManageCampsOfParticipant></ManageCampsOfParticipant>
           }  ,
           {
-            path:"/dashboard/payment/:uid", 
+            path:"/dashboard/payment/:id", 
     
             element:<Payment></Payment>
           } 

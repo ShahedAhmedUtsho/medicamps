@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
-import { ArrowRight, Pen, Trash, X } from 'phosphor-react';
+import { ArrowRight, Check, Pen, Trash, X } from 'phosphor-react';
 
 const ManageRegisteredCamps = () => {
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
@@ -46,7 +46,7 @@ const ManageRegisteredCamps = () => {
 
     const handleConfirmation = async (campId) => {
         try {
-            await axios.patch(`http://localhost:3000/registered-campUser/${campId}`, { confirmationStatus: "Confirmed" });
+            await axios.patch(`http://localhost:3000/registered-campUser/${campId}`, { confirmationStatus: "confirmed" , campId });
             refetch();
         } catch (error) {
             setModelHead("Confirmation failed");
@@ -80,18 +80,29 @@ const ManageRegisteredCamps = () => {
                                 <TableCell>{camp.name}</TableCell>
                                 <TableCell>{camp.fees}</TableCell>
                                
-                                <TableCell>{camp.paymentStatus ? "Paid" : "Unpaid"}</TableCell>
+                                <TableCell>{camp.paymentStatus ? <p className='font-bold p-[6px]'>Paid</p> : "Unpaid"}</TableCell>
                                 <TableCell>
-                                    {camp.confirmationStatus === "Confirmed" ? "Confirmed" : (
-                                        <Button onClick={() => handleConfirmation(camp._id)}>
+                                    {camp?.confirmationStatus === "confirmed" ? <p className='font-bold p-[6px]'>Confirmed</p>  : (
+                                        <Button className='!bg-slate-200'  onClick={() => handleConfirmation(camp._id)}>
                                             Pending
                                         </Button>
                                     )}
+                                    
                                 </TableCell>
                                 <TableCell>
-                                    <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={camp.paymentStatus && camp.confirmationStatus === "Confirmed"}>
+
+{ camp?.confirmationStatus === "confirmed" && camp?.paymentStatus ? <Button> <Check className=' font-bold p-1 text-green-600' size={30} /></Button>  :   <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={!!camp?.paymentStatus ==="paid" && !!camp?.confirmationStatus === "confirmed"}>
                                         <X color='red' size={18} />
                                     </Button>
+
+}
+
+
+
+                                  
+
+
+
                                    
                                 </TableCell>
                             </TableRow>
