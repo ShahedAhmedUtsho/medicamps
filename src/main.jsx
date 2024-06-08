@@ -31,6 +31,7 @@ import ManageCampsOfParticipant from './Components/Pages/Dashboard/participentTh
 import Payment from './Components/Pages/Dashboard/Payment/Payment'
 import Allpayment from './Components/Pages/Dashboard/Allpayment'
 import PaymentHistory from './Components/Pages/Dashboard/PaymentHistory'
+import VerifyAdmin from './Admin/VerifyAdmin'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -81,40 +82,40 @@ const router = createBrowserRouter([
           {
             path:"/dashboard/addcamps", 
     
-            element: <AddCamps></AddCamps>
+            element:<VerifyAdmin> <AddCamps></AddCamps></VerifyAdmin>
           }  ,
           {
             path:"/dashboard/manageregisteredcampsuser", 
     
-            element: <ManageRegisteredCamps></ManageRegisteredCamps>
+            element:<VerifyAdmin> <ManageRegisteredCamps></ManageRegisteredCamps></VerifyAdmin>
           } 
           ,
           {
             path:"/dashboard/manageregisteredcamps", 
     
-            element:<ManageCampsOfParticipant></ManageCampsOfParticipant>
+            element:<Secure><ManageCampsOfParticipant></ManageCampsOfParticipant></Secure>
           }  ,
           {
             path:"/dashboard/payment/:id", 
     
-            element:<Payment></Payment>
+            element:<Secure><Payment></Payment></Secure>
           } ,
           {
             path:"/dashboard/allpayment", 
     
-            element:<Allpayment></Allpayment>
+            element:<VerifyAdmin><Allpayment></Allpayment></VerifyAdmin>
           }  ,
           {
             path:"/dashboard/paymenthistory", 
     
-            element:<PaymentHistory></PaymentHistory>
+            element:<Secure><PaymentHistory></PaymentHistory></Secure>
           } 
           
           ,
           {
             path:"/dashboard/managecamps", 
     
-            element: <ManageCamps></ManageCamps>
+            element: <VerifyAdmin><ManageCamps></ManageCamps></VerifyAdmin>
           }
         ]
       },

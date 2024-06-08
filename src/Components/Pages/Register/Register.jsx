@@ -53,7 +53,7 @@ const Register = () => {
     const password = data.password ;
     const photoURL = data.photoURL ;
     const email = data.email ;
-
+    const isAdmin = false ;
 
 
 
@@ -65,7 +65,7 @@ const Register = () => {
     createUserWithEmailAndPassword(Auth, data.email, data.password)
       .then(res => {
         const uid = res.user.uid
-        const mediUserData = {name,photoURL, email,uid}
+        const mediUserData = {name,photoURL, email,uid,isAdmin}
         setLoading(true);
         console.log("okey login ", res.user);
         updateProfile(Auth.currentUser, {

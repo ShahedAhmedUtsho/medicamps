@@ -46,7 +46,8 @@ const UpdateProfile = () => {
             cover: "",
             email: "",
             number: "",
-            description: ""
+            description: "",
+            head: ""
         }
     });
 
@@ -59,6 +60,7 @@ const UpdateProfile = () => {
                 number: profile?.number || "",
                 photoURL: profile?.photoURL || user?.photoURL,
                 cover: profile?.cover || defaultCover,
+                head: profile?.head || "Add profile head"
             };
             setInitialProfile(profileData);
             reset(profileData);
@@ -84,12 +86,15 @@ const UpdateProfile = () => {
             });
 
             await axios.put(url, {
+                
                 name: data.name,
                 email:data.email,
+                head:data.head,
                 photoURL: data.photoURL,
                 cover: data.cover,
                 number: data.number,
                 description: data.description,
+               
                 
             });
 
@@ -164,6 +169,17 @@ const UpdateProfile = () => {
                     error={Boolean(errors.email?.message)}
                     helperText={errors.email?.message}
                     {...register("email")}
+                />
+                 <TextField
+                    fullWidth
+                    id="head"
+                    label="head"
+                    name="head"
+                    autoComplete="head"
+                    className='apple'
+                    error={Boolean(errors.head?.message)}
+                    helperText={errors.head?.message}
+                    {...register("head")}
                 />
                 <TextField
                     fullWidth

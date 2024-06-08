@@ -25,6 +25,8 @@ const OrganizerProfile = () => {
     const ProfileEmail = profile?.email || user?.email;
     const ProfileNumber = profile?.number || "";
     const ProfileDescreption = profile?.description || "";
+    const ProfileTitle = profile?.head || "";
+
 
     if (isLoading) {
         return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
@@ -63,7 +65,7 @@ const OrganizerProfile = () => {
                                 {ProfileName}
                             </h2>
                             <h2 className='text-sm lg:text-lg text-slate-500 font-semibold dark:text-slate-400'>
-                                Professional Website developer
+                              {ProfileTitle }
                             </h2>
                         </div>
                         <div className='w-full flex justify-end'>

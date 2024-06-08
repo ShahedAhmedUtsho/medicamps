@@ -22,6 +22,10 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './ManageRegisteredCamps';
 import { Outlet } from 'react-router-dom';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Spinner } from 'keep-react';
 
 function Copyright(props) {
   return (
@@ -86,7 +90,34 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const {user} = React.useContext(AuthContext) ;
   const [open, setOpen] = React.useState(true);
+  console.log(user)
+
+  const { isLoading,  error, data: MongoUser } = useQuery({
+    queryKey: [`http://localhost:3000/mediusers/${user?.uid}`],
+    queryFn: async () => {
+        const response = await axios.get(`http://localhost:3000/mediusers/${user?.uid}`); 
+        return response.data;
+    }
+});
+
+console.log(MongoUser)
+
+
+
+
+
+if (isLoading) return <Spinner />;
+if (error) return <div>Error loading data... please try again later.</div>;
+
+
+
+
+
+
+  
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -120,7 +151,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              { MongoUser?.isAdmin ? ` Organizer Dashboard` : ` Participant Dashboard`  }
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -147,9 +178,9 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            { mainListItems}
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            { MongoUser.isAdmin && secondaryListItems}
           </List>
         </Drawer>
 

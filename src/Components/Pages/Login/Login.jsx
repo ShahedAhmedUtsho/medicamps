@@ -107,8 +107,9 @@ const GoogleLogin = ()=>{
    const name = res.user.displayName ;
    const email = res.user.email ;
    const photoURL = res.user.photoURL ; 
-   const uid = res.user.uid
-   const mediUserData = {name,email,photoURL,uid}
+   const uid = res.user.uid ;
+   const isAdmin = false ;
+   const mediUserData = {name,email,photoURL,uid,isAdmin}
 
    axios.post('http://localhost:3000/mediusers',  mediUserData )
    .then(res=>{
