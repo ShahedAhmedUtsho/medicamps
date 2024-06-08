@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import  { useContext } from 'react';
 import {loadStripe} from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckOutForm from './CheckOutForm';
@@ -15,7 +15,7 @@ const Payment = () => {
 const {user} = useContext(AuthContext) ;
 const id = params.id ;
 
-    const { isLoading, refetch, error, data: payment_camp } = useQuery({
+    const { isLoading,  error, data: payment_camp } = useQuery({
         queryKey: [`http://localhost:3000/my-registration-camps/single/${user?._id}`],
         queryFn: async () => {
             const response = await axios.get(`http://localhost:3000/my-registration-camps/single/${id}`); 

@@ -1,16 +1,15 @@
 import { useContext, useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery} from '@tanstack/react-query';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+
 import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
-import { ArrowRight, Check, Pen, Trash, X } from 'phosphor-react';
+import { Check,  X } from 'phosphor-react';
 
 const ManageRegisteredCamps = () => {
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const queryClient = useQueryClient();
+ 
     const [isOpen, setIsOpen] = useState(false);
     const [isConOpen, setIsConOpen] = useState(false);
     const [deleteID, setDeleteID] = useState("");

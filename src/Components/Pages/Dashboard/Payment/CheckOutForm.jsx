@@ -11,7 +11,7 @@ const CheckOutForm =({payment_camp}) => {
   const [transactionID,setTransactionID] = useState("")
   const [submit,setSubmit] = useState(false)
     const stripe = useStripe() ;
-    const {user,modelHead,
+    const {user,
     
       setModelHead,
       setModelMessage,
@@ -20,8 +20,7 @@ const CheckOutForm =({payment_camp}) => {
       openSuccessModal,
      
       
-      openErrorModal,
-
+     
 
 
 
@@ -100,15 +99,15 @@ const payment = {
   ParticipantEmail : user.email ,
   ParticipantName:user.displayName,
   camp_name : payment_camp.name , 
-status : 'padding' ,
+  confirmationStatus : payment_camp.confirmationStatus ,
   fees : fees ,
   date : new Date(),
   campID : payment_camp._id ,
-  transactionID: transactionID ,
+  transactionID: paymentIntent.id ,
   ParticipantUID:payment_camp.ParticipantUID,
   
 }
-const res = axios.post('http://localhost:3000/payments',payment)
+ axios.post('http://localhost:3000/payments',payment)
 .then(res=>{
   console.log(res.data)
   setModelHead("payment successful") ;

@@ -4,13 +4,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
+
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Home } from '@mui/icons-material';
+import { Alarm, History, HolidayVillage, Home, HowToReg, ManageAccounts, Payment } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
+
 const activeStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.1)',
   color: '#1976d2',
@@ -38,7 +36,7 @@ export const mainListItems = (
     <NavLink to="/dashboard/addcamps" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <HolidayVillage />
       </ListItemIcon>
       <ListItemText primary="Add Camps" />
     </ListItemButton>
@@ -47,7 +45,7 @@ export const mainListItems = (
     <NavLink to="/dashboard/managecamps" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+     <Alarm />
       </ListItemIcon>
       <ListItemText primary="Manage Camps" />
     </ListItemButton>
@@ -57,7 +55,7 @@ export const mainListItems = (
     <NavLink to="/dashboard/manageregisteredcampsuser" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <ManageAccounts />
       </ListItemIcon>
       <ListItemText primary="Registered Camps" />
     </ListItemButton>
@@ -66,29 +64,29 @@ export const mainListItems = (
     <NavLink to="/dashboard/manageregisteredcamps" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <HowToReg />
       </ListItemIcon>
       <ListItemText primary="Your Registration" />
     </ListItemButton>
     </NavLink>
+    <NavLink to="/dashboard/paymenthistory" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <PeopleIcon />
+      <History />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Payment History" />
     </ListItemButton>
+    </NavLink>
+    <NavLink to="/dashboard/allpayment" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
-        <BarChartIcon />
+        <Payment />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="All Payment" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
+    </NavLink>
+    
+    
   </React.Fragment>
 );
 

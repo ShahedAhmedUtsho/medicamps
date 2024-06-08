@@ -1,16 +1,16 @@
 import { useContext, useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
-import { ArrowRight, Check, Pen, Trash, X } from 'phosphor-react';
+import { Check, Trash, X } from 'phosphor-react';
 
 const ManageCampsOfParticipant = () => {
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal,user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const queryClient = useQueryClient();
+
     const [isOpen, setIsOpen] = useState(false);
     const [deleteID, setDeleteID] = useState("");
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
@@ -20,18 +20,17 @@ const ManageCampsOfParticipant = () => {
         setIsOpen(false);
         setIsDeleteboxChecked(false);
     };
-
     const { isLoading, refetch, error, data: camps } = useQuery({
-        queryKey: ["camps"],
+        queryKey: [`http://localhost:3000/my-registration-camps/${user?.uid}`],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`); // Update the URL as needed
+            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`); 
             return response.data;
         }
     });
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/registered-campUser/${deleteID}`); // Update the URL as needed
+            await axios.delete(`http://localhost:3000/registered-campUser/${deleteID}`);
             setModelHead("Deleted");
             setModelMessage("Deleted successfully");
             openSuccessModal();
@@ -46,7 +45,7 @@ const ManageCampsOfParticipant = () => {
 
     const handlePayment = async (Id) => {
         try {
-            // Redirect to payment page (implementation depends on your payment setup)
+           
             navigate(`/dashboard/payment/${Id}`);
         } catch (error) {
             setModelHead("Payment failed");
