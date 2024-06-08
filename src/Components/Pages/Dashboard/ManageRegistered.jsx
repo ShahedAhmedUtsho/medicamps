@@ -12,11 +12,16 @@ const ManageRegisteredCamps = () => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false);
+    const [isConOpen, setIsConOpen] = useState(false);
     const [deleteID, setDeleteID] = useState("");
+    const [campId, setCampId] = useState("");
+    campId
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
 
     const openModal = () => setIsOpen(true);
+    const openConModal = () => setIsConOpen(true);
     const closeModal = () => {
+        setIsConOpen(false)
         setIsOpen(false);
         setIsDeleteboxChecked(false);
     };
@@ -43,10 +48,11 @@ const ManageRegisteredCamps = () => {
             openErrorModal();
         }
     };
-
+   
     const handleConfirmation = async (campId) => {
         try {
             await axios.patch(`http://localhost:3000/registered-campUser/${campId}`, { confirmationStatus: "confirmed" , campId });
+            closeModal()
             refetch();
         } catch (error) {
             setModelHead("Confirmation failed");
@@ -54,6 +60,7 @@ const ManageRegisteredCamps = () => {
             openErrorModal();
         }
     };
+
 
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
@@ -83,7 +90,15 @@ const ManageRegisteredCamps = () => {
                                 <TableCell>{camp.paymentStatus ? <p className='font-bold p-[6px]'>Paid</p> : "Unpaid"}</TableCell>
                                 <TableCell>
                                     {camp?.confirmationStatus === "confirmed" ? <p className='font-bold p-[6px]'>Confirmed</p>  : (
-                                        <Button className='!bg-slate-200'  onClick={() => handleConfirmation(camp._id)}>
+                                        <Button className='!bg-slate-200'  onClick={() => 
+                                           {
+                                            setCampId(camp._id)
+                                            openConModal()
+                                           }
+
+
+
+                                        }>
                                             Pending
                                         </Button>
                                     )}
@@ -113,13 +128,13 @@ const ManageRegisteredCamps = () => {
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <Modal.Body className="space-y-3">
                     <Modal.Icon>
-                        <Trash color='red' size={28} />
+                        <X color='red' size={28} />
                     </Modal.Icon>
                     <Modal.Content>
                         <div className="!mb-6">
                             <h3 className="mb-2 text-body-1 font-medium text-metal-900">Warning</h3>
                             <p className="text-body-4 font-normal text-metal-600">
-                                Are you sure you want to delete this? This action cannot be undone.
+                                Are you sure you want Reject the Registration ? This action cannot be undone.
                             </p>
                         </div>
                         <fieldset className="mb-3 flex items-center gap-2">
@@ -138,7 +153,35 @@ const ManageRegisteredCamps = () => {
                             Cancel
                         </Button>
                         <Button disabled={!isDeleteboxChecked} onClick={() => { handleDelete(); closeModal(); }} size="sm" color="error">
-                            Delete
+                           Confirm
+                        </Button>
+                    </Modal.Footer>
+                </Modal.Body>
+            </Modal>
+
+
+            <Modal isOpen={isConOpen} onClose={closeModal}>
+                <Modal.Body className="space-y-3">
+                    <Modal.Icon>
+                        <Check color='green' size={28} />
+                    </Modal.Icon>
+                    <Modal.Content>
+                        <div className="!mb-6">
+                            <h3 className="mb-2 text-body-1 font-medium text-metal-900"> confirm</h3>
+                            <p className="text-body-4 font-normal text-metal-600">
+                               Did you get payment? I want to confirm.
+                            </p>
+                        </div>
+                        <fieldset className="mb-3 flex items-center gap-2">
+                                  
+                        </fieldset>
+                    </Modal.Content>
+                    <Modal.Footer>
+                        <Button onClick={closeModal} size="sm" variant="outline" color="secondary">
+                            Cancel
+                        </Button>
+                        <Button  onClick={() => { handleConfirmation(campId); closeModal(); }} size="sm" color="primary">
+                           Confirm
                         </Button>
                     </Modal.Footer>
                 </Modal.Body>

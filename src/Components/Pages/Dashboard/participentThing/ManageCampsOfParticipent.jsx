@@ -31,7 +31,7 @@ const ManageCampsOfParticipant = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/registered-camps/${deleteID}`); // Update the URL as needed
+            await axios.delete(`http://localhost:3000/registered-campUser/${deleteID}`); // Update the URL as needed
             setModelHead("Deleted");
             setModelMessage("Deleted successfully");
             openSuccessModal();

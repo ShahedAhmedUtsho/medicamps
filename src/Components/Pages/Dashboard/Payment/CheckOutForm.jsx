@@ -11,7 +11,21 @@ const CheckOutForm =({payment_camp}) => {
   const [transactionID,setTransactionID] = useState("")
   const [submit,setSubmit] = useState(false)
     const stripe = useStripe() ;
-    const {user} = useContext(AuthContext)
+    const {user,modelHead,
+    
+      setModelHead,
+      setModelMessage,
+     
+     
+      openSuccessModal,
+     
+      
+      openErrorModal,
+
+
+
+
+    } = useContext(AuthContext)
     const elements = useElements() ;
 const fees= payment_camp.fees
 
@@ -74,7 +88,7 @@ const {paymentIntent,error : confirmError} = await stripe.confirmCardPayment(cli
 })
 
 
-if(confirmError){
+ if(confirmError){
   console.log('confirm error')
 }else{
  console.log( "paymentIntent" , paymentIntent) ;
@@ -97,9 +111,13 @@ status : 'padding' ,
 const res = axios.post('http://localhost:3000/payments',payment)
 .then(res=>{
   console.log(res.data)
+  setModelHead("payment successful") ;
+  setModelMessage(`your Transaction ID is ${paymentIntent.id}`) ;
+  openSuccessModal()
   console.log(
     'payment saved'
   )
+
 })
 .catch(err =>{
   console.log(err.message)
