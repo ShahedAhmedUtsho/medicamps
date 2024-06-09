@@ -7,6 +7,7 @@ import { Button } from "keep-react";
 import BannarSlider from "../BannarSlider/BannarSlider";
 import CampsSction from "./CampsSction";
 import { Link } from "react-router-dom";
+import FeedbackSection from "../FeedBack/FeedBack";
 
 
 
@@ -100,6 +101,7 @@ const HomeComponent = () => {
       </div>
 
       <CampsSction></CampsSction>
+      <FeedbackSection></FeedbackSection>
 </div>
 
     </div>
