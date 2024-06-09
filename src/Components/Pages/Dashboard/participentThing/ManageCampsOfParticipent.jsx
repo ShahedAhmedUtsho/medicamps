@@ -127,7 +127,7 @@ const ManageCampsOfParticipant = () => {
             <TextField
                 label="Search Camps"
                 variant="outlined"
-                fullWidth
+               className=' lg:w-1/3 md:w-1/2 w-full  '
                 margin="normal"
                 value={searchTerm}
                 onChange={handleSearch}

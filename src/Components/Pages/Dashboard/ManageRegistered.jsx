@@ -86,7 +86,7 @@ const ManageRegisteredCamps = () => {
             <TextField
                 label="Search"
                 variant="outlined"
-                fullWidth
+                className=' lg:w-1/3 md:w-1/2 w-full  '
                 margin="normal"
                 value={searchQuery}
                 onChange={handleSearch}
