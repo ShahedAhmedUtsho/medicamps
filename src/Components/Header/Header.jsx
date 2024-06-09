@@ -27,11 +27,11 @@ const {user,logOut} = useContext(AuthContext);
         
         <Navbar.Container className="flex  items-center">
           <Navbar.Brand>
-            <img
+           <Link to="/"> <img
               src={logo}
               alt="keep"
              className=" w-40  "
-            />
+            /></Link>
           </Navbar.Brand>
           <Navbar.Divider></Navbar.Divider>
           <Navbar.Container

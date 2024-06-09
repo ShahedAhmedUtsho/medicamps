@@ -2,22 +2,33 @@ import { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Table, TableCell, TableContainer,
-     TableHead, 
-      Paper, Button, Pagination,TableBody, TableRow,
-     } from '@mui/material';
+import { Table, TableCell, TableContainer, TableHead, Paper, Button, Pagination, TableBody, TableRow, Rating, TextField } from '@mui/material';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
 import { Check, Trash, X } from 'phosphor-react';
+import { Chat, Pending } from '@mui/icons-material';
+import { useForm, Controller } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validationSchema = yup.object().shape({
+    feedback: yup.string().required("Feedback is required"),
+});
 
 const ManageCampsOfParticipant = () => {
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal, user } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const [isOpen, setIsOpen] = useState(false);
     const [deleteID, setDeleteID] = useState("");
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
+    const [isFeedBackOpen, setIsFeedBackOpen] = useState(false);
 
+    const openFeedBackModal = () => {
+        setIsFeedBackOpen(true);
+    };
+    const closeFeedBackModal = () => {
+        setIsFeedBackOpen(false);
+    };
     const [page, setPage] = useState(1);
     const listPerPage = 8;
 
@@ -34,6 +45,40 @@ const ManageCampsOfParticipant = () => {
             return response.data;
         }
     });
+
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
+        resolver: yupResolver(validationSchema),
+        defaultValues: {
+            rating: 5,
+            feedback: "",
+        }
+    });
+
+    const handleFeedback = async (data) => {
+      
+        const send = {
+            name : user?.displayName ,
+            email: user?.email,
+            userUID: user?.uid,
+            userPhotoURL : user?.photoURL ,
+            rating: data?.rating ,
+            feedback : data?.feedback,
+            
+        }
+        try {
+          await  axios.post('http://localhost:3000/feedback',send)
+          setModelHead("SENT")
+          setModelMessage("feedback sent successful")
+          openSuccessModal() ;
+          closeFeedBackModal()
+            
+        } catch (error) {
+            setModelHead("faild")
+            setModelMessage(error.message)
+            openErrorModal()
+            
+        }
+    };
 
     const handleDelete = async () => {
         try {
@@ -60,20 +105,53 @@ const ManageCampsOfParticipant = () => {
         }
     };
 
-    const handleFeedback = async (campId) => {
-        navigate(`/feedback/${campId}`);
-    };
-
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
 
     const start = (page - 1) * listPerPage;
-    const paginatedCamps = camps.slice(start, start + listPerPage
-
-    );
+    const paginatedCamps = camps.slice(start, start + listPerPage);
 
     return (
         <>
+            <Modal isOpen={isFeedBackOpen} onClose={closeFeedBackModal}>
+                <Modal.Body className="flex w-[30rem] flex-col items-center p-6 lg:p-8">
+                    <div className="h-20 w-20 border text-xs p-5 flex justify-center items-center rounded-full border-blue-100 bg-blue-50 text-blue-500">
+                        Feedback
+                    </div>
+
+
+                    <form onSubmit={handleSubmit(handleFeedback)} className='flex mt-5 flex-col gap-5 justify-center items-center'>
+                        <Controller
+                            name="rating"
+                            control={control}
+                            render={({ field }) => (
+                                <Rating
+                                    {...field}
+                                    value={field.value}
+                                    onChange={(event, newValue) => field.onChange(newValue)}
+                                    precision={1}
+                                />
+                            )}
+                        />
+
+                        
+                        <TextField
+                            fullWidth
+                            id="feedback"
+                            label="Feedback"
+                            name="feedback"
+                            autoComplete="feedback"
+                            className='apple'
+                            error={Boolean(errors.feedback?.message)}
+                            helperText={errors.feedback?.message}
+                            {...register("feedback")}
+                        />
+                        <Button type='submit' size="sm" className='!bg-blue-50 !border-2 !border-blue-100' color="primary">
+                            Send
+                        </Button>
+                    </form>
+                </Modal.Body>
+            </Modal>
             <TableContainer component={Paper}>
                 <Table aria-label="camps table">
                     <TableHead>
@@ -84,6 +162,7 @@ const ManageCampsOfParticipant = () => {
                             <TableCell>Payment Status</TableCell>
                             <TableCell>Confirmation Status</TableCell>
                             <TableCell>Actions</TableCell>
+                            <TableCell>Feedback</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -93,7 +172,7 @@ const ManageCampsOfParticipant = () => {
                                 <TableCell>{camp.fees}</TableCell>
                                 <TableCell>{camp.ParticipantName}</TableCell>
                                 <TableCell>
-                                    {camp.paymentStatus ? "Paid" : (
+                                    {camp.paymentStatus ? <Button>Paid</Button> : (
                                         <Button onClick={() => handlePayment(camp._id)}>
                                             Pay
                                         </Button>
@@ -103,20 +182,22 @@ const ManageCampsOfParticipant = () => {
                                     {camp.confirmationStatus === "confirmed" ? "Confirmed" : "Pending"}
                                 </TableCell>
                                 <TableCell>
-                                    {camp?.confirmationStatus === "confirmed" && camp?.paymentStatus ? (
+                                    {camp?.confirmationStatus === "confirmed" && camp?.paymentStatus === "paid" ? (
                                         <Button>
-                                            <Check className=' font-bold p-1 text-green-600' size={30} />
+                                            <Check className='font-bold p-1 text-green-600' size={30} />
                                         </Button>
                                     ) : (
-                                        <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={!!camp.paymentStatus}>
-                                            <X color='red' size={18} />
+                                        <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={camp.paymentStatus === "paid"}>
+                                            {
+                                                camp.paymentStatus === "paid" ? <Pending color='red' size={18} /> : <X color='red' size={18} />
+                                            }
                                         </Button>
                                     )}
-                                    {camp.paymentStatus && camp.confirmationStatus === "Confirmed" && (
-                                        <Button onClick={() => handleFeedback(camp._id)} style={{ marginLeft: '10px' }}>
-                                            Feedback
-                                        </Button>
-                                    )}
+                                </TableCell>
+                                <TableCell>
+                                    <Button disabled={camp?.confirmationStatus !== "confirmed" || camp?.paymentStatus !== "paid"} onClick={openFeedBackModal} style={{ marginLeft: '10px' }}>
+                                        <Chat />
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -139,14 +220,14 @@ const ManageCampsOfParticipant = () => {
                         <div className="!mb-6">
                             <h3 className="mb-2 text-body-1 font-medium apple text-[#141414]">Warning</h3>
                             <p className="text-body-4 font-normal apple text-[#1a1a1a]">
-                                Are you sure you want to Cancel the registration of this camp? This action cannot be undone.
+                                Are you sure you want to cancel the registration of this camp? This action cannot be undone.
                             </p>
                         </div>
-                        <fieldset className="mb-3 flex  items-center gap-2 apple">
+                        <fieldset className="mb-3 flex items-center gap-2 apple">
                             <Checkbox
                                 id="checkbox"
                                 checked={isDeleteboxChecked}
-                                onChange={(even) => { setIsDeleteboxChecked(even.target.checked); console.log(even.target.checked) }}
+                                onChange={(event) => { setIsDeleteboxChecked(event.target.checked); console.log(event.target.checked) }}
                             />
                             <Label htmlFor="checkbox" className="text-body-4 font-normal text-metal-600">
                                 I understand
