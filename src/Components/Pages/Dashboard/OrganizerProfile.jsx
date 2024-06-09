@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Spinner } from 'keep-react';
 import defaultCover from '../../../Assets/svg/profileCover.svg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const OrganizerProfile = () => {
     const { user } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const OrganizerProfile = () => {
     const { isLoading, error, data: profile } = useQuery({
         queryKey: [url],
         queryFn: async () => {
-            const response = await fetch(url);
+            const response = await axios.get(url,{withCredentials:true});
             return response.json();
         },
     });

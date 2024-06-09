@@ -61,6 +61,21 @@ const Register = () => {
         const mediUserData = { name, photoURL, email, uid, isAdmin };
         setLoading(true);
         console.log("okey login ", res.user);
+         // jwtjwtjwt
+
+
+    const user = res.user.uid ;
+    const jwtUser = {user} ;
+    console.log(jwtUser)
+
+    
+    axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+    .then(res=>{
+      const data = res.data ;
+      console.log(data) ;
+
+    })
+    // jwtjwtjwt
         updateProfile(Auth.currentUser, {
           displayName: data.name,
           photoURL: data.photoURL
@@ -99,7 +114,21 @@ const Register = () => {
         const uid = res.user.uid;
         const isAdmin = false;
         const mediUserData = { name, email, photoURL, uid, isAdmin };
+ // jwtjwtjwt
 
+
+ const user = res.user.uid ;
+ const jwtUser = {user} ;
+ console.log(jwtUser)
+
+ 
+ axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+ .then(res=>{
+   const data = res.data ;
+   console.log(data) ;
+
+ })
+ // jwtjwtjwt
         axios.post('http://localhost:3000/mediusers', mediUserData)
           .then(res => {
             console.log(res.data);

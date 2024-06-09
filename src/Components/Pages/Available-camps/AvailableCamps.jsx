@@ -5,13 +5,16 @@ import { Spinner, Button, Input } from 'keep-react';
 import { ArrowRight, Layout, Money, TextAa, UsersThree, Warning } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
+import axios from 'axios';
 
 const AvailableCamps = () => {
 
-  const { isLoading, error, data: camps } = useQuery({
+  const { isLoading, error, data: camps  } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:3000/camps");
+      const response = await axios.get("http://localhost:3000/camps", {
+        withCredentials: true
+      });
       return response.json();
     },
   });

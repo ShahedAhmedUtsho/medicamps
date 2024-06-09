@@ -44,7 +44,7 @@ const UpdateCamp = () => {
     useQuery({ 
         queryKey: [url],
         queryFn: async () => {
-        const response = await fetch(url);
+        const response = await axios.get(url);
         return response.json();
     },
     });

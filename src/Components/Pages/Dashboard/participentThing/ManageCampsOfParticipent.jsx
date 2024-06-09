@@ -42,7 +42,7 @@ const ManageCampsOfParticipant = () => {
     const { isLoading, refetch, error, data: camps } = useQuery({
         queryKey: [`http://localhost:3000/my-registration-camps/${user?.uid}`],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`);
+            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`,{withCredentials:true});
             return response.data;
         }
     });

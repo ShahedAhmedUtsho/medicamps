@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
 import { updateProfile } from 'firebase/auth';
 import Auth from '../../../FireBase/Firebase.config';
 import axios from 'axios';
@@ -33,7 +34,7 @@ const UpdateProfile = () => {
     const { isLoading, error, data: profile } = useQuery({
         queryKey: [url],
         queryFn: async () => {
-            const response = await fetch(url);
+            const response = await axios.get(url,{withCredentials:true});
             return response.json();
         },
     });

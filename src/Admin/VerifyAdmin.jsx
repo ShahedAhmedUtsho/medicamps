@@ -14,7 +14,7 @@ const VerifyAdmin = ({ children }) => {
   const { isLoading,  error, data: MongoUser } = useQuery({
     queryKey: [`http://localhost:3000/mediusers/${user?.uid}`],
     queryFn: async () => {
-        const response = await axios.get(`http://localhost:3000/mediusers/${user?.uid}`); 
+        const response = await axios.get(`http://localhost:3000/mediusers/${user?.uid}`,{withCredentials:true}); 
         return response.data;
     }
 });

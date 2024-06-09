@@ -17,7 +17,7 @@ const PaymentHistory = () => {
     const { isLoading, error, data: payments } = useQuery({
         queryKey: [`http://localhost:3000/payments/${user?.uid}`],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/payments/${user?.uid}`);
+            const response = await axios.get(`http://localhost:3000/payments/${user?.uid}`,{withCredentials:true});
             return response.data;
         }
     });

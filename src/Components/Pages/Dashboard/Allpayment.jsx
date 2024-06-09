@@ -15,7 +15,7 @@ const Allpayment = () => {
     const { isLoading, refetch, error, data: payments } = useQuery({
         queryKey: ['http://localhost:3000/payments'],
         queryFn: async () => {
-            const response = await axios.get('http://localhost:3000/payments');
+            const response = await axios.get('http://localhost:3000/payments',{withCredentials:true});
             return response.data;
         }
     });

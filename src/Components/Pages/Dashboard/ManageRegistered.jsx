@@ -33,7 +33,7 @@ const ManageRegisteredCamps = () => {
     const { isLoading, refetch, error, data: registeredCamps } = useQuery({
         queryKey: ["registeredCamps"],
         queryFn: async () => {
-            const response = await axios.get('http://localhost:3000/registered-campUser');
+            const response = await axios.get('http://localhost:3000/registered-campUser',{withCredentials:true});
             return response.data;
         }
     });

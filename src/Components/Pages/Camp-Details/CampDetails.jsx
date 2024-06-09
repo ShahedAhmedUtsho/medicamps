@@ -40,7 +40,7 @@ const CampDetails = () => {
   const { isLoading, error, data: camp,refetch } = useQuery({
     queryKey: [url],
     queryFn: async () => {
-      const response = await fetch(url);
+      const response = await axios.get(url,{withCredentials:true});
       return response.json();
     },
   });
