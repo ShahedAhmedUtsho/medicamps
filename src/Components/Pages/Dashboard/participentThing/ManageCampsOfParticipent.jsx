@@ -22,6 +22,7 @@ const ManageCampsOfParticipant = () => {
     const [deleteID, setDeleteID] = useState("");
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
     const [isFeedBackOpen, setIsFeedBackOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const openFeedBackModal = () => {
         setIsFeedBackOpen(true);
@@ -108,18 +109,34 @@ const ManageCampsOfParticipant = () => {
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredCamps = camps.filter((camp) =>
+        camp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        camp.dateTime.includes(searchTerm) ||
+        camp.healthcareProfessional.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const start = (page - 1) * listPerPage;
-    const paginatedCamps = camps.slice(start, start + listPerPage);
+    const paginatedCamps = filteredCamps.slice(start, start + listPerPage);
 
     return (
         <>
+            <TextField
+                label="Search Camps"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={searchTerm}
+                onChange={handleSearch}
+            />
             <Modal isOpen={isFeedBackOpen} onClose={closeFeedBackModal}>
                 <Modal.Body className="flex w-[30rem] flex-col items-center p-6 lg:p-8">
                     <div className="h-20 w-20 border text-xs p-5 flex justify-center items-center rounded-full border-blue-100 bg-blue-50 text-blue-500">
                         Feedback
                     </div>
-
-
                     <form onSubmit={handleSubmit(handleFeedback)} className='flex mt-5 flex-col gap-5 justify-center items-center'>
                         <Controller
                             name="rating"
@@ -133,8 +150,6 @@ const ManageCampsOfParticipant = () => {
                                 />
                             )}
                         />
-
-                        
                         <TextField
                             fullWidth
                             id="feedback"
@@ -204,7 +219,7 @@ const ManageCampsOfParticipant = () => {
                     </TableBody>
                 </Table>
                 <Pagination
-                    count={Math.ceil(camps.length / listPerPage)}
+                    count={Math.ceil(filteredCamps.length / listPerPage)}
                     page={page}
                     onChange={(event, value) => setPage(value)}
                     color="primary"

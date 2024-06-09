@@ -1,16 +1,13 @@
 import { useContext, useState } from 'react';
-import { useQuery, } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-
-import { Table, TableCell, 
-    TableContainer, TableHead, 
-    TableBody, TableRow, Paper,
-     Button, Pagination,
-    
-    } from '@mui/material';
+import {
+    Table, TableCell, TableContainer, TableHead,
+    TableBody, TableRow, Paper, Button, Pagination,
+    TextField
+} from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
-import { Spinner, Modal,
-     Label, Checkbox, } from 'keep-react';
+import { Spinner, Modal, Label, Checkbox } from 'keep-react';
 import { Check, X } from 'phosphor-react';
 
 const ManageRegisteredCamps = () => {
@@ -21,8 +18,8 @@ const ManageRegisteredCamps = () => {
     const [deleteID, setDeleteID] = useState("");
     const [campId, setCampId] = useState("");
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
-
     const [page, setPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
     const listPerPage = 8;
 
     const openModal = () => setIsOpen(true);
@@ -71,25 +68,29 @@ const ManageRegisteredCamps = () => {
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
 
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
 
-
-
-
-
-    const start = (page - 1) * listPerPage;
-    const paginatedCamps = registeredCamps.slice(start, start + listPerPage
-
-
+    const filteredCamps = registeredCamps.filter(camp =>
+        camp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        camp.ParticipantName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        new Date(camp.dateTime).toLocaleDateString().includes(searchQuery)
     );
 
-
-
-
-
-
+    const start = (page - 1) * listPerPage;
+    const paginatedCamps = filteredCamps.slice(start, start + listPerPage);
 
     return (
         <>
+            <TextField
+                label="Search"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={searchQuery}
+                onChange={handleSearch}
+            />
             <TableContainer component={Paper}>
                 <Table aria-label="registered camps table">
                     <TableHead>
@@ -132,12 +133,11 @@ const ManageRegisteredCamps = () => {
                     </TableBody>
                 </Table>
                 <Pagination
-                    count={Math.ceil(registeredCamps.length / listPerPage)}
+                    count={Math.ceil(filteredCamps.length / listPerPage)}
                     page={page}
                     onChange={(event, value) => setPage(value)}
-                   
                     className="flex justify-center my-5"
-                     color="primary"
+                    color="primary"
                 />
             </TableContainer>
             <Modal isOpen={isOpen} onClose={closeModal}>

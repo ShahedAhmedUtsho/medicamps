@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button, Pagination } from '@mui/material';
+import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button, Pagination, TextField } from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { Spinner } from 'keep-react';
 
@@ -9,6 +9,7 @@ const Allpayment = () => {
     const { setModelHead, setModelMessage, openErrorModal } = useContext(AuthContext);
 
     const [page, setPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
     const rowsPerPage = 8;
 
     const { isLoading, refetch, error, data: payments } = useQuery({
@@ -46,11 +47,30 @@ const Allpayment = () => {
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredPayments = payments.filter(payment => 
+        payment.ParticipantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        payment.camp_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        payment.transactionID.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const start = (page - 1) * rowsPerPage;
-    const paginatedPayments = payments.slice(start, start + rowsPerPage);
+    const paginatedPayments = filteredPayments.slice(start, start + rowsPerPage);
 
     return (
+        <> <div><TextField
+        label="Search Transaction"
+        variant="outlined"
+       className=' lg:w-1/3 md:w-1/2 w-full  '
+        margin="normal"
+        value={searchTerm}
+        onChange={handleSearch}
+    /></div>
         <TableContainer component={Paper}>
+           
             <Table aria-label="registered camps table">
                 <TableHead>
                     <TableRow>
@@ -85,13 +105,14 @@ const Allpayment = () => {
                 </TableBody>
             </Table>
             <Pagination
-                count={Math.ceil(payments.length / rowsPerPage)}
+                count={Math.ceil(filteredPayments.length / rowsPerPage)}
                 page={page}
                 onChange={(event, value) => setPage(value)}
                 color="primary"
                 className="flex justify-center my-5"
             />
         </TableContainer>
+        </>
     );
 };
 
