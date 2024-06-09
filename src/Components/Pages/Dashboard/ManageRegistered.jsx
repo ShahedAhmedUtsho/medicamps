@@ -1,15 +1,16 @@
 import { useContext, useState } from 'react';
-import { useQuery} from '@tanstack/react-query';
+import { useQuery, } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { Table,
-     TableCell, TableContainer,
-      TableHead, TableBody,
-       TableRow, Paper, Button, 
-       Pagination } from '@mui/material';
+import { Table, TableCell, 
+    TableContainer, TableHead, 
+    TableBody, TableRow, Paper,
+     Button, Pagination,
+    
+    } from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
-import { Spinner, Modal, 
-    Label, Checkbox } from 'keep-react';
+import { Spinner, Modal,
+     Label, Checkbox, } from 'keep-react';
 import { Check, X } from 'phosphor-react';
 
 const ManageRegisteredCamps = () => {
@@ -22,7 +23,7 @@ const ManageRegisteredCamps = () => {
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
 
     const [page, setPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(8); // Adjust this as needed
+    const listPerPage = 8;
 
     const openModal = () => setIsOpen(true);
     const openConModal = () => setIsConOpen(true);
@@ -67,17 +68,25 @@ const ManageRegisteredCamps = () => {
         }
     };
 
-    const handlePageChange = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const getPagedData = () => {
-        const startIndex = (page - 1) * rowsPerPage;
-        return registeredCamps.slice(startIndex, startIndex + rowsPerPage);
-    };
-
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
+
+
+
+
+
+
+    const start = (page - 1) * listPerPage;
+    const paginatedCamps = registeredCamps.slice(start, start + listPerPage
+
+
+    );
+
+
+
+
+
+
 
     return (
         <>
@@ -94,7 +103,7 @@ const ManageRegisteredCamps = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {getPagedData().map((camp) => (
+                        {paginatedCamps.map((camp) => (
                             <TableRow key={camp._id}>
                                 <TableCell>{camp.ParticipantName}</TableCell>
                                 <TableCell>{camp.name}</TableCell>
@@ -122,10 +131,15 @@ const ManageRegisteredCamps = () => {
                         ))}
                     </TableBody>
                 </Table>
+                <Pagination
+                    count={Math.ceil(registeredCamps.length / listPerPage)}
+                    page={page}
+                    onChange={(event, value) => setPage(value)}
+                   
+                    className="flex justify-center my-5"
+                     color="primary"
+                />
             </TableContainer>
-            <div className="flex justify-center mt-4">
-                <Pagination count={Math.ceil(registeredCamps.length / rowsPerPage)} page={page} onChange={handlePageChange} />
-            </div>
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <Modal.Body className="space-y-3">
                     <Modal.Icon>
@@ -133,8 +147,8 @@ const ManageRegisteredCamps = () => {
                     </Modal.Icon>
                     <Modal.Content>
                         <div className="!mb-6">
-                            <h3 className="mb-2 text-body-1 font-medium text-metal-900">Warning</h3>
-                            <p className="text-body-4 font-normal text-metal-600">
+                            <h3 className="mb-2 text-body-1 font-medium apple text-[#212121]">Warning</h3>
+                            <p className="text-body-4 font-normal apple text-[#2a2a2a]">
                                 Are you sure you want to reject the registration? This action cannot be undone.
                             </p>
                         </div>
@@ -144,7 +158,7 @@ const ManageRegisteredCamps = () => {
                                 checked={isDeleteboxChecked}
                                 onChange={(e) => { setIsDeleteboxChecked(e.target.checked); }}
                             />
-                            <Label htmlFor="checkbox" className="text-body-4 font-normal text-metal-600">
+                            <Label htmlFor="checkbox" className="text-body-4 font-normal text-metal-[#212121]">
                                 I understand
                             </Label>
                         </fieldset>

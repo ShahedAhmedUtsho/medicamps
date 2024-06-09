@@ -1,14 +1,15 @@
-import  { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
+import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button, Pagination } from '@mui/material';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { Spinner } from 'keep-react';
 
 const Allpayment = () => {
-    const { setModelHead, setModelMessage,  openErrorModal } = useContext(AuthContext);
-    
-   
+    const { setModelHead, setModelMessage, openErrorModal } = useContext(AuthContext);
+
+    const [page, setPage] = useState(1);
+    const rowsPerPage = 8;
 
     const { isLoading, refetch, error, data: payments } = useQuery({
         queryKey: ['http://localhost:3000/payments'],
@@ -18,40 +19,16 @@ const Allpayment = () => {
         }
     });
 
-
-
-
-
     const handleConfirmation = async (campID) => {
-       
-       
-          axios.patch(`http://localhost:3000/allpayment`, { confirmationStatus: "confirmed", campID })
-          .then(res => {
-            console.log(res)
+        try {
+            await axios.patch(`http://localhost:3000/allpayment`, { confirmationStatus: "confirmed", campID });
             refetch();
-
-           
-
-
-           
-          }).catch(
-
-            err =>{
-                setModelHead("Confirmation failed");
+        } catch (err) {
+            setModelHead("Confirmation failed");
             setModelMessage(err.message);
             openErrorModal();
-            }
-          )
-           
-
-       
+        }
     };
-
-
-
-
-
-
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -69,6 +46,9 @@ const Allpayment = () => {
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
 
+    const start = (page - 1) * rowsPerPage;
+    const paginatedPayments = payments.slice(start, start + rowsPerPage);
+
     return (
         <TableContainer component={Paper}>
             <Table aria-label="registered camps table">
@@ -83,7 +63,7 @@ const Allpayment = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {payments.map((payment) => (
+                    {paginatedPayments.map((payment) => (
                         <TableRow key={payment._id}>
                             <TableCell>{payment.ParticipantName}</TableCell>
                             <TableCell>{payment.camp_name}</TableCell>
@@ -91,7 +71,7 @@ const Allpayment = () => {
                             <TableCell>{payment.fees}</TableCell>
                             <TableCell>{formatDate(payment.date)}</TableCell>
                             <TableCell>
-                                {payment?.confirmationStatus === "confirmed"  ? "Confirmed" : 
+                                {payment.confirmationStatus === "confirmed" ? "Confirmed" : 
                                 <Button
                                     variant="outlined"
                                     color="primary"
@@ -104,6 +84,13 @@ const Allpayment = () => {
                     ))}
                 </TableBody>
             </Table>
+            <Pagination
+                count={Math.ceil(payments.length / rowsPerPage)}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                color="primary"
+                className="flex justify-center my-5"
+            />
         </TableContainer>
     );
 };

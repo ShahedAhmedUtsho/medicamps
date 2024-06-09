@@ -1,29 +1,36 @@
 import { useContext, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import {  useNavigate } from 'react-router-dom';
-import { Table, TableCell, TableContainer, TableHead, TableBody, TableRow, Paper, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Table, TableCell, TableContainer,
+     TableHead, 
+      Paper, Button, Pagination,TableBody, TableRow,
+     } from '@mui/material';
 import { AuthContext } from '../../../../AuthProvider/AuthProvider';
 import { Spinner, Modal, Label, Checkbox } from 'keep-react';
 import { Check, Trash, X } from 'phosphor-react';
 
 const ManageCampsOfParticipant = () => {
-    const { setModelHead, setModelMessage, openSuccessModal, openErrorModal,user } = useContext(AuthContext);
+    const { setModelHead, setModelMessage, openSuccessModal, openErrorModal, user } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false);
     const [deleteID, setDeleteID] = useState("");
     const [isDeleteboxChecked, setIsDeleteboxChecked] = useState(false);
 
+    const [page, setPage] = useState(1);
+    const listPerPage = 8;
+
     const openModal = () => setIsOpen(true);
     const closeModal = () => {
         setIsOpen(false);
         setIsDeleteboxChecked(false);
     };
+
     const { isLoading, refetch, error, data: camps } = useQuery({
         queryKey: [`http://localhost:3000/my-registration-camps/${user?.uid}`],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`); 
+            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`);
             return response.data;
         }
     });
@@ -45,7 +52,6 @@ const ManageCampsOfParticipant = () => {
 
     const handlePayment = async (Id) => {
         try {
-           
             navigate(`/dashboard/payment/${Id}`);
         } catch (error) {
             setModelHead("Payment failed");
@@ -60,6 +66,11 @@ const ManageCampsOfParticipant = () => {
 
     if (isLoading) return <Spinner />;
     if (error) return <div>Error loading data... please try again later.</div>;
+
+    const start = (page - 1) * listPerPage;
+    const paginatedCamps = camps.slice(start, start + listPerPage
+
+    );
 
     return (
         <>
@@ -76,7 +87,7 @@ const ManageCampsOfParticipant = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {camps.map((camp) => (
+                        {paginatedCamps.map((camp) => (
                             <TableRow key={camp._id}>
                                 <TableCell>{camp.name}</TableCell>
                                 <TableCell>{camp.fees}</TableCell>
@@ -92,11 +103,15 @@ const ManageCampsOfParticipant = () => {
                                     {camp.confirmationStatus === "confirmed" ? "Confirmed" : "Pending"}
                                 </TableCell>
                                 <TableCell>
-                                { camp?.confirmationStatus === "confirmed" && camp?.paymentStatus ? <Button> <Check className=' font-bold p-1 text-green-600' size={30} /></Button>  :     <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={!!camp.paymentStatus}>
-                                     <X color='red' size={18} />
-                                 </Button>
-}
-                                  
+                                    {camp?.confirmationStatus === "confirmed" && camp?.paymentStatus ? (
+                                        <Button>
+                                            <Check className=' font-bold p-1 text-green-600' size={30} />
+                                        </Button>
+                                    ) : (
+                                        <Button onClick={() => { openModal(); setDeleteID(camp._id); }} disabled={!!camp.paymentStatus}>
+                                            <X color='red' size={18} />
+                                        </Button>
+                                    )}
                                     {camp.paymentStatus && camp.confirmationStatus === "Confirmed" && (
                                         <Button onClick={() => handleFeedback(camp._id)} style={{ marginLeft: '10px' }}>
                                             Feedback
@@ -107,6 +122,13 @@ const ManageCampsOfParticipant = () => {
                         ))}
                     </TableBody>
                 </Table>
+                <Pagination
+                    count={Math.ceil(camps.length / listPerPage)}
+                    page={page}
+                    onChange={(event, value) => setPage(value)}
+                    color="primary"
+                    className="flex justify-center my-5"
+                />
             </TableContainer>
             <Modal isOpen={isOpen} onClose={closeModal}>
                 <Modal.Body className="space-y-3">
@@ -115,16 +137,16 @@ const ManageCampsOfParticipant = () => {
                     </Modal.Icon>
                     <Modal.Content>
                         <div className="!mb-6">
-                            <h3 className="mb-2 text-body-1 font-medium text-metal-900">Warning</h3>
-                            <p className="text-body-4 font-normal text-metal-600">
-                                Are you sure you want to Cancel the registration this camp? This action cannot be undone.
+                            <h3 className="mb-2 text-body-1 font-medium apple text-[#141414]">Warning</h3>
+                            <p className="text-body-4 font-normal apple text-[#1a1a1a]">
+                                Are you sure you want to Cancel the registration of this camp? This action cannot be undone.
                             </p>
                         </div>
-                        <fieldset className="mb-3 flex items-center gap-2">
+                        <fieldset className="mb-3 flex  items-center gap-2 apple">
                             <Checkbox
                                 id="checkbox"
                                 checked={isDeleteboxChecked}
-                                onChange={(e) => { setIsDeleteboxChecked(e.target.checked); console.log(e.target.checked) }}
+                                onChange={(even) => { setIsDeleteboxChecked(even.target.checked); console.log(even.target.checked) }}
                             />
                             <Label htmlFor="checkbox" className="text-body-4 font-normal text-metal-600">
                                 I understand

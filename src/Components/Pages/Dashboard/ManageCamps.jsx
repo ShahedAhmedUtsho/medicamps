@@ -127,10 +127,10 @@ const ManageCamps = () => {
                     </Modal.Icon>
                     <Modal.Content>
                         <div className="!mb-6">
-                            <h3 className="mb-2 text-body-1 font-medium text-metal-900"> 
+                            <h3 className="mb-2 text-body-1 apple font-medium text-[#212121]"> 
                                 Warning...
                                 </h3>
-                            <p className="text-body-4 font-normal text-metal-600">
+                            <p className="text-body-4 font-normal apple text-metal-[#2a2a2a]">
                                 Are you sure you want to delete this? This action cannot be undone.
                             </p>
                         </div>
@@ -138,7 +138,7 @@ const ManageCamps = () => {
                             <Checkbox
                                 id="checkbox"
                                 checked={isDeleteboxChecked}
-                                onChange={(e) => { setIsDeleteboxChecked(e.target.checked); console.log(e.target.checked); }}
+                                onChange={(even) => { setIsDeleteboxChecked(even.target.checked);  }}
                             />
                             <Label htmlFor="checkbox" className="text-body-4 font-normal text-metal-600">
                                 I understand
