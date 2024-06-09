@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, } from '@tanstack/react-query';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link,  } from 'react-router-dom';
 import {
   Table, TableCell, TableContainer, TableHead, TableBody,
   TableRow, Paper, Button, Pagination, TextField
@@ -12,9 +12,7 @@ import { ArrowRight, Pen, Trash } from 'phosphor-react';
 
 const ManageCamps = () => {
   const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
+ 
 
   const [isOpen, setIsOpen] = useState(false);
   const [deleteID, setDeleteID] = useState("");

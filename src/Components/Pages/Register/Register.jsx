@@ -2,40 +2,40 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Link, useNavigate } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import Auth from '../../../FireBase/Firebase.config';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { useContext } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import logo from "../../../Assets/logo/light.png";
 import axios from 'axios';
+import GoogleButton from 'react-google-button';
+import { Divider } from 'keep-react';
+import logo from "../../../Assets/logo/light.png";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 const Register = () => {
-  const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
+  const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-    
+  
   const validationSchema = yup.object().shape({
     name: yup.string().required("Name is required"),
     email: yup.string()
-    .email("Invalid email format")
-    .required("Email is required")
-    .test('has-tld', 'Email must include a top-level domain', function(value) {
+      .email("Invalid email format")
+      .required("Email is required")
+      .test('has-tld', 'Email must include a top-level domain', function(value) {
         return /\.[a-zA-Z]{2,}$/.test(value);
-    }),
+      }),
     photoURL: yup.string().required("Photo URL is required"),
     password: yup.string()
       .required('Password is required')
@@ -49,61 +49,84 @@ const Register = () => {
   });
 
   const handleRegister = (data) => {
-    const name = data.name ;
-    const password = data.password ;
-    const photoURL = data.photoURL ;
-    const email = data.email ;
-    const isAdmin = false ;
-
-
-
-
-
-
-
+    const name = data.name;
+    const password = data.password;
+    const photoURL = data.photoURL;
+    const email = data.email;
+    const isAdmin = false;
 
     createUserWithEmailAndPassword(Auth, data.email, data.password)
       .then(res => {
-        const uid = res.user.uid
-        const mediUserData = {name,photoURL, email,uid,isAdmin}
+        const uid = res.user.uid;
+        const mediUserData = { name, photoURL, email, uid, isAdmin };
         setLoading(true);
         console.log("okey login ", res.user);
         updateProfile(Auth.currentUser, {
           displayName: data.name,
           photoURL: data.photoURL
         }).then(() => {
-
-axios.post('http://localhost:3000/mediusers',  mediUserData )
-.then(res=>{
-  console.log(res.data)
-  setModelHead("Registration Complete");
-          setModelMessage("Account creation is successful");
-          openSuccessModal();
-          logOut();
-          navigate("/login");
-})
-.catch(err =>{
-  const error = err.message 
-  alert(error)
-})
-
-
-          
+          axios.post('http://localhost:3000/mediusers', mediUserData)
+            .then(res => {
+              console.log(res.data);
+              setModelHead("Registration Complete");
+              setModelMessage("Account creation is successful");
+              openSuccessModal();
+              logOut();
+              navigate("/login");
+            })
+            .catch(err => {
+              const error = err.message;
+              alert(error);
+            });
         }).catch((error) => {
           console.log(error.message, " update error");
         });
       })
-
       .catch(error => {
         const err = error.message;
         console.log(err);
       });
   };
 
+  const GoogleProvider = new GoogleAuthProvider();
+  const GoogleLogin = () => {
+    signInWithPopup(Auth, GoogleProvider)
+      .then(res => {
+        setLoading(true);
+        const name = res.user.displayName;
+        const email = res.user.email;
+        const photoURL = res.user.photoURL;
+        const uid = res.user.uid;
+        const isAdmin = false;
+        const mediUserData = { name, email, photoURL, uid, isAdmin };
 
+        axios.post('http://localhost:3000/mediusers', mediUserData)
+          .then(res => {
+            console.log(res.data);
+            setModelHead("Registration Complete");
+            setModelMessage("Account creation is successful");
+            openSuccessModal();
+          })
+          .catch(err => {
+            if (err.response && err.response.status === 409) {
+              setModelHead("Login Successful");
+              setModelMessage(`Welcome ${res.user.displayName}`);
+              openSuccessModal();
+            }
+          });
 
-
-
+        setUser(res.user);
+        navigate('/');
+        setLoading(false);
+      })
+      .catch(error => {
+        const err = error.message;
+        console.log(err);
+        setModelHead("ERROR");
+        setModelMessage(error);
+        openErrorModal();
+      });
+  };
 
   return (
     <div className='min-h-screen min-w-screen relative'>
@@ -184,12 +207,6 @@ axios.post('http://localhost:3000/mediusers',  mediUserData )
                     {...register("password")}
                   />
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <FormControlLabel className='apple'
-                    control={<Checkbox value="allowExtraEmails" color="primary" />}
-                    label="I want to receive inspiration, marketing promotions and updates via email."
-                  />
-                </Grid> */}
               </Grid>
               <Button
                 type="submit"
@@ -207,6 +224,11 @@ axios.post('http://localhost:3000/mediusers',  mediUserData )
                 </Grid>
               </Grid>
             </Box>
+            <Divider className='my-2'>Or</Divider>
+            <GoogleButton
+              label='Continue with Google'
+              onClick={GoogleLogin}
+            />
           </Box>
         </Container>
       </ThemeProvider>
