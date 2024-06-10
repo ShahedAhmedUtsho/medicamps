@@ -65,6 +65,17 @@ user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ use
 
 
 </Dropdown.Item> */}
+
+<Dropdown.Item>
+
+  <Link className="w-full h-full flex gap-2" to="/dashboard">
+  <User size={23} /> {user.displayName}
+</Link>
+
+
+</Dropdown.Item>
+
+
 <Dropdown.Item>
 
   <Link className="w-full h-full flex gap-2" to="/dashboard">
@@ -75,28 +86,13 @@ user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ use
 </Dropdown.Item>
 
 
-<Dropdown.Item>
-<Phone size={24} />
-Phone
-</Dropdown.Item>
-<Dropdown.Item>
-<ChartPieSlice size={24} />
-Statistics
-</Dropdown.Item>
-<Divider />
-<Dropdown.Item>
-<Pen size={24} />
-Rename
-</Dropdown.Item>
-<Dropdown.Item>
-<Copy size={24} />
-Duplicate
-</Dropdown.Item>
-<Divider />
-<Dropdown.Item>
-<UserCircle size={24} />
-Account
-</Dropdown.Item>
+
+
+
+
+
+
+
 <Dropdown.Item onClick={logOut}>
 <SignOut  size={24} />
 Logout

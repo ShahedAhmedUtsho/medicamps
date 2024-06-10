@@ -15,11 +15,12 @@ import * as yup from 'yup';
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import Auth from '../../../FireBase/Firebase.config';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import axios from 'axios';
 import GoogleButton from 'react-google-button';
 import { Divider } from 'keep-react';
 import logo from "../../../Assets/logo/light.png";
+import { Eye, EyeSlash } from 'phosphor-react';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -27,7 +28,7 @@ const defaultTheme = createTheme();
 const Register = () => {
   const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+  const [eye,setEys] = useState(false) 
   const validationSchema = yup.object().shape({
     name: yup.string().required("Name is required"),
     email: yup.string()
@@ -223,18 +224,23 @@ const Register = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="new-password"
-                    className='apple'
-                    error={Boolean(errors.password?.message)}
-                    helperText={errors.password?.message}
-                    {...register("password")}
-                  />
+                
+                  <div className='relative'>
+<TextField
+                  margin="normal"
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type={eye?"text":"password"}
+                  id="password"
+                  autoComplete="new-password"
+                  className='apple'
+                  error={Boolean(errors.password?.message)}
+                  helperText={errors.password?.message}
+                  {...register("password")}
+                />
+               <span onClick={()=>{setEys(!eye)}} className=' absolute right-5 text-[#b8b8b8] top-9'> {eye?<Eye  size={19} />:<EyeSlash size={19} />}</span>
+</div> 
                 </Grid>
               </Grid>
               <Button

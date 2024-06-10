@@ -17,19 +17,20 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import Auth from '../../../FireBase/Firebase.config';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import GoogleButton from 'react-google-button';
 import { Divider } from 'keep-react';
 
 import logo from "../../../Assets/logo/light.png"
 import axios from 'axios';
+import { Eye, EyeSlash } from 'phosphor-react';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 const Login = ()=> {
-
+const [eye,setEys] = useState(false)
 
   const { setLoading,setUser,setModelHead , setModelMessage,openSuccessModal,openErrorModal} = useContext(AuthContext)
 
@@ -235,12 +236,13 @@ const GoogleLogin = ()=>{
                  {...register("email")}
                />
 
+<div className='relative'>
 <TextField
                   margin="normal"
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={eye?"text":"password"}
                   id="password"
                   autoComplete="new-password"
                   className='apple'
@@ -248,6 +250,9 @@ const GoogleLogin = ()=>{
                   helperText={errors.password?.message}
                   {...register("password")}
                 />
+               <span onClick={()=>{setEys(!eye)}} className=' absolute right-5 text-[#b8b8b8] top-9'> {eye?<Eye  size={19} />:<EyeSlash size={19} />}</span>
+</div>
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
