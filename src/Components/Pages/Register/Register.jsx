@@ -62,19 +62,19 @@ const Register = () => {
         const uid = res.user.uid;
         const mediUserData = { name, photoURL, email, uid, isAdmin };
         setLoading(true);
-        console.log("okey login ", res.user);
+       
          // jwtjwtjwt
 
 
     const user = res.user.uid ;
     const jwtUser = {user} ;
-    console.log(jwtUser)
+   
 
     
     axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
     .then(res=>{
       const data = res.data ;
-      console.log(data) ;
+   
 
     })
     // jwtjwtjwt
@@ -84,7 +84,7 @@ const Register = () => {
         }).then(() => {
           axios.post('https://medicamp-server-tau.vercel.app/mediusers', mediUserData)
             .then(res => {
-              console.log(res.data);
+             
               setModelHead("Registration Complete");
               setModelMessage("Account creation is successful");
               openSuccessModal();
@@ -122,19 +122,19 @@ const Register = () => {
 
  const user = res.user.uid ;
  const jwtUser = {user} ;
- console.log(jwtUser)
+
 
  
  axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
  .then(res=>{
    const data = res.data ;
-   console.log(data) ;
+   
 
  })
  // jwtjwtjwt
         axios.post('https://medicamp-server-tau.vercel.app/mediusers', mediUserData)
           .then(res => {
-            console.log(res.data);
+            
             setModelHead("Registration Complete");
             setModelMessage("Account creation is successful");
             openSuccessModal();

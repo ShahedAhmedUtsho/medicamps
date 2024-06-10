@@ -31,14 +31,11 @@ const AuthProvider = ({ children }) => {
     const logOut = () => {
         signOut(Auth)
             .then(() => {
-                // setModelHead("logout");
-                // setModelMessage("Successfully logged out");
-                // openSuccessModal();
+               
 const userUID = user?.uid
                 axios.post('https://medicamp-server-tau.vercel.app/logout',userUID,{withCredentials:true})
                 .then(() => {
-                  // console.log(res.data)
-                  // console.log(userUID)
+                 
                 })
                 
 

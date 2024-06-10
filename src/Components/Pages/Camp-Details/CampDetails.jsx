@@ -1,8 +1,8 @@
-import { Button, Input, Label, Radio, Spinner } from "keep-react";
+import { Button,  Label, Radio, Spinner } from "keep-react";
 import { X, Warning } from "phosphor-react";
-import React, { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import ScrollToTop from "react-scroll-to-top";
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -30,7 +30,7 @@ const validationSchema = yup.object().shape({
 const CampDetails = () => {
   const params = useParams();
 
-  const {  openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
+  const {  openErrorModal, setModelHead, setModelMessage, openSuccessModal, user } = useContext(AuthContext);
   const url = `https://medicamp-server-tau.vercel.app/camp-details/${params?.campID}`;
   const [isModalOpen, setIsModalOpen] = useState(false);
 

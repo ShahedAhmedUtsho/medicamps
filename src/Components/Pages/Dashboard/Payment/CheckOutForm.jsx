@@ -40,7 +40,7 @@ useEffect(() => {
     const handleSubmit =  async e=>{
         e.preventDefault() ;
         setSubmit(true)
-        console.log("inter")
+        
         if (!stripe || !elements) {
           console.log("return")
             return;
@@ -84,7 +84,7 @@ const {paymentIntent,error : confirmError} = await stripe.confirmCardPayment(cli
  if(confirmError){
   console.log('confirm error')
 }else{
- console.log( "paymentIntent" , paymentIntent) ;
+ 
 if(paymentIntent.status === 'succeeded') {
   setTransactionID(paymentIntent.id) ;
 
@@ -103,7 +103,7 @@ const payment = {
 }
  axios.post('https://medicamp-server-tau.vercel.app/payments',payment)
 .then(res=>{
-  console.log(res.data)
+
   setModelHead("payment successful") ;
   setModelMessage(`your Transaction ID is ${paymentIntent.id}`) ;
   openSuccessModal()

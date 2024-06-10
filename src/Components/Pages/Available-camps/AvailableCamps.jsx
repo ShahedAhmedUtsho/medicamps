@@ -5,15 +5,15 @@ import { Spinner, Button, Input } from 'keep-react';
 import { ArrowRight, Layout, Money, TextAa, UsersThree, Warning } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
-import axios from 'axios';
+
 
 const AvailableCamps = () => {
 
   const { isLoading, error, data: camps  } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await axios.get("https://medicamp-server-tau.vercel.app/camps", {
-        withCredentials: true
+      const response = await fetch("https://medicamp-server-tau.vercel.app/camps", {
+        credentials:true
       });
       return response.json();
     },
@@ -23,8 +23,7 @@ const AvailableCamps = () => {
 
 
 
-  
-console.log(camps)
+
   const [isTwoColumnLayout, setIsTwoColumnLayout] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortfun, setSortfun] = useState("");

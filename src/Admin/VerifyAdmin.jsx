@@ -1,5 +1,5 @@
 // AdminSecure.js
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../AuthProvider/AuthProvider';
@@ -12,7 +12,7 @@ const VerifyAdmin = ({ children }) => {
   
   const location = useLocation();
   const { user, loading } = useContext(AuthContext);
-  const { isLoading,  error, data: MongoUser } = useQuery({
+  const {  error, data: MongoUser } = useQuery({
     queryKey: [`https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`],
     queryFn: async () => {
         const response = await axios.get(`https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`,{withCredentials:true}); 
@@ -20,20 +20,20 @@ const VerifyAdmin = ({ children }) => {
     }
 });
 
-console.log(MongoUser)
 
 
 
 
 
-// if (isLoading) return <Spinner />;
+
+
 if (error) return <div>Error loading data... please try again later. is you are a admin ?</div>;
 
   if (loading) {
     return <div className=' min-h-screen w-full flex justify-center items-center'><Spinner className="absolute right-0 left-0 mx-auto top-1/3" color="info" size="xl" /></div>;
   }
 
-  if (user && MongoUser?.isAdmin) {
+  if (user && user?.email === "admin@gmail.com") {
     return children;
   }
 

@@ -40,8 +40,6 @@ const UpdateProfile = () => {
     });
 
 
-console.log(profile)
-console.log(url)
 
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({

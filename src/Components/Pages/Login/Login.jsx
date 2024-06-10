@@ -173,9 +173,6 @@ const GoogleLogin = ()=>{
 
 
 
-    // const currentUser = res.user.uid ;
-      // tokenCrate(currentUser)
-    // console.log(currentUser)
 
     setUser(res.user)
     navigate(location?.state?location.state : '/') ;

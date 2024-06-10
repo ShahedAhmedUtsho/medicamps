@@ -25,7 +25,7 @@ const UpdateCamp = () => {
    
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
     const url = `https://medicamp-server-tau.vercel.app/camp-details/${campId}`;
-    console.log(url)
+  
     const { isLoading, error, data: campData } = useQuery({ 
         queryKey: [url],
         queryFn: async () => {
@@ -33,7 +33,7 @@ const UpdateCamp = () => {
         return response.json();
     },
     });
-    console.log(campData)
+    
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema),
         defaultValues: {

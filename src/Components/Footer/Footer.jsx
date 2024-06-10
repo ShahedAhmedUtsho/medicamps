@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+
 import Logo from "../../Assets/logo/logo-no-background.svg";
 import { Link } from 'react-router-dom';
 const Footer = () => {  
-    // https://test-tau-green-45.vercel.app
-    // https://test-tau-green-45.vercel.app
+   
+   
 
     return (
         <section className="py-10  bg-slate-800 sm:pt-16 mt-auto lg:pt-24">
@@ -14,7 +14,7 @@ const Footer = () => {
                 <img className="  w-28 " src={Logo} alt="" />
                 </Link>
 
-                <p className="text-base leading-relaxed text-gray-400 mt-7">Join our food-sharing family! Help those in need or donate surplus food today. Together, lets fill plates and hearts.</p>
+                <p className="text-base leading-relaxed text-gray-400 mt-7"> Were here to help! If you have any questions, feedback, or need assistance, please dont hesitate to reach out to us. Our team is dedicated to providing you with the best possible experience.</p>
 
                 <ul className="flex items-center space-x-3 mt-9">
                     <li>
@@ -96,22 +96,17 @@ Home
 </Link>
                     </li>
                 <li>
-                    <Link to="/availablefoods" className="flex text-base text-slate-500 transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                        Available foods
+                    <Link to="/available-camps" className="flex text-base text-slate-500 transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
+                        Available Camps
 </Link>
                     </li>
                     <li>
-                    <Link to="/managemyfood" className="flex text-base text-slate-500 transition-all duration-200 hover:text-blue-600 focus:text-blue-600"> 
-                    Manage my food
+                    <Link to="/dashboard" className="flex text-base text-slate-500 transition-all duration-200 hover:text-blue-600 focus:text-blue-600"> 
+                    Dashboard
 
 </Link>
                     </li>
-                    <li>
-                    <Link to="/myfoodrequest" className="flex text-base text-slate-500 transition-all duration-200 hover:text-blue-600 focus:text-blue-600">
-                        My food request
-
-</Link>
-                    </li>
+                    
                    
                 </ul>
             </div>

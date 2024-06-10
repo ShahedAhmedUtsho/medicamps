@@ -135,7 +135,7 @@ if (error) return <div>{`Error loading data... please try again later. `} </div>
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              { MongoUser?.isAdmin ? ` Organizer Dashboard` : ` Participant Dashboard`  }
+              { user?.email === "admin@gmail.com" ? ` Organizer Dashboard` : ` Participant Dashboard`  }
             </Typography>
             
           </Toolbar>
@@ -160,7 +160,7 @@ if (error) return <div>{`Error loading data... please try again later. `} </div>
           <List component="nav">
             { mainListItems}
             <Divider sx={{ my: 1 }} />
-            { MongoUser?.isAdmin && secondaryListItems}
+            { user?.email === "admin@gmail.com" && secondaryListItems}
           </List>
         </Drawer>
 
