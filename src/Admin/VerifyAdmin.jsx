@@ -26,7 +26,7 @@ console.log(MongoUser)
 
 
 // if (isLoading) return <Spinner />;
-if (error) return <div>Error loading data... please try again later.</div>;
+if (error) return <div>Error loading data... please try again later. is you are a admin ?</div>;
 
   if (loading) {
     return <div className=' min-h-screen w-full flex justify-center items-center'><Spinner className="absolute right-0 left-0 mx-auto top-1/3" color="info" size="xl" /></div>;

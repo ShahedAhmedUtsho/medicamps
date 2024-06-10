@@ -31,21 +31,28 @@ const CampDetails = () => {
   const params = useParams();
   const nevigate = useNavigate()
   const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
-  const url = `http://localhost:3000/camp-details/${params.campID}`;
+  const url = `http://localhost:3000/camp-details/${params?.campID}`;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+
   const { isLoading, error, data: camp,refetch } = useQuery({
     queryKey: [url],
     queryFn: async () => {
-      const response = await axios.get(url,{withCredentials:true});
+      const response = await fetch(url,{credentials:'include'});
       return response.json();
     },
   });
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({
+
+
+
+
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
    
   });
@@ -60,23 +67,23 @@ const CampDetails = () => {
 
 
 const handleRegisterCamp = async (data) =>{      
-  const name=  camp.name    ; 
-  const image=   camp.image    ;
+  const name=  camp?.name    ; 
+  const image=   camp?.image    ;
  
-  const ParticipantUID = user.uid ; 
-const participantCount = camp.participantCount + 1 ;
-  const fees    =  camp.fees ;
-  const  dateTime=    camp.dateTime   ;
-  const  location=   camp.location    ;
-  const healthcareProfessional=  camp.healthcareProfessional  ;   
-  const description= camp.description ;
+  const ParticipantUID = user?.uid ; 
+const participantCount = camp?.participantCount + 1 ;
+  const fees    =  camp?.fees ;
+  const  dateTime=    camp?.dateTime   ;
+  const  location=   camp?.location    ;
+  const healthcareProfessional=  camp?.healthcareProfessional  ;   
+  const description= camp?.description ;
 
-  const ParticipantAge= data.ParticipantAge;
-  const ParticipantNumber= data.ParticipantNumber ;
-  const ParticipantName= user.displayName;
-  const ParticipantEmail= user.email ;
+  const ParticipantAge= data?.ParticipantAge;
+  const ParticipantNumber= data?.ParticipantNumber ;
+  const ParticipantName= user?.displayName;
+  const ParticipantEmail= user?.email ;
   // Gender: 
-  const ParticipantEmergencyContact =  data.ParticipantEmergencyContact;
+  const ParticipantEmergencyContact =  data?.ParticipantEmergencyContact;
 
 
   const registerUserDetails = {ParticipantName,ParticipantEmail,ParticipantUID, ParticipantAge,ParticipantNumber,ParticipantEmergencyContact,

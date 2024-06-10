@@ -83,7 +83,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-// TODO remove, this demo shouldn't need to reset the theme.
+// this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
@@ -126,7 +126,7 @@ if (error) return <div>Error loading data... please try again later.</div>;
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px', // right padding when drawer is close
             }}
           >
             <IconButton
@@ -151,9 +151,9 @@ if (error) return <div>Error loading data... please try again later.</div>;
               { MongoUser?.isAdmin ? ` Organizer Dashboard` : ` Participant Dashboard`  }
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              {/* <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
-              </Badge>
+              </Badge> */}
             </IconButton>
           </Toolbar>
         </AppBar>

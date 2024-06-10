@@ -12,9 +12,7 @@ import Profile from './Components/Pages/Profile/Profile'
 import Dashboard from './Components/Pages/Dashboard/Dashboard'
 import ErrorPage from './Components/Pages/ErrorPage/ErrorPage'
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
+
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
@@ -32,6 +30,8 @@ import Payment from './Components/Pages/Dashboard/Payment/Payment'
 import Allpayment from './Components/Pages/Dashboard/Allpayment'
 import PaymentHistory from './Components/Pages/Dashboard/PaymentHistory'
 import VerifyAdmin from './Admin/VerifyAdmin'
+import ChartSection from './Components/Pages/Dashboard/Analysis'
+
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
@@ -72,6 +72,12 @@ const router = createBrowserRouter([
 
     
             element: <UpdateCamps></UpdateCamps>
+          },
+          {
+            path:"/dashboard/analysis", 
+
+    
+            element: <ChartSection></ChartSection>
           },
           {
             path:"/dashboard/updateProfile", 

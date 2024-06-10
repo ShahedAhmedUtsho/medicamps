@@ -14,7 +14,9 @@ const Root = () => {
   const show = location.pathname !== "/login" &&
    location.pathname !== "/register" && 
   location.pathname !== "/profile " && 
-  location.pathname !== "/dashboard" ; 
+  location.pathname.slice(0, 10) !== "/dashboard"
+  
+  ; 
 
     return (
         <div className='min-h-screen   flex flex-col relative

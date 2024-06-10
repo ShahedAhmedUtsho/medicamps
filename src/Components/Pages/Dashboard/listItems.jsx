@@ -6,7 +6,7 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { Alarm, History, HolidayVillage, Home, HowToReg, ManageAccounts, Payment } from '@mui/icons-material';
+import { Alarm, Analytics, History, HolidayVillage, Home, HowToReg, ManageAccounts, Payment } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 
 const activeStyle = {
@@ -56,7 +56,14 @@ export const mainListItems = (
     </ListItemButton>
     </NavLink>
   
-    
+    <NavLink to="/dashboard/analysis" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+    <ListItemButton>
+      <ListItemIcon>
+       <Analytics />
+      </ListItemIcon>
+      <ListItemText primary="Analysis" />
+    </ListItemButton>
+    </NavLink>
     
   </React.Fragment>
 );
@@ -84,7 +91,8 @@ export const secondaryListItems = (
       <ListItemText primary="Manage Camps" />
     </ListItemButton>
     </NavLink>
-    
+  
+
     <NavLink to="/dashboard/allpayment" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
     <ListItemButton>
       <ListItemIcon>
