@@ -9,12 +9,11 @@ import Select from 'react-select';
 
 const AvailableCamps = () => {
 
-  const { isLoading, error, data: camps  } = useQuery({
+  const url = "https://medicamp-server-tau.vercel.app/camps"
+  const { isLoading, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch("https://medicamp-server-tau.vercel.app/camps", {
-        credentials:true
-      });
+      const response = await fetch(url);
       return response.json();
     },
   });
