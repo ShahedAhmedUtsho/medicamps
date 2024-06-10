@@ -79,10 +79,10 @@ export default function Dashboard() {
 
 
   const { isLoading,  error, data: MongoUser } = useQuery({
-    queryKey: [`http://localhost:3000/mediusers/${user?.uid}`],
+    queryKey: [`https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`],
     queryFn: async () => {
-        const response = await axios.get(`http://localhost:3000/mediusers/${user?.uid}`,{withCredentials:true}); 
-        return response.data;
+        const response = await fetch(`https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`,{credentials:"include"}); 
+        return response.json();
     }
 });
 
@@ -93,7 +93,7 @@ export default function Dashboard() {
 
 
 if (isLoading) return <Spinner />;
-if (error) return <div>{`Error loading data... please try again later. from dashboard ${JSON.stringify(MongoUser)}`} </div>;
+if (error) return <div>{`Error loading data... please try again later. `} </div>;
 
 
 
@@ -160,7 +160,7 @@ if (error) return <div>{`Error loading data... please try again later. from dash
           <List component="nav">
             { mainListItems}
             <Divider sx={{ my: 1 }} />
-            { MongoUser.isAdmin && secondaryListItems}
+            { MongoUser?.isAdmin && secondaryListItems}
           </List>
         </Drawer>
 

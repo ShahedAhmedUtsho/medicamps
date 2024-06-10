@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 const  FeedbackSection  = () => {
 
 
-  const url =   "http://localhost:3000/feedback";
+  const url =   "https://medicamp-server-tau.vercel.app/feedback";
 
 
 

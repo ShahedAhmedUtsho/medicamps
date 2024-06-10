@@ -14,14 +14,22 @@ const PaymentHistory = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const listPerPage = 8;
 
-    const { isLoading, error, data: payments } = useQuery({
-        queryKey: [`http://localhost:3000/payments/${user?.uid}`],
+    const url = `https://medicamp-server-tau.vercel.app/payments/${user?.uid}`;
+
+    const { isLoading, error, data: payments = [] } = useQuery({
+        queryKey: [url],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3000/payments/${user?.uid}`,{credentials:"include"});
-            return response.json();
+            try {
+                const response = await fetch(url, { credentials: "include" });
+                const data = await response.json();
+                return Array.isArray(data) ? data : []; 
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return []; 
+            }
         }
     });
-
+    
     const formatDate = (dateString) => {
         if (!dateString) return 'N/A';
         const date = new Date(dateString);
@@ -43,7 +51,7 @@ const PaymentHistory = () => {
         setSearchQuery(event.target.value);
     };
 
-    const filteredPayments = payments.filter(payment =>
+    const filteredPayments = payments?.filter(payment =>
         payment.ParticipantName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         payment.transactionID.toLowerCase().includes(searchQuery.toLowerCase()) ||
         formatDate(payment.date).includes(searchQuery)

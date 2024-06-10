@@ -69,7 +69,7 @@ const Register = () => {
     console.log(jwtUser)
 
     
-    axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+    axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
     .then(res=>{
       const data = res.data ;
       console.log(data) ;
@@ -80,7 +80,7 @@ const Register = () => {
           displayName: data.name,
           photoURL: data.photoURL
         }).then(() => {
-          axios.post('http://localhost:3000/mediusers', mediUserData)
+          axios.post('https://medicamp-server-tau.vercel.app/mediusers', mediUserData)
             .then(res => {
               console.log(res.data);
               setModelHead("Registration Complete");
@@ -122,14 +122,14 @@ const Register = () => {
  console.log(jwtUser)
 
  
- axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+ axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
  .then(res=>{
    const data = res.data ;
    console.log(data) ;
 
  })
  // jwtjwtjwt
-        axios.post('http://localhost:3000/mediusers', mediUserData)
+        axios.post('https://medicamp-server-tau.vercel.app/mediusers', mediUserData)
           .then(res => {
             console.log(res.data);
             setModelHead("Registration Complete");

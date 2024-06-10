@@ -17,7 +17,7 @@ const UpdateProfile = () => {
     const [initialProfile, setInitialProfile] = useState(null);
     const navigate = useNavigate()
     const { user, setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
-    const url = `http://localhost:3000/mediusers/${user?.uid}`;
+    const url = `https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`;
 
     const validationSchema = yup.object().shape({
         name: yup.string().required("Name is required"),

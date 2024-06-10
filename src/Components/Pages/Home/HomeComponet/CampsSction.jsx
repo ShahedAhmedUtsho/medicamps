@@ -6,7 +6,7 @@ import { ArrowRight, Layout, Warning } from 'phosphor-react';
 import { Link } from 'react-router-dom';
 
 const CampsSection = () => {
-  const url = "http://localhost:3000/camps"
+  const url = "https://medicamp-server-tau.vercel.app/camps"
   const { isLoading, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
@@ -16,7 +16,7 @@ const CampsSection = () => {
   });
 
   const [isTwoColumnLayout, setIsTwoColumnLayout] = useState(false);
-
+console.log(camps)
   const toggleLayout = () => {
     setIsTwoColumnLayout(!isTwoColumnLayout);
   };

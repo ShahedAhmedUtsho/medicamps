@@ -15,16 +15,16 @@ const Payment = () => {
 const {user} = useContext(AuthContext) ;
 const id = params.id ;
 
-    const { isLoading,  error, data: payment_camp } = useQuery({
-        queryKey: [`http://localhost:3000/my-registration-camps/single/${user?._id}`],
+    const { isLoading,  error, data: payment_camp  } = useQuery({
+        queryKey: [`https://medicamp-server-tau.vercel.app/my-registration-camps/single/${user?._id}`],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:3000/my-registration-camps/single/${id}`,{credentials:"include"}); 
+            const response = await fetch(`https://medicamp-server-tau.vercel.app/my-registration-camps/single/${id}`,{credentials:"include"}); 
             return response.json();
         }
     });
 
 
-
+console.log(payment_camp)
 
 
 

@@ -46,7 +46,7 @@ const AddCamps = () => {
         console.log(formattedData, data);
 
         try {
-            await axios.post('http://localhost:3000/camps', formattedData);
+            await axios.post('https://medicamp-server-tau.vercel.app/camps', formattedData);
 
             setModelHead("Successful");
             setModelMessage("Camp added successfully");

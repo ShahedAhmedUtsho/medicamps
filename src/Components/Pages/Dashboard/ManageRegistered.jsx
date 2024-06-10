@@ -33,14 +33,14 @@ const ManageRegisteredCamps = () => {
     const { isLoading, refetch, error, data: registeredCamps } = useQuery({
         queryKey: ["registeredCamps"],
         queryFn: async () => {
-            const response = await fetch('http://localhost:3000/registered-campUser',{credentials:"include"});
+            const response = await fetch('https://medicamp-server-tau.vercel.app/registered-campUser',{credentials:"include"});
             return response.json();
         }
     });
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/registered-campUser/${deleteID}`);
+            await axios.delete(`https://medicamp-server-tau.vercel.app/registered-campUser/${deleteID}`);
             setModelHead("Deleted");
             setModelMessage("Deleted successfully");
             openSuccessModal();
@@ -55,7 +55,7 @@ const ManageRegisteredCamps = () => {
 
     const handleConfirmation = async (campId) => {
         try {
-            await axios.patch(`http://localhost:3000/registered-campUser/${campId}`, { confirmationStatus: "confirmed", campId });
+            await axios.patch(`https://medicamp-server-tau.vercel.app/registered-campUser/${campId}`, { confirmationStatus: "confirmed", campId });
             closeModal();
             refetch();
         } catch (error) {

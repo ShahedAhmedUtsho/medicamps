@@ -38,14 +38,22 @@ const ManageCampsOfParticipant = () => {
         setIsOpen(false);
         setIsDeleteboxChecked(false);
     };
-const url = `http://localhost:3000/my-registration-camps/${user?.uid}`
-    const { isLoading, refetch, error, data: camps } = useQuery({
+    const url = `https://medicamp-server-tau.vercel.app/my-registration-camps/${user?.uid}`;
+
+    const { isLoading, refetch, error, data: camps = [] } = useQuery({
         queryKey: [url],
         queryFn: async () => {
-            const response = await fetch(url,{credentials:"include"});
-            return response.json();
+            try {
+                const response = await fetch(url, { credentials: "include" });
+                const data = await response.json();
+                return Array.isArray(data) ? data : []; // Ensure data is an array or default to []
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return []; // Return empty array on error
+            }
         }
     });
+    
 
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
@@ -67,7 +75,7 @@ const url = `http://localhost:3000/my-registration-camps/${user?.uid}`
             
         }
         try {
-          await  axios.post('http://localhost:3000/feedback',send)
+          await  axios.post('https://medicamp-server-tau.vercel.app/feedback',send)
           setModelHead("SENT")
           setModelMessage("feedback sent successful")
           openSuccessModal() ;
@@ -83,7 +91,7 @@ const url = `http://localhost:3000/my-registration-camps/${user?.uid}`
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:3000/registered-campUser/${deleteID}`);
+            await axios.delete(`https://medicamp-server-tau.vercel.app/registered-campUser/${deleteID}`);
             setModelHead("Deleted");
             setModelMessage("Deleted successfully");
             openSuccessModal();
@@ -113,7 +121,7 @@ const url = `http://localhost:3000/my-registration-camps/${user?.uid}`
         setSearchTerm(event.target.value);
     };
 
-    const filteredCamps = camps.filter((camp) =>
+    const filteredCamps = camps?.filter((camp) =>
         camp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         camp.dateTime.includes(searchTerm) ||
         camp.healthcareProfessional.toLowerCase().includes(searchTerm.toLowerCase())

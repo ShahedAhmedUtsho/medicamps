@@ -31,7 +31,7 @@ const CampDetails = () => {
   const params = useParams();
   const nevigate = useNavigate()
   const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
-  const url = `http://localhost:3000/camp-details/${params?.campID}`;
+  const url = `https://medicamp-server-tau.vercel.app/camp-details/${params?.campID}`;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -93,7 +93,7 @@ const participantCount = camp?.participantCount + 1 ;
   
 
   try{
-   await axios.post('http://localhost:3000/registered-campUser',registerUserDetails)
+   await axios.post('https://medicamp-server-tau.vercel.app/registered-campUser',registerUserDetails)
     setModelHead("Successful");
     setModelMessage("registered successful  !! Please pay ");
 
@@ -103,7 +103,7 @@ const participantCount = camp?.participantCount + 1 ;
     // nevigate('/dashboard/registered-camps') ;
 
     
-      await axios.patch(`http://localhost:3000/updateParticipantCount/${camp._id}`,
+      await axios.patch(`https://medicamp-server-tau.vercel.app/updateParticipantCount/${camp._id}`,
           {participantCount}
       );
 

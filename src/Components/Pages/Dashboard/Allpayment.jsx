@@ -13,16 +13,16 @@ const Allpayment = () => {
     const rowsPerPage = 8;
 
     const { isLoading, refetch, error, data: payments } = useQuery({
-        queryKey: ['http://localhost:3000/payments'],
+        queryKey: ['https://medicamp-server-tau.vercel.app/payments'],
         queryFn: async () => {
-            const response = await axios.get('http://localhost:3000/payments',{withCredentials:true});
+            const response = await axios.get('https://medicamp-server-tau.vercel.app/payments',{withCredentials:true});
             return response.data;
         }
     });
 
     const handleConfirmation = async (campID) => {
         try {
-            await axios.patch(`http://localhost:3000/allpayment`, { confirmationStatus: "confirmed", campID });
+            await axios.patch(`https://medicamp-server-tau.vercel.app/allpayment`, { confirmationStatus: "confirmed", campID });
             refetch();
         } catch (err) {
             setModelHead("Confirmation failed");
@@ -51,7 +51,7 @@ const Allpayment = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredPayments = payments.filter(payment => 
+    const filteredPayments = payments?.filter(payment => 
         payment.ParticipantName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         payment.camp_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         payment.transactionID.toLowerCase().includes(searchTerm.toLowerCase())

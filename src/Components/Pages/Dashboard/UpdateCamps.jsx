@@ -23,7 +23,7 @@ const validationSchema = yup.object().shape({
 const UpdateCamp = () => {
     const { campId } = useParams();
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
-    const url = `http://localhost:3000/camp-details/${campId}`;
+    const url = `https://medicamp-server-tau.vercel.app/camp-details/${campId}`;
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema),
@@ -73,7 +73,7 @@ const UpdateCamp = () => {
         }
 
         try {
-            await axios.put(`http://localhost:3000/update-camp/${campId}`, formattedData);
+            await axios.put(`https://medicamp-server-tau.vercel.app/update-camp/${campId}`, formattedData);
 
             setModelHead("Successful");
             setModelMessage("Camp updated successfully");

@@ -12,7 +12,7 @@ const AvailableCamps = () => {
   const { isLoading, error, data: camps  } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await axios.get("http://localhost:3000/camps", {
+      const response = await axios.get("https://medicamp-server-tau.vercel.app/camps", {
         withCredentials: true
       });
       return response.json();
@@ -154,7 +154,7 @@ export default AvailableCamps;
 const highlightText = (text, searchTerm) => {
   if (!searchTerm) return text;
 
-  const terms = searchTerm.split(' ').filter(term => term);
+  const terms = searchTerm.split(' ')?.filter(term => term);
   const regex = new RegExp(`(${terms.join('|')})`, 'gi');
   return text.split(regex).map((part, index) =>
     regex.test(part) ? <span key={index} className="bg-yellow-200">{part}</span> : part

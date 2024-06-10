@@ -76,7 +76,7 @@ const handleLogin = (data) => {
     console.log(jwtUser)
 
 
-    axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+    axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
     .then(res=>{
       const data = res.data ;
       console.log(data) ;
@@ -135,14 +135,14 @@ const GoogleLogin = ()=>{
  console.log(jwtUser)
 
  
- axios.post('http://localhost:3000/jwt',jwtUser,{withCredentials:true})
+ axios.post('https://medicamp-server-tau.vercel.app/jwt',jwtUser,{withCredentials:true})
  .then(res=>{
    const data = res.data ;
    console.log(data) ;
 
  })
  // jwtjwtjwt
-   axios.post('http://localhost:3000/mediusers',  mediUserData )
+   axios.post('https://medicamp-server-tau.vercel.app/mediusers',  mediUserData )
    .then(res=>{
 
 

@@ -16,21 +16,15 @@ const CheckOutForm =({payment_camp}) => {
       setModelHead,
       setModelMessage,
      
-     
       openSuccessModal,
      
-      
-     
-
-
-
     } = useContext(AuthContext)
     const elements = useElements() ;
 const fees= payment_camp.fees
 
 useEffect(() => {
 
-  axios.post('http://localhost:3000/create-payment,intent',{price:fees})
+  axios.post('https://medicamp-server-tau.vercel.app/create-payment-intent',{price:fees})
   .then(res=>{
     const data = res.data ;
     const clientSecret = data.clientSecret ;
@@ -107,7 +101,7 @@ const payment = {
   ParticipantUID:payment_camp.ParticipantUID,
   
 }
- axios.post('http://localhost:3000/payments',payment)
+ axios.post('https://medicamp-server-tau.vercel.app/payments',payment)
 .then(res=>{
   console.log(res.data)
   setModelHead("payment successful") ;

@@ -30,14 +30,14 @@ const ManageCamps = () => {
   const { isLoading, refetch, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await fetch('http://localhost:3000/camps',{credentials:"include"});
+      const response = await fetch('https://medicamp-server-tau.vercel.app/camps',{credentials:"include"});
       return response.json();
     }
   });
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/camps/${deleteID}`);
+      await axios.delete(`https://medicamp-server-tau.vercel.app/camps/${deleteID}`);
       setModelHead("Deleted");
       setModelMessage("Deleted successfully");
       openSuccessModal();
@@ -57,7 +57,7 @@ const ManageCamps = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredCamps = camps.filter(camp =>
+  const filteredCamps = camps?.filter(camp =>
     camp.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     new Date(camp.dateTime).toLocaleDateString().includes(searchQuery) ||
     camp.healthcareProfessional.toLowerCase().includes(searchQuery.toLowerCase())

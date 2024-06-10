@@ -10,7 +10,7 @@ import axios from 'axios';
 const OrganizerProfile = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:3000/mediusers/${user?.uid}`
+    const url = `https://medicamp-server-tau.vercel.app/mediusers/${user?.uid}`
 
     const { isLoading, error, data: profile } = useQuery({
         queryKey: [url],

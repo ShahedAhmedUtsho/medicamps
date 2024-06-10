@@ -12,9 +12,9 @@ const Root = () => {
 
   const location = useLocation()
   const show = location.pathname !== "/login" &&
-   location.pathname !== "/register" && 
-  location.pathname !== "/profile " && 
-  location.pathname.slice(0, 10) !== "/dashboard"
+   location?.pathname !== "/register" && 
+  location?.pathname !== "/profile " && 
+  location?.pathname?.slice(0, 10) !== "/dashboard"
   
   ; 
 
