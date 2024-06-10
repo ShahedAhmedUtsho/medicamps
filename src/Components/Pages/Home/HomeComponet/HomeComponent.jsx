@@ -1,13 +1,14 @@
 
 import { Download } from "phosphor-react";
-import  { useState } from "react";
+
 import dotsvg from "../../../../Assets/svg/dotbox.svg"
-import Header from "../../../Header/Header";
+
 import { Button } from "keep-react";
 import BannarSlider from "../BannarSlider/BannarSlider";
 import CampsSction from "./CampsSction";
 import { Link } from "react-router-dom";
 import FeedbackSection from "../FeedBack/FeedBack";
+import Contact from "./ContactUs";
 
 
 
@@ -102,6 +103,7 @@ const HomeComponent = () => {
 
       <CampsSction></CampsSction>
       <FeedbackSection></FeedbackSection>
+      <Contact></Contact>
 </div>
 
     </div>

@@ -9,6 +9,7 @@ import axios from 'axios';
 
 
 const VerifyAdmin = ({ children }) => {
+  
   const location = useLocation();
   const { user, loading } = useContext(AuthContext);
   const { isLoading,  error, data: MongoUser } = useQuery({

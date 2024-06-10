@@ -32,7 +32,7 @@ const defaultTheme = createTheme();
 const Login = ()=> {
 const [eye,setEys] = useState(false)
 
-  const { setLoading,setUser,setModelHead , setModelMessage,openSuccessModal,openErrorModal} = useContext(AuthContext)
+  const { setLoading,setUser,setModelHead ,logOut, setModelMessage,openSuccessModal,openErrorModal} = useContext(AuthContext)
 
 const navigate = useNavigate()
 const location = useLocation()
@@ -65,7 +65,7 @@ resolver:yupResolver(validationSchema),
 
 const handleLogin = (data) => {
 
-
+  logOut()
 
   signInWithEmailAndPassword(Auth,data.email,data.password)
   .then (res=> {
@@ -119,6 +119,7 @@ navigate(location?.state?location.state : '/')
 
 const GoogleProvider = new GoogleAuthProvider() ;
 const GoogleLogin = ()=>{
+  logOut()
   signInWithPopup(Auth,GoogleProvider)
   .then(res => {
     setLoading(true)

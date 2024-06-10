@@ -2,8 +2,8 @@
 
 import logo from "../../Assets/logo/logo-no-background.svg"
 import { Link, NavLink} from "react-router-dom"
-import { Avatar, Button ,Divider,Dropdown,Navbar} from "keep-react";
-import { ChartPieSlice, Copy, Gauge, Pen, Phone, SignOut, User, UserCircle } from 'phosphor-react'
+import { Avatar, Button ,Dropdown,Navbar} from "keep-react";
+import {  Gauge,  SignOut,  } from 'phosphor-react'
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
@@ -57,23 +57,8 @@ user? <Dropdown actionClassName="border-none py-0 bg-transparent "  action={ use
 
 
 <Dropdown.List>
-{/* <Dropdown.Item>
-
-  <Link className="w-full h-full flex gap-2" to="/profile">
-  <User size={24} />Profile
-</Link>
 
 
-</Dropdown.Item> */}
-
-<Dropdown.Item>
-
-  <Link className="w-full h-full flex gap-2" to="/dashboard">
-  <User size={23} /> {user.displayName}
-</Link>
-
-
-</Dropdown.Item>
 
 
 <Dropdown.Item>

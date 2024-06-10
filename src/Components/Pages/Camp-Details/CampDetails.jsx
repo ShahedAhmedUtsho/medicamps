@@ -1,4 +1,4 @@
-import { Button, Spinner } from "keep-react";
+import { Button, Input, Label, Radio, Spinner } from "keep-react";
 import { X, Warning } from "phosphor-react";
 import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ const validationSchema = yup.object().shape({
  
   ParticipantAge: yup.number().required("this field is required") ,
   ParticipantNumber: yup.number().required("this field is required") ,
-  // Gender: 
+  gender:yup.string().required("gender is required").oneOf(["male","female"]),
   ParticipantEmergencyContact : yup.number().required("this field is required")
 
 
@@ -29,8 +29,8 @@ const validationSchema = yup.object().shape({
 
 const CampDetails = () => {
   const params = useParams();
-  const nevigate = useNavigate()
-  const { setLoading, openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
+
+  const {  openErrorModal, setModelHead, setModelMessage, openSuccessModal, user, logOut } = useContext(AuthContext);
   const url = `https://medicamp-server-tau.vercel.app/camp-details/${params?.campID}`;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -82,11 +82,12 @@ const participantCount = camp?.participantCount + 1 ;
   const ParticipantNumber= data?.ParticipantNumber ;
   const ParticipantName= user?.displayName;
   const ParticipantEmail= user?.email ;
+  const gender  = data.gender
   // Gender: 
   const ParticipantEmergencyContact =  data?.ParticipantEmergencyContact;
 
 
-  const registerUserDetails = {ParticipantName,ParticipantEmail,ParticipantUID, ParticipantAge,ParticipantNumber,ParticipantEmergencyContact,
+  const registerUserDetails = {ParticipantName,ParticipantEmail,ParticipantUID, ParticipantAge,gender,ParticipantNumber,ParticipantEmergencyContact,
     name,image,fees,dateTime,location,healthcareProfessional , description ,
   }
   // console.log(registerUserDetails) ;
@@ -287,6 +288,18 @@ const participantCount = camp?.participantCount + 1 ;
                     helperText={errors.ParticipantEmergencyContact?.message}
                     {...register("ParticipantEmergencyContact")}
                 />
+               <div className="flex gap-5">
+               <fieldset className="flex items-center gap-2">
+        <Radio variant="circle" value="female" id="female" name="gender" {...register("gender")} />
+        <Label htmlFor="female">Female</Label>
+      </fieldset>
+      <fieldset className="flex items-center gap-2">
+        <Radio variant="circle" value="male" id="male" name="gender" {...register("gender")} />
+        <Label htmlFor="male">Male</Label>
+        
+      </fieldset>
+               </div>
+      
          </div>
         
           {/* This is some placeholder content to show the scrolling behavior for modals. Instead of repeating the text in the modal, we use an inline style to set a minimum height, thereby extending the length of the overall modal and demonstrating the overflow scrolling. When content becomes longer than the height of the viewport, scrolling will move the modal as needed. */}

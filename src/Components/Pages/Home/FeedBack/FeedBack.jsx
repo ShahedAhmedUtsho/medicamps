@@ -37,7 +37,7 @@ const  FeedbackSection  = () => {
   const ShowFeedback =data.slice(0, 12);
 
   return (
-    <div className="p-4 , sm:p-6 lg:p-[2rem]">
+    <div className=" , sm:p-6 lg:p-[2rem] container mx-auto">
       <h2 className="text-2xl font-semibold text-[#020202] text-center mb-5   apple ,"> Participants Feedback</h2>
       <div className="grid grid-cols-1 text-[#000000] sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {ShowFeedback.map((item) => (

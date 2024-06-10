@@ -51,7 +51,8 @@ const Register = () => {
 
   const handleRegister = (data) => {
     const name = data.name;
-    const password = data.password;
+ 
+    logOut()
     const photoURL = data.photoURL;
     const email = data.email;
     const isAdmin = false;
@@ -106,6 +107,7 @@ const Register = () => {
 
   const GoogleProvider = new GoogleAuthProvider();
   const GoogleLogin = () => {
+    logOut()
     signInWithPopup(Auth, GoogleProvider)
       .then(res => {
         setLoading(true);
