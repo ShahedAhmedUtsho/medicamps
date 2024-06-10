@@ -9,13 +9,12 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+
 import Container from '@mui/material/Container';
 
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 
 import { Outlet } from 'react-router-dom';
@@ -23,19 +22,7 @@ import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Spinner } from 'keep-react';
-// 
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+
 
 const drawerWidth = 240;
 
@@ -106,7 +93,7 @@ export default function Dashboard() {
 
 
 if (isLoading) return <Spinner />;
-if (error) return <div>Error loading data... please try again later.</div>;
+if (error) return <div>{`Error loading data... please try again later. from dashboard ${JSON.stringify(MongoUser)}`} </div>;
 
 
 
@@ -150,11 +137,7 @@ if (error) return <div>Error loading data... please try again later.</div>;
             >
               { MongoUser?.isAdmin ? ` Organizer Dashboard` : ` Participant Dashboard`  }
             </Typography>
-            <IconButton color="inherit">
-              {/* <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge> */}
-            </IconButton>
+            
           </Toolbar>
         </AppBar>
 
@@ -204,58 +187,7 @@ if (error) return <div>Error loading data... please try again later.</div>;
           <Outlet></Outlet>
           </div>
           
-{/* 
 
-            <Grid container spacing={3} className='' >
-          
-
-
-              
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-
-
-
-       
-
-
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-
-
-
-          
-
-              
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
-              </Grid>
-
-
-            </Grid>
-            */}
           </Container>
         </Box>
       </Box>
