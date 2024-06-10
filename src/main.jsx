@@ -71,7 +71,7 @@ const router = createBrowserRouter([
             path:"/dashboard/update-camp/:campId", 
 
     
-            element: <UpdateCamps></UpdateCamps>
+            element: <VerifyAdmin><UpdateCamps></UpdateCamps></VerifyAdmin>
           },
           {
             path:"/dashboard/analysis", 
@@ -82,7 +82,7 @@ const router = createBrowserRouter([
           {
             path:"/dashboard/updateProfile", 
     
-            element: <UpdateProfile></UpdateProfile>
+            element: <Secure><UpdateProfile></UpdateProfile></Secure>
           }
           ,
           {

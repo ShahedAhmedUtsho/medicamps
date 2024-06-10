@@ -22,9 +22,18 @@ const validationSchema = yup.object().shape({
 
 const UpdateCamp = () => {
     const { campId } = useParams();
+   
     const { setModelHead, setModelMessage, openSuccessModal, openErrorModal } = useContext(AuthContext);
     const url = `https://medicamp-server-tau.vercel.app/camp-details/${campId}`;
-
+    console.log(url)
+    const { isLoading, error, data: campData } = useQuery({ 
+        queryKey: [url],
+        queryFn: async () => {
+        const response = await fetch(url,{credentials:"include"});
+        return response.json();
+    },
+    });
+    console.log(campData)
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validationSchema),
         defaultValues: {
@@ -39,15 +48,9 @@ const UpdateCamp = () => {
         }
     });
 
-    const { isLoading, error, data: campData } =
+ 
     
-    useQuery({ 
-        queryKey: [url],
-        queryFn: async () => {
-        const response = await axios.get(url);
-        return response.json();
-    },
-    });
+   
 
     useEffect(() => {
         if (campData) {
