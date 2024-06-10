@@ -10,8 +10,8 @@ const ChartSection = () => {
   const { isLoading, error, data: camps } = useQuery({
     queryKey: [`http://localhost:3000/my-registration-camps/${user?.uid}`],
     queryFn: async () => {
-      const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`, { withCredentials: true });
-      return response.data;
+      const response = await fetch(`http://localhost:3000/my-registration-camps/${user.uid}`, { credentials:"include" });
+      return response.json();
     }
   });
 

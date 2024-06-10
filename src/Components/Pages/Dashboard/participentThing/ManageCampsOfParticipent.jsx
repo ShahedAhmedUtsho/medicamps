@@ -38,12 +38,12 @@ const ManageCampsOfParticipant = () => {
         setIsOpen(false);
         setIsDeleteboxChecked(false);
     };
-
+const url = `http://localhost:3000/my-registration-camps/${user?.uid}`
     const { isLoading, refetch, error, data: camps } = useQuery({
-        queryKey: [`http://localhost:3000/my-registration-camps/${user?.uid}`],
+        queryKey: [url],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/my-registration-camps/${user.uid}`,{withCredentials:true});
-            return response.data;
+            const response = await fetch(url,{credentials:"include"});
+            return response.json();
         }
     });
 

@@ -30,8 +30,8 @@ const ManageCamps = () => {
   const { isLoading, refetch, error, data: camps } = useQuery({
     queryKey: ["camps"],
     queryFn: async () => {
-      const response = await axios.get('http://localhost:3000/camps',{withCredentials:true});
-      return response.data;
+      const response = await fetch('http://localhost:3000/camps',{credentials:"include"});
+      return response.json();
     }
   });
 

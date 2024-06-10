@@ -18,8 +18,8 @@ const id = params.id ;
     const { isLoading,  error, data: payment_camp } = useQuery({
         queryKey: [`http://localhost:3000/my-registration-camps/single/${user?._id}`],
         queryFn: async () => {
-            const response = await axios.get(`http://localhost:3000/my-registration-camps/single/${id}`,{withCredentials:true}); 
-            return response.data;
+            const response = await fetch(`http://localhost:3000/my-registration-camps/single/${id}`,{credentials:"include"}); 
+            return response.json();
         }
     });
 

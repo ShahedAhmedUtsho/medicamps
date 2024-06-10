@@ -34,7 +34,7 @@ const UpdateProfile = () => {
     const { isLoading, error, data: profile } = useQuery({
         queryKey: [url],
         queryFn: async () => {
-            const response = await axios.get(url,{withCredentials:true});
+            const response = await fetch(url,{credentials:"include"});
             return response.json();
         },
     });
