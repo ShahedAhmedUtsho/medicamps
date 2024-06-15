@@ -24,7 +24,7 @@ const Root = () => {
            '>
              {/* <StyleReset /> */}
          {
-show &&  <div className='mx-auto    absolute  left-0 right-0 z-50 w-full lg:container '>
+show &&  <div className='mx-auto    fixed z-[999]  left-0 right-0  w-full lg:container '>
 <Header></Header> 
 </div> 
          }

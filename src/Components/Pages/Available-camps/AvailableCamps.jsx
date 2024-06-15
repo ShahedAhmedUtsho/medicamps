@@ -92,8 +92,19 @@ const AvailableCamps = () => {
     </span> },
   ];
 
+
+
+
+
+
+
+
+
+
+
   return (
-    <div  className="   container mx-auto apple my-10 lg:px-0 px-4    ">
+    <div  className={`   container mx-auto apple my-10 lg:px-0 px-4  bg-cover    `}>
+       
       <div className="flex    flex-col sm:flex-row  justify-between  apple items-center mb-8 mt-12 space-y-4 sm:space-y-0">
         <h2  className="text-2xl  font-semibold text-gray-900 lg:text-3xl dark:text-gray-100">Upcoming Health Camps</h2>
         <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">

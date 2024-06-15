@@ -22,7 +22,7 @@ const {user,logOut} = useContext(AuthContext);
   
   </>
   return (
-    <Navbar fluid={true} className="bg-transparent header  px-0     ">
+    <Navbar fluid={true} className="bg-transparent  header  px-0     ">
       <Navbar.Container className="flex bg-transparent   items-center justify-between">
         
         <Navbar.Container className="flex  items-center">

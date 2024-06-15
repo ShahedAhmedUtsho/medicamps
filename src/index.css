@@ -55,3 +55,10 @@ p {
   color: #1976d2;
   /* Change this color as needed */
 }
+
+
+.home {
+  background: linear-gradient(to bottom, #f8fafca7, #529df8a2), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 243 243'%3E%3Cfilter id='bgNoice' x='' y='' width='' height=''%3E%3CfeTurbulence baseFrequency='2' type='franctalNoise' %3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23bgNoice)' /%3E%3C/svg%3E");
+
+  background-attachment: fixed;
+}

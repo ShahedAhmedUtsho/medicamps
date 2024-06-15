@@ -15,16 +15,19 @@ import Contact from "./ContactUs";
 const HomeComponent = () => {
   return (
     <div>
-
+ 
     
-    <div className=" flex flex-col  bg-gradient-to-b from-slate-50 to-blue-400  min-h-screen">
+    <div className=" flex flex-col  home
+    
+    
+    min-h-screen">
 
       <div className="relative  container  mx-auto pb-[110px] pt-[120px] dark:bg-dark lg:pt-[150px]">
         <div className="container ">
           <div className="lg:-mx-4 flex flex-wrap">
             <div className="w-full px-4 lg:w-5/12">
               <div className="hero-content ">
-                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] apple text-dark text-slate-900 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-6xl">
+                <h1 className="mb-5 text-4xl font-bold !leading-[1.208] font-['Academy_Engraved_LET'] text-dark text-slate-900 dark:text-white sm:text-[42px] lg:text-[40px] xl:text-6xl">
                 Transforming Lives Through Medical Camps
                 </h1>
                 
